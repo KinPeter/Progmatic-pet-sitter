@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FrontPageComponent } from './components/front-page/front-page.component';
+import {SearchPageComponent} from './components/search-page/search-page.component';
 
 
 const routes: Routes = [
-    { path: '', component: FrontPageComponent }
+    { path: '', component: FrontPageComponent },
+    { path: 'search-page', component: SearchPageComponent},
 ];
 
 @NgModule({
