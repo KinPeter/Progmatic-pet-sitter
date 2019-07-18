@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-main-search',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainSearchComponent implements OnInit {
 
-    constructor() { }
+    currentSlide: number;
+
+    constructor(private router: Router) {
+      this.currentSlide = 0;
+    }
 
     ngOnInit() {
+      setInterval(() => {
+        this.currentSlide = (this.currentSlide + 1) % 3;
+      }, 4000);
+
     }
+
+    btnClick(): void {
+      this.router.navigate(['/search-page']);
+    };
+
+
 
 }
