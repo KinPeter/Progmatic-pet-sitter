@@ -14,7 +14,13 @@ import { MyProfilePageComponent } from './components/my-profile-page/my-profile-
 import { RegistrationPageComponent } from './components/registration-page/registration-page.component';
 import { WannabeSitterPageComponent } from './components/wannabe-sitter-page/wannabe-sitter-page.component';
 import { LoginModalComponent } from './components/login-modal/login-modal.component';
+<<<<<<< HEAD
 import { NavbarComponent } from './components/header/navbar/navbar.component';
+=======
+import { SearchDataComponent } from './components/search-page/search-data/search-data.component';
+import { SearchListComponent } from './components/search-page/search-list/search-list.component';
+import { SearchListItemComponent } from './components/search-page/search-list/search-list-item/search-list-item.component';
+>>>>>>> feature-search-page
 
 @NgModule({
     declarations: [
@@ -30,7 +36,13 @@ import { NavbarComponent } from './components/header/navbar/navbar.component';
         RegistrationPageComponent,
         WannabeSitterPageComponent,
         LoginModalComponent,
+<<<<<<< HEAD
         NavbarComponent
+=======
+        SearchDataComponent,
+        SearchListComponent,
+        SearchListItemComponent
+>>>>>>> feature-search-page
     ],
     imports: [
         BrowserModule,
