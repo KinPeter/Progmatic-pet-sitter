@@ -14,6 +14,7 @@ import { MyProfilePageComponent } from './components/my-profile-page/my-profile-
 import { RegistrationPageComponent } from './components/registration-page/registration-page.component';
 import { WannabeSitterPageComponent } from './components/wannabe-sitter-page/wannabe-sitter-page.component';
 import { LoginModalComponent } from './components/login-modal/login-modal.component';
+import { NavbarComponent } from './components/header/navbar/navbar.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { LoginModalComponent } from './components/login-modal/login-modal.compon
         MyProfilePageComponent,
         RegistrationPageComponent,
         WannabeSitterPageComponent,
-        LoginModalComponent
+        LoginModalComponent,
+        NavbarComponent
     ],
     imports: [
         BrowserModule,

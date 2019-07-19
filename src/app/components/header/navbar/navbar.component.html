@@ -1,0 +1,21 @@
+<nav class="nav-main" id="navbar">
+    <div class="container">
+        <ul data-breakpoint="992" class="flexnav">
+            <li [ngClass]="{'active': this.router.url === '/'}"> 
+                <a (click)="toHomeTop()"> Főoldal </a> 
+            </li>
+            <li [ngClass]="{'active': this.router.url === '/about'}"> 
+                <a (click)="toAboutSection()"> Rólunk </a> 
+            </li>
+            <li [ngClass]="{'active': this.router.url === '/search-page'}"> 
+                <a routerLink="/search-page"> KiVi-t keresek </a> 
+            </li>
+            <li [ngClass]="{'active': this.router.url === 'wannabe'}"> 
+                <a routerLink="/wannabe"> KiVi lennék </a> 
+            </li>
+            <li [ngClass]="{'active': this.router.url === 'contact'}"> 
+                <a (click)="scrollToContacts()"> Kapcsolat </a> 
+            </li>
+        </ul>
+    </div>
+</nav>

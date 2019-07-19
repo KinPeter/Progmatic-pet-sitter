@@ -1,0 +1,9 @@
+a {
+    cursor: pointer;
+}
+
+@media (min-width: 992px) {
+    .flexnav > li + li {
+        margin-left: 0 !important;
+    }
+}
