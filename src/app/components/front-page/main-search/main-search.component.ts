@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SearchData, PetType, PlaceOfService} from '../../../interfaces/search-data';
+import { SearchDataTransferService} from '../../../search-data-transfer.service'
 
 @Component({
     selector: 'app-main-search',
@@ -8,11 +10,20 @@ import { Router } from '@angular/router';
 })
 export class MainSearchComponent implements OnInit {
 
-    currentSlide: number;
+  currentSlide: number;
+  searchData: SearchData
 
-    constructor(private router: Router) {
-      this.currentSlide = 0;
+  constructor(private router: Router, private searchDataTransferService: SearchDataTransferService) {
+    this.currentSlide = 0;
+
+    this.searchData = {
+    name: '',
+    postcode: null,
+    place: PlaceOfService.OWNERS_HOME,
+    petType: PetType.BIRD,
     }
+  }
+
 
     ngOnInit() {
       setInterval(() => {
@@ -21,9 +32,13 @@ export class MainSearchComponent implements OnInit {
 
     }
 
-    btnClick(): void {
-      this.router.navigate(['/search-page']);
-    };
+  //  btnClick(): void {
+  //    this.router.navigate(['/search-page']);
+  //  };
+
+  store (): void {
+   this.searchDataTransferService.searchData = this.searchData;
+ }
 
 
 
