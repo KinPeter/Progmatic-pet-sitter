@@ -8,12 +8,11 @@
     					<h3 class="widget-title">Információk</h3>
     					<div class="widget-content">
     						<ul>
-    							<li><a href="index.html#">Főoldal</a></li>
-    							<li><a href="index.html#">Rólunk</a></li>
-    							<li><a href="index.html#">KiVi-t keresek</a></li>
-    							<li><a href="index.html#">KiVi lennék</a></li>
-    							<li><a href="index.html#">GYIK</a></li>
-    							<li><a href="index.html#">Kapcsolat</a></li>
+    							<li [ngClass]="{'active': this.router.url === '/'}"><a (click)="toHomeTop()"> Főoldal </a></li>
+								<li [ngClass]="{'active': this.router.url === '/about'}"><a (click)="toAboutSection()"> Rólunk </a></li>
+								<li [ngClass]="{'active': this.router.url === '/search-page'}"><a routerLink="/search-page"> KiVi-t keresek </a></li>
+					            <li [ngClass]="{'active': this.router.url === 'wannabe'}"><a routerLink="/wannabe"> KiVi lennék </a></li>
+								<li [ngClass]="{'active': this.router.url === '/about'}"><a (click)="toAboutSection()"> GYIK </a></li>
     						</ul>
     					</div>
     				</div>
