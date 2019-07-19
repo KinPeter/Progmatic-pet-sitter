@@ -1,0 +1,14 @@
+@import '../../../variables.scss';
+
+.logo {
+    img {
+        height: 120px;
+    }
+}
+
+.head-info {
+    a {
+        margin-left: 1rem;
+        cursor: pointer;
+    }
+}

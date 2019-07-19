@@ -7,9 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-    constructor() { }
+    // dummy
+    private userLoggedIn: boolean;
+
+    constructor() {
+        this.userLoggedIn = true;
+    }
+
+    openLoginModal(): void {
+        // TODO login modal
+    }
+
+    logMeOut() {
+        // TODO log out
+    }
 
     ngOnInit() {
+
     }
 
 }
