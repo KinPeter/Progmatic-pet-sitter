@@ -15,6 +15,9 @@ import { RegistrationPageComponent } from './components/registration-page/regist
 import { WannabeSitterPageComponent } from './components/wannabe-sitter-page/wannabe-sitter-page.component';
 import { LoginModalComponent } from './components/login-modal/login-modal.component';
 import { NavbarComponent } from './components/header/navbar/navbar.component';
+import { SearchDataComponent } from './components/search-page/search-data/search-data.component';
+import { SearchListComponent } from './components/search-page/search-list/search-list.component';
+import { SearchListItemComponent } from './components/search-page/search-list/search-list-item/search-list-item.component';
 
 @NgModule({
     declarations: [
@@ -30,7 +33,10 @@ import { NavbarComponent } from './components/header/navbar/navbar.component';
         RegistrationPageComponent,
         WannabeSitterPageComponent,
         LoginModalComponent,
-        NavbarComponent
+        NavbarComponent,
+        SearchDataComponent,
+        SearchListComponent,
+        SearchListItemComponent
     ],
     imports: [
         BrowserModule,
