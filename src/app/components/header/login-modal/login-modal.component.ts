@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import { LoginData } from 'src/app/interfaces/LoginData';
+import { FieldValidatorService } from 'src/app/services/field-validator.service';
 
 @Component({
     selector: 'app-login-modal',
@@ -10,24 +11,31 @@ export class LoginModalComponent implements OnInit {
 
     @Output() closeThis = new EventEmitter();
     loginData: LoginData;
+    isEmailValid: boolean;
+    isPasswordValid: boolean;
 
-    private emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; //tslint:disable-line
-
-    constructor() {
+    constructor( private validator: FieldValidatorService ) {
         this.loginData = {
             email: '',
             password: ''
         };
+        this.isEmailValid = true;
+        this.isPasswordValid = true;
      }
 
     closeMe() {
         this.closeThis.emit();
     }
 
-    isEmailValid(): boolean {
-        return this.emailRegex.test(this.loginData.email);
-    }
+    sendLoginData(): void {
+        this.isEmailValid = this.validator.validateEmail(this.loginData.email);
+        this.isPasswordValid = this.loginData.password !== '';
 
+        if (this.isEmailValid && this.isPasswordValid) {
+            console.log(this.loginData);
+            this.closeMe();
+        }
+    }
 
     ngOnInit() {
     }
