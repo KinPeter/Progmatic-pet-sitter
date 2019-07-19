@@ -17,10 +17,8 @@ export class FooterComponent implements OnInit {
             this.router.navigate(['/']);
         }
     }
+    
 
-    scrollToContacts(): void {
-        document.querySelector('app-footer').scrollIntoView({behavior: 'smooth'});
-    }
 
     toAboutSection(): void {
         if (this.router.url === '/') {
