@@ -8,6 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
+    scrolled: boolean;
+
     constructor(private router: Router) { }
 
     toHomeTop(): void {
@@ -32,7 +34,12 @@ export class NavbarComponent implements OnInit {
         }
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
+        window.addEventListener('scroll', () => { this.scrollCheck(); }, false);
+    }
+
+    private scrollCheck(): void {
+        this.scrolled = window.scrollY > 0;
     }
 
 }

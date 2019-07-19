@@ -1,14 +1,47 @@
-@import '../../../variables.scss';
+header {
+    transition: 0.4s;
+}
 
 .logo {
+    height: 192px;
+    transition: 0.4s;
+
     img {
         height: 120px;
+        transition: 0.4s;
+        position: relative;
+        top: 0;
+        opacity: 1;
     }
 }
 
 .head-info {
+    z-index: 2;
+    position: relative;
+    transition: 0.4s;
     a {
         margin-left: 1rem;
         cursor: pointer;
+    }
+}
+
+header.scrolled {    
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-shadow: 0 0 5px rgba(0,0,0,0.6);
+    .logo {
+        padding: 0;
+        height: 0;
+
+        img {
+            top: -120px;
+            opacity: 0;
+        }
+    }
+    .head-info {
+        padding: 0;
+        height: 3px;
+        top: 12px;
     }
 }
