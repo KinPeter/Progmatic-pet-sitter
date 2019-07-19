@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
     }
 
     scrollToContacts(): void {
-        document.querySelector('app-footer').scrollIntoView({behavior: 'smooth', block: 'end'});
+        document.querySelector('app-footer').scrollIntoView({behavior: 'smooth'});
     }
 
     toAboutSection(): void {

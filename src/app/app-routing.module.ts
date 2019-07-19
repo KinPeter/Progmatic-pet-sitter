@@ -5,7 +5,7 @@ import {SearchPageComponent} from './components/search-page/search-page.componen
 
 
 const routes: Routes = [
-    { path: '', component: FrontPageComponent },
+    { path: '', component: FrontPageComponent, pathMatch: 'full' },
     { path: 'search-page', component: SearchPageComponent},
 ];
 
