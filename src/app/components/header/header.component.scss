@@ -2,6 +2,12 @@ header {
     transition: 0.4s;
 }
 
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
 .logo {
     height: 192px;
     transition: 0.4s;
@@ -15,13 +21,17 @@ header {
     }
 }
 
-.head-info {
+.my-head-info {
     z-index: 2;
     position: relative;
+    top: -20px;
     transition: 0.4s;
     a {
         margin-left: 1rem;
         cursor: pointer;
+    }
+    @media (min-width: 592px) {
+        top: 39px;
     }
 }
 
@@ -39,9 +49,12 @@ header.scrolled {
             opacity: 0;
         }
     }
-    .head-info {
+    .my-head-info {
         padding: 0;
         height: 3px;
-        top: 12px;
+        top: -100px;
+        @media (min-width: 592px) {
+            top: 12px;
+        }
     }
 }

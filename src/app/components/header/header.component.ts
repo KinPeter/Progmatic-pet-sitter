@@ -7,21 +7,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-    scrolled: boolean;
+    private scrolled: boolean;
+    private loginModalNeeded: boolean;
 
     // dummy
     private userLoggedIn: boolean;
 
     constructor() {
-        this.userLoggedIn = true;
+        this.userLoggedIn = false;
         this.scrolled = false;
+        this.loginModalNeeded = false;
     }
 
     openLoginModal(): void {
-        // TODO login modal
+        this.loginModalNeeded = true;
     }
 
-    logMeOut() {
+    closeLoginModal(): void {
+        this.loginModalNeeded = false;
+    }
+
+    logMeOut(): void {
         // TODO log out
     }
 
