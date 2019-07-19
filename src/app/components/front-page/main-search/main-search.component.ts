@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SearchData, PetType, PlaceOfService} from 'search-data';
+import { SearchData, PetType, PlaceOfService} from '../../../interfaces/search-data';
 import { SearchDataTransferService} from '../../../search-data-transfer.service'
 
 @Component({
