@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { SearchData, PetType, PlaceOfService, KeyValue} from '../../../interfaces/search-data';
 import { SearchDataTransferService} from '../../../search-data-transfer.service'
 import { PettypeService} from '../../../pettype.service';
+import { ServicePlaceService} from '../../../service-place.service';
 
 @Component({
     selector: 'app-main-search',
@@ -14,8 +15,9 @@ export class MainSearchComponent implements OnInit {
   currentSlide: number;
   searchData: SearchData
   petType: KeyValue[];
+  sercivePlaceType: KeyValue[];
 
-  constructor(private router: Router, private searchDataTransferService: SearchDataTransferService, private pettypeService: PettypeService) {
+  constructor(private router: Router, private searchDataTransferService: SearchDataTransferService, private pettypeService: PettypeService, private servicePlaceService: ServicePlaceService) {
     this.currentSlide = 0;
 
     this.searchData = {
@@ -26,6 +28,7 @@ export class MainSearchComponent implements OnInit {
     }
 
     this.petType = this.pettypeService.getPetTypeArray();
+    this.sercivePlaceType = this.servicePlaceService.getServicePlaceTypeArray();
   }
 
 
