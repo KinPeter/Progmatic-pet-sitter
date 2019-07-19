@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,7 +14,7 @@ import { SitterProfilePageComponent } from './components/sitter-profile-page/sit
 import { MyProfilePageComponent } from './components/my-profile-page/my-profile-page.component';
 import { RegistrationPageComponent } from './components/registration-page/registration-page.component';
 import { WannabeSitterPageComponent } from './components/wannabe-sitter-page/wannabe-sitter-page.component';
-import { LoginModalComponent } from './components/login-modal/login-modal.component';
+import { LoginModalComponent } from './components/header/login-modal/login-modal.component';
 import { NavbarComponent } from './components/header/navbar/navbar.component';
 import { SearchDataComponent } from './components/search-page/search-data/search-data.component';
 import { SearchListComponent } from './components/search-page/search-list/search-list.component';
@@ -40,7 +41,8 @@ import { SearchListItemComponent } from './components/search-page/search-list/se
     ],
     imports: [
         BrowserModule,
-        AppRoutingModule
+        AppRoutingModule,
+        FormsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-<nav class="nav-main" id="navbar">
+<nav class="nav-main" id="navbar" [ngClass]="{ scrolled: scrolled }">
     <div class="container">
         <ul data-breakpoint="992" class="flexnav">
             <li [ngClass]="{'active': this.router.url === '/'}"> 

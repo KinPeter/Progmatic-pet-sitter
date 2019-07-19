@@ -7,23 +7,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+    private scrolled: boolean;
+    private loginModalNeeded: boolean;
+
     // dummy
     private userLoggedIn: boolean;
 
     constructor() {
-        this.userLoggedIn = true;
+        this.userLoggedIn = false;
+        this.scrolled = false;
+        this.loginModalNeeded = false;
     }
 
     openLoginModal(): void {
-        // TODO login modal
+        this.loginModalNeeded = true;
     }
 
-    logMeOut() {
+    closeLoginModal(): void {
+        this.loginModalNeeded = false;
+    }
+
+    logMeOut(): void {
         // TODO log out
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
+        window.addEventListener('scroll', () => { this.scrollCheck(); }, false);
+    }
 
+    private scrollCheck(): void {
+        this.scrolled = window.scrollY > 0;
     }
 
 }
