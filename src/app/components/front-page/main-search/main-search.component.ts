@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SearchData, PetType, PlaceOfService} from '../../../interfaces/search-data';
+import { SearchData, PetType, PlaceOfService, KeyValue} from '../../../interfaces/search-data';
 import { SearchDataTransferService} from '../../../search-data-transfer.service'
+import { PettypeService} from '../../../pettype.service';
+import { ServicePlaceService} from '../../../service-place.service';
 
 @Component({
     selector: 'app-main-search',
@@ -12,8 +14,10 @@ export class MainSearchComponent implements OnInit {
 
   currentSlide: number;
   searchData: SearchData
+  petType: KeyValue[];
+  sercivePlaceType: KeyValue[];
 
-  constructor(private router: Router, private searchDataTransferService: SearchDataTransferService) {
+  constructor(private router: Router, private searchDataTransferService: SearchDataTransferService, private pettypeService: PettypeService, private servicePlaceService: ServicePlaceService) {
     this.currentSlide = 0;
 
     this.searchData = {
@@ -22,6 +26,9 @@ export class MainSearchComponent implements OnInit {
     place: PlaceOfService.OWNERS_HOME,
     petType: PetType.BIRD,
     }
+
+    this.petType = this.pettypeService.getPetTypeArray();
+    this.sercivePlaceType = this.servicePlaceService.getServicePlaceTypeArray();
   }
 
 
@@ -32,13 +39,9 @@ export class MainSearchComponent implements OnInit {
 
     }
 
-  //  btnClick(): void {
-  //    this.router.navigate(['/search-page']);
-  //  };
-
   store (): void {
-   this.searchDataTransferService.searchData = this.searchData;
- }
+   this.searchDataTransferService.searchData = Object.assign({}, this.searchData);
+  }
 
 
 
