@@ -7,3 +7,17 @@ a {
         margin-left: 0 !important;
     }
 }
+
+@media (min-width: 992px) {
+    #navbar {
+        transition: height 0.2s;
+
+        &.scrolled {
+            height: 53px;
+        
+            .flexnav > li > a {
+                line-height: 50px;
+            }
+        }
+    }
+}

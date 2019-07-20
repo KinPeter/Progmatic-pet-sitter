@@ -9,4 +9,6 @@ export class SearchDataTransferService {
   public searchData: SearchData;
 
   constructor() { }
+
+  
 }

@@ -6,3 +6,12 @@
 @import "assets/template/css/theme";
 @import "assets/template/css/theme-elements";
 @import "assets/template/css/animate.min";
+
+.is-invalid {
+    border: 1px solid red;
+    box-shadow: 0 0 3px red;
+}
+.invalid-feedback {
+    color: red;
+    font-size: 1.2rem;
+}
