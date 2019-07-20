@@ -3,7 +3,7 @@
   <div class="search_jobs">
     <div class="search_keywords">
       <label for="search_keywords">Keywords</label>
-      <input type="text" name="search_keywords" id="search_keywords" placeholder="Összes KiVi" class="form-control" value="" />
+      <input type="text" name="search_keywords" id="search_keywords" placeholder="Összes KiVi" class="form-control" value=""/>
     </div>
 
     <div class="search_location">
@@ -16,11 +16,7 @@
       <span class="select-style">
         <select class="form-control">
           <option>Kedvenced típusa</option>
-          <option>Kutya</option>
-          <option>Macska</option>
-          <option>Madár</option>
-          <option>Rágcsáló</option>
-          <option>Hüllő</option>
+          <option *ngFor="let pet of petTypes" value="{{pet.key}}">{{pet.value}}</option>
         </select>
       </span>
     </div>
@@ -29,8 +25,8 @@
       <label>Service</label>
       <span class="select-style">
         <select class="form-control">
-          <option>KiVihez viszem a kisállatomat</option>
-          <option>Fogadom a KiVit</option>
+          <option>Helyszín típusa</option>
+          <option *ngFor="let place of placeTypes" value="{{place.key}}">{{place.value}}</option>
         </select>
       </span>
     </div>
