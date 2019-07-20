@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
-import { LoginData } from 'src/app/interfaces/LoginData';
+import { LoginData } from 'src/app/interfaces/login-data';
 import { FieldValidatorService } from 'src/app/services/field-validator.service';
 
 @Component({
