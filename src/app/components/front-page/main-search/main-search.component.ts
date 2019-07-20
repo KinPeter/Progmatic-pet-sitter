@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SearchData, PetType, PlaceOfService, KeyValue} from '../../../interfaces/search-data';
-import { SearchDataTransferService} from '../../../search-data-transfer.service'
-import { PettypeService} from '../../../pettype.service';
-import { ServicePlaceService} from '../../../service-place.service';
+import { SearchDataTransferService} from '../../../services/search-data-transfer.service'
+import { PettypeService} from '../../../services/pettype.service';
+import { ServicePlaceService} from '../../../services/service-place.service';
 
 @Component({
     selector: 'app-main-search',

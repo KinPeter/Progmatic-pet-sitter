@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PlaceOfService, KeyValue} from './interfaces/search-data'
+import { PlaceOfService, KeyValue} from '../interfaces/search-data'
 
 @Injectable({
   providedIn: 'root'
