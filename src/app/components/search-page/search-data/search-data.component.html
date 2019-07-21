@@ -1,9 +1,9 @@
 <div class="job_filters">
 
   <div class="search_jobs">
-    <div class="search_keywords">
+    <div class="search_keywords" *ngIf="searchDataFromMainPage">
       <label for="search_keywords">Keywords</label>
-      <input type="text" name="search_keywords" id="search_keywords" placeholder="Összes KiVi" class="form-control" value=""/>
+      <input type="text" name="search_keywords" id="search_keywords" placeholder="Összes KiVi" class="form-control" [(ngModel)]="searchDataFromMainPage.name"/>
     </div>
 
     <div class="search_location">

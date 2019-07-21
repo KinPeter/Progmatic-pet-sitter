@@ -3,6 +3,7 @@ import { PetType, PlaceOfService, KeyValue, SearchData } from 'src/app/interface
 import { SearchDataTransferService } from 'src/app/search-data-transfer.service';
 import { PettypeService } from 'src/app/pettype.service';
 import { ServicePlaceService } from 'src/app/service-place.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-data',
@@ -13,24 +14,27 @@ export class SearchDataComponent implements OnInit {
 
   petTypes: KeyValue[];
   placeTypes: KeyValue[];
-  searchData: SearchData;
+  searchDataFromMainPage: SearchData;
 
-  constructor(public dataService: SearchDataTransferService,
+  constructor(public dataTrService: SearchDataTransferService,
               public petTypeService: PettypeService,
-              public placeService: ServicePlaceService) {
-
-      this.searchData = {
-        name: '',
-        postcode: null,
-        place: PlaceOfService.OWNERS_HOME,
-        petType: PetType.BIRD,
-      }
+              public placeService: ServicePlaceService,
+              private router: Router,) {
 
       this.petTypes = this.petTypeService.getPetTypeArray();
       this.placeTypes = this.placeService.getServicePlaceTypeArray();
   }
 
   ngOnInit() {
+      this.searchDataFromMainPage = this.dataTrService.searchData;
+      if(this.searchDataFromMainPage === undefined){
+          this.searchDataFromMainPage = {
+            name: '',
+            postcode: null,
+            place: null,
+            petType: null,
+          }
+      }
   }
 
 }
