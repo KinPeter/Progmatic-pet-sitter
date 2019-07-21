@@ -1,5 +1,9 @@
-<div class="modal-back modal-slide-in" (click)="closeMe()"></div>
-<div class="box modal-front" [ngClass]="{'modal-slide-in' : shouldIOpen }">
+<div class="modal-back" 
+    (click)="closeMe()"
+    [@backdropFade]>
+</div>
+<div class="box modal-front"
+    [@modalSlide]>
     <h3>Bejelentkezés</h3>
     <div class="form-group">
         <label>Email cím <span class="required">*</span></label>
