@@ -13,10 +13,14 @@ a {
         transition: height 0.2s;
 
         &.scrolled {
-            height: 53px;
+            height: 50px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            box-shadow: 0 0 5px rgba(0,0,0,0.6);
         
             .flexnav > li > a {
-                line-height: 50px;
+                line-height: 47px;
             }
         }
     }

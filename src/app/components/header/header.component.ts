@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit {
     }
 
     private scrollCheck(): void {
-        this.scrolled = window.scrollY > 0;
+        this.scrolled = window.scrollY > 200;
     }
 
 }
