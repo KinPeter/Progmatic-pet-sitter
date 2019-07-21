@@ -21,7 +21,14 @@
 									<input type="text" class="form-control" placeholder="Összes KiVi">
 								</div>
 								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Irányítószam">
+                  <input type="text"
+                      [(ngModel)]="searchData.postcode"
+                      [ngClass]="{'is-invalid': !isPostcodeValid}"
+                      class="form-control" placeholder="Irányítószam">
+                  <div class="invalid-feedback"
+                      *ngIf="!isPostcodeValid">
+                      Kérlek, valós irányítószámot adj meg!
+                  </div>
 								</div>
 								<div class="form-group">
 									<div class="select-style">
