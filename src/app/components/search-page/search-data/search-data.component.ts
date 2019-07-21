@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PetType, PlaceOfService, KeyValue, SearchData } from 'src/app/interfaces/search-data';
-import { SearchDataTransferService } from 'src/app/search-data-transfer.service';
-import { PettypeService } from 'src/app/pettype.service';
-import { ServicePlaceService } from 'src/app/service-place.service';
 import { Router } from '@angular/router';
+import { SearchDataTransferService } from 'src/app/services/search-data-transfer.service';
+import { PettypeService } from 'src/app/services/pettype.service';
+import { ServicePlaceService } from 'src/app/services/service-place.service';
 
 @Component({
   selector: 'app-search-data',
