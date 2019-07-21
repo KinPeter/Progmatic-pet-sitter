@@ -36,25 +36,27 @@ header {
 }
 
 header.scrolled {    
-    position: fixed;
-    top: 0;
-    width: 100%;
-    box-shadow: 0 0 5px rgba(0,0,0,0.6);
-    .logo {
-        padding: 0;
-        height: 0;
+    // position: fixed;
+    // top: 0;
+    // width: 100%;
+    // box-shadow: 0 0 5px rgba(0,0,0,0.6);
+    // .logo {
+    //     padding: 0;
+    //     height: 0;
 
-        img {
-            top: -120px;
-            opacity: 0;
-        }
-    }
+    //     img {
+    //         top: -120px;
+    //         opacity: 0;
+    //     }
+    // }
     .my-head-info {
         padding: 0;
         height: 3px;
         top: -100px;
         @media (min-width: 592px) {
-            top: 12px;
+            position: fixed;
+            top: 9px;
+            left: calc(100vw - 30%);
         }
     }
 }

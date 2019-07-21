@@ -29,12 +29,12 @@ export class NavbarComponent implements OnInit {
         let aboutSection: HTMLElement = document.querySelector('app-about-section');
         if (this.router.url === '/') {
             // document.querySelector('app-about-section').scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' });
-            window.scrollTo({top: aboutSection.offsetTop - 300, left: 0, behavior: 'smooth'});
+            window.scrollTo({top: aboutSection.offsetTop - 50, left: 0, behavior: 'smooth'});
         } else {
             this.router.navigate(['/']).then(() => {
                 // document.querySelector('app-about-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 aboutSection = document.querySelector('app-about-section');
-                window.scrollTo({ top: aboutSection.offsetTop - 300, left: 0, behavior: 'smooth' });
+                window.scrollTo({ top: aboutSection.offsetTop - 50, left: 0, behavior: 'smooth' });
             });
         }
     }
@@ -44,7 +44,7 @@ export class NavbarComponent implements OnInit {
     }
 
     private scrollCheck(): void {
-        this.scrolled = window.scrollY > 0;
+        this.scrolled = window.scrollY > 200;
     }
 
 }
