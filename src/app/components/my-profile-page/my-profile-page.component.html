@@ -1,1 +1,53 @@
-<p>my-profile-page works!</p>
+<div action="action_page.php" style="border:1px solid #ccc">
+  <div class="container">
+    <h1>Profil</h1>
+    <p>Profil adatok</p>
+    <hr>
+    <label for="name"><b>Név</b></label>
+    <input type="text" placeholder="Név megadása" name="name" required>
+
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Emailcím megadása" name="email" required>
+
+    <label for="psw"><b>Jelszó</b></label>
+    <input type="password" placeholder="Jelszó megadása" name="psw" required>
+
+    <label for="psw-repeat"><b>Jelszó megerősítése</b></label>
+    <input type="password" placeholder="Jelszó ismételt megadása" name="psw-repeat" required>
+
+
+    <div class="dropdown">
+      <button onclick="myFunction()" class="dropbtn">Kisállat tulaj vagyok</button>
+      <div id="myDropdown" class="dropdown-content">
+        <label for="petsname"><b>Kisállataim:</b></label>
+        <input type="text" placeholder="Kisállataim felsorolása" name="petsname" required>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button onclick="myFunction()" class="dropbtn">KisállatVigyázó szeretnék lenni!</button>
+      <div id="myDropdown" class="dropdown-content">
+        <label for="city"><b>Város:</b></label>
+        <input type="text" placeholder="Város megadása" name="city" required>
+        <label for="address"><b>Utca:</b></label>
+        <input type="text" placeholder="Utca megadása" name="address" required>
+        <label for="postalCode"><b>Irányítószám</b></label>
+        <input type="text" placeholder="Irányítószám megadása" name="postalCode" required>
+        <label for="intro"><b>Bemutatkozó szöveg:</b></label>
+        <input type="text" placeholder="Bemutatkozó szöveg megadása" name="intro" required>
+        <label for="placeOfService"><b>Szolgáltatás nyújtásának helye:</b></label>
+        <input type="text" placeholder="Házhoz megyek/saját otthonomban fogadom" name="placeOfService" required>
+        <label for="petTypes"><b>Milyen állatot vállalsz:</b></label>
+        <input type="text" placeholder="Vállalt állat megadása" name="petTypes" required>
+        <label for="pricePerHour"><b>Órabér:</b></label>
+        <input type="text" placeholder="Órabér megadása" name="pricePerHour" required>
+        // profil foto
+      </div>
+    </div>
+
+
+    <div class="clearfix">
+      <button type="submit" class="signupbtn">Adatok módosítása</button>
+    </div>
+
+    </div>
+</div>

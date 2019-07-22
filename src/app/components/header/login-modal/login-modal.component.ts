@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { LoginData } from 'src/app/interfaces/login-data';
 import { FieldValidatorService } from 'src/app/services/field-validator.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
     selector: 'app-login-modal',
@@ -32,17 +33,17 @@ import { FieldValidatorService } from 'src/app/services/field-validator.service'
             transition('void => *', [ // slide-in animation
                 animate(400, keyframes([
                     style({
-                        transform: 'translateY(-500px) scale(0.3) rotateZ(0)',
+                        transform: 'translateY(-500px) scale(0.3)',
                         opacity: 0,
                         offset: 0 // offset means the fraction of time of the whole animation time
                     }),
                     style({
-                        transform: 'translateY(200px) scale(0.65) rotateZ(45deg)',
+                        transform: 'translateY(200px) scale(0.65)',
                         opacity: 0.2,
                         offset: 0.6
                     }),
                     style({
-                        transform: 'translateY(0) scale(1) rotateZ(0)',
+                        transform: 'translateY(0) scale(1)',
                         opacity: 1,
                         offset: 1
                     })
@@ -60,21 +61,34 @@ import { FieldValidatorService } from 'src/app/services/field-validator.service'
 export class LoginModalComponent implements OnInit {
 
     @Output() closeThis = new EventEmitter();
-    loginData: LoginData;
-    isEmailValid: boolean;
-    isPasswordValid: boolean;
+    private loginData: LoginData;
+    private isEmailValid: boolean;
+    private isPasswordValid: boolean;
+    private isLoading: boolean;
+    private isLoginSuccessful: boolean;
+    private isLoginError: boolean;
+    private errorMessage: string;
 
-    constructor( private validator: FieldValidatorService ) {
+    constructor(
+        private validator: FieldValidatorService,
+        private auth: AuthenticationService
+    ) {
         this.loginData = {
             email: '',
             password: ''
         };
         this.isEmailValid = true;
         this.isPasswordValid = true;
-     }
+        this.isLoading = false;
+        this.isLoginSuccessful = false;
+        this.isLoginError = false;
+        this.errorMessage = '';
+    }
 
     closeMe() {
         this.closeThis.emit();
+        this.isLoginError = false;
+        this.isLoginSuccessful = false;
     }
 
     sendLoginData(): void {
@@ -82,8 +96,21 @@ export class LoginModalComponent implements OnInit {
         this.isPasswordValid = this.loginData.password !== '';
 
         if (this.isEmailValid && this.isPasswordValid) {
-            console.log(this.loginData);
-            this.closeMe();
+            this.isLoading = true;
+
+            this.auth.login(this.loginData).then((response) => {
+                this.isLoginSuccessful = true;
+                console.log(response);
+                // ??? mit kell még itt?
+                setTimeout(() => { this.closeMe(); }, 1500);
+            })
+            .catch((error) => {
+                this.errorMessage = error;
+                this.isLoginError = true;
+            })
+            .finally(() => {
+                this.isLoading = false;
+            });
         }
     }
 
