@@ -25,10 +25,10 @@ export class MainSearchComponent implements OnInit {
     this.currentSlide = 0;
 
     this.searchData = {
-    name: '',
-    postcode: null,
-    place: null,
-    petType: null,
+      name: '',
+      postcode: null,
+      place: null,
+      petType: null,
     }
 
     this.petType = this.pettypeService.getPetTypeArray();
@@ -49,16 +49,10 @@ export class MainSearchComponent implements OnInit {
       }, 4000);
     }
 
-    validatePostcodeNumber() : boolean {
-      if ( this.searchData.postcode == null ) {
-        return false;
-      } else {
-        this.isPostcodeValid = this.validator.validatePostcode( this.searchData.postcode );
-        return !this.isPostcodeValid;
-      }
-    }
 
     store (): void {
+      this.searchData.place = this.selectedPlace;
+      this.searchData.petType = this.selectedPetType;
       this.searchDataTransferService.searchData = Object.assign({}, this.searchData);
     }
 
