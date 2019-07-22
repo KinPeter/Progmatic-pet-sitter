@@ -42,8 +42,16 @@ export class MainSearchComponent implements OnInit {
       }, 4000);
     }
 
+    validatePostcodeNumber() : boolean {
+      if ( this.searchData.postcode == null ) {
+        return false;
+      } else {
+        this.isPostcodeValid = this.validator.validatePostcode( this.searchData.postcode );
+        return !this.isPostcodeValid;
+      }
+    }
+
     store (): void {
-      this.isPostcodeValid = this.validator.validatePostcode(this.searchData.postcode);
       this.searchDataTransferService.searchData = Object.assign({}, this.searchData);
     }
 
