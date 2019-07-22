@@ -15,9 +15,9 @@ export class FieldValidatorService {
         return this.emailRegex.test(emailAddress);
     }
 
-    validatePostcode(postcode: number): boolean {
-      return ! isNaN(parseInt('' + postcode, 10))
-    && /^[0-9]{4}\d*$/.test('' + postcode)
+    validatePostcode(postcode: string): boolean {
+      if ('' + postcode === '' || postcode == null) return true;
+      return ! isNaN(parseInt('' + postcode, 10)) && /^[1-9][0-9]{3}$/.test('' + postcode);
     }
 
 }

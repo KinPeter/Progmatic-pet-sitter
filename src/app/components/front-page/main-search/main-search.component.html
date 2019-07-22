@@ -4,13 +4,13 @@
 					<div class="flexslider carousel">
 						<ul class="slides">
 							<li [ngStyle]="{ 'z-index': currentSlide }" [ngClass]="{ show: currentSlide == 2 }">
-								<img src="/assets/images/slide1.jpg" alt="">
+								<img class="img-responsive" src="/assets/images/slide1.jpg" alt="">
 							</li>
 							<li [ngStyle]="{ 'z-index': (currentSlide + 1)%3 }" [ngClass]="{ show: currentSlide == 0 }">
-								<img src="/assets/images/slide2.jpg" alt="">
+								<img class="img-responsive" src="/assets/images/slide2.jpg" alt="">
 							</li>
 							<li [ngStyle]="{ 'z-index': (currentSlide + 2)%3 }" [ngClass]="{ show: currentSlide == 1 }">
-								<img src="/assets/images/slide3.jpg" alt="">
+								<img class="img-responsive" src="/assets/images/slide3.jpg" alt="">
 							</li>
 						</ul>
 
@@ -18,12 +18,12 @@
 							<h2>Keress egy KiVit a közeledben</h2>
 							<div action="index.html#" method="POST" role="form">
 								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Összes KiVi">
+									<input type="text" class="form-control" [(ngModel)]="searchData.name" placeholder="Összes KiVi">
 								</div>
 								<div class="form-group">
                   <input type="text"
                       [(ngModel)]="searchData.postcode"
-                      [ngClass]="{'is-invalid': !isPostcodeValid}"
+                      [ngClass]="{'is-invalid': validatePostcodeNumber()}"
                       class="form-control" placeholder="Irányítószam">
                   <div class="invalid-feedback"
                       *ngIf="!isPostcodeValid">
@@ -32,22 +32,15 @@
 								</div>
 								<div class="form-group">
 									<div class="select-style">
-										<select class="form-control">
-											<option>Helyszín típusa</option>
-											<option>Viszem a kisállatomat</option>
-											<option>Fogadom a KiVit</option>
+										<select [(ngModel)]="selectedPlace" class="form-control">
+											<option *ngFor="let place of sercivePlaceType" [ngValue]="place.key">{{place.value}}</option>
 										</select>
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="select-style">
-										<select class="form-control">
-											<option>Kedvenced típusa</option>
-											<option>Kutya</option>
-											<option>Macska</option>
-											<option>Madár</option>
-											<option>Rágcsáló</option>
-											<option>Hüllő</option>
+										<select  [(ngModel)]="selectedPetType" class="form-control">
+											<option *ngFor="let pet of petType" [ngValue]="pet.key">{{pet.value}}</option>
 										</select>
 									</div>
 								</div>
