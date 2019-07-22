@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
     selector: 'app-header',
@@ -9,12 +10,13 @@ export class HeaderComponent implements OnInit {
 
     private scrolled: boolean;
     private loginModalNeeded: boolean;
-
-    // dummy
     private userLoggedIn: boolean;
 
-    constructor() {
-        this.userLoggedIn = false;
+    constructor( private auth: AuthenticationService ) {
+        // this.userLoggedIn = !!auth.currentUser;
+        this.auth.isUserLoggedIn.subscribe(value => {
+            this.userLoggedIn = value;
+        });
         this.scrolled = false;
         this.loginModalNeeded = false;
     }
@@ -28,11 +30,12 @@ export class HeaderComponent implements OnInit {
     }
 
     logMeOut(): void {
-        // TODO log out
+        this.auth.logout();
     }
 
     ngOnInit(): void {
         window.addEventListener('scroll', () => { this.scrollCheck(); }, false);
+        console.log('userLoggedIn: ', this.userLoggedIn);
     }
 
     private scrollCheck(): void {

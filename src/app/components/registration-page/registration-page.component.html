@@ -1,4 +1,4 @@
-<form action="action_page.php" style="border:1px solid #ccc">
+<div action="action_page.php" style="border:1px solid #ccc">
   <div class="container">
     <h1>Regisztráció</h1>
     <p>Töltsd ki az alábbi mezőket a sikeres regisztrációhoz!</p>
@@ -15,12 +15,33 @@
     <label for="psw-repeat"><b>Jelszó megerősítése</b></label>
     <input type="password" placeholder="Jelszó ismételt megadása" name="psw-repeat" required>
 
+    <h1>Fotó feltöltése</h1>Válaszd ki a feltölteni kívánt fotót!<input type="file" name="img">
+    <br>
+
+
+
+
+
+
+
 
     <div class="dropdown">
       <button onclick="myFunction()" class="dropbtn">Kisállat tulaj vagyok</button>
       <div id="myDropdown" class="dropdown-content">
-        <label for="petsname"><b>Kisállataim:</b></label>
-        <input type="text" placeholder="Kisállataim felsorolása" name="petsname" required>
+          <br>
+          <label for="country">Kérlek válaszd ki, milyen állatod van:</label>
+          <select id="country" name="country">
+            <option value="Kutya">Kutya</option>
+            <option value="Macska">Macska</option>
+            <option value="Madár">Madár</option>
+            <option value="Rágcsáló">Rágcsáló</option>
+            <option value="Hüllő">Hüllő</option>
+          </select>
+          <br>
+          <label for="city"><b>Kisállatom neve:</b></label>
+          <input type="text" placeholder="Kisállatom nevének megadása" name="petsname" required>
+
+        <label for="petsname"><b></b></label>
       </div>
     </div>
     <div class="dropdown">
@@ -34,13 +55,22 @@
         <input type="text" placeholder="Irányítószám megadása" name="postalCode" required>
         <label for="intro"><b>Bemutatkozó szöveg:</b></label>
         <input type="text" placeholder="Bemutatkozó szöveg megadása" name="intro" required>
+
+
         <label for="placeOfService"><b>Szolgáltatás nyújtásának helye:</b></label>
-        <input type="text" placeholder="Házhoz megyek/saját otthonomban fogadom" name="placeOfService" required>
+        <label class="container">Házhoz megyek
+          <input type="checkbox" checked="checked">
+          <span class="checkmark"></span>
+        </label>
+        <label class="container">Saját otthonomban fogadom
+          <input type="checkbox">
+          <span class="checkmark"></span>
+        </label>
+
         <label for="petTypes"><b>Milyen állatot vállalsz:</b></label>
         <input type="text" placeholder="Vállalt állat megadása" name="petTypes" required>
         <label for="pricePerHour"><b>Órabér:</b></label>
         <input type="text" placeholder="Órabér megadása" name="pricePerHour" required>
-        // profil foto
       </div>
     </div>
 
@@ -50,9 +80,7 @@
       <button type="submit" class="signupbtn">Regisztrálok</button>
     </div>
 
-    <div class="signin">
-      <p>Van már regisztrációd? <a href="login">Jelentkezz be!</a>.</p>
-    </div>
+
 
     </div>
-</form>
+</div>

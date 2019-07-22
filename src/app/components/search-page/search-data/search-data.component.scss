@@ -67,3 +67,12 @@
     float: left;
   }
 }
+
+.is-invalid {
+    border: 1px solid red;
+    box-shadow: 0 0 3px red;
+}
+.invalid-feedback {
+    color: red;
+    font-size: 1.2rem;
+}

@@ -19,5 +19,13 @@ export class FieldValidatorService {
       if ('' + postcode === '' || postcode == null) return true;
       return ! isNaN(parseInt('' + postcode, 10)) && /^[1-9][0-9]{3}$/.test('' + postcode);
     }
+    validatePostcodeInComponent(isPostcodeValid: boolean, postcode: string) : boolean {
+      if (postcode == null ) {
+        return false;
+      } else {
+        isPostcodeValid = this.validatePostcode( postcode );
+        return !isPostcodeValid;
+      }
+    }
 
 }
