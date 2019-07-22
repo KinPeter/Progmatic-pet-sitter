@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { SearchData, PetType, PlaceOfService} from '../../../interfaces/search-data';
-import { SearchDataTransferService} from '../../../search-data-transfer.service'
+import { SearchData, PetType, PlaceOfService, KeyValue} from '../../../interfaces/search-data';
+import { SearchDataTransferService} from '../../../services/search-data-transfer.service'
+import { PettypeService} from '../../../services/pettype.service';
+import { ServicePlaceService} from '../../../services/service-place.service';
+import { FieldValidatorService } from 'src/app/services/field-validator.service';
 
 @Component({
     selector: 'app-main-search',
@@ -12,8 +15,11 @@ export class MainSearchComponent implements OnInit {
 
   currentSlide: number;
   searchData: SearchData
+  petType: KeyValue[];
+  sercivePlaceType: KeyValue[];
+  isPostcodeValid: boolean;
 
-  constructor(private router: Router, private searchDataTransferService: SearchDataTransferService) {
+  constructor(private router: Router, private searchDataTransferService: SearchDataTransferService, private pettypeService: PettypeService, private servicePlaceService: ServicePlaceService, private validator: FieldValidatorService) {
     this.currentSlide = 0;
 
     this.searchData = {
@@ -22,6 +28,11 @@ export class MainSearchComponent implements OnInit {
     place: PlaceOfService.OWNERS_HOME,
     petType: PetType.BIRD,
     }
+
+    this.petType = this.pettypeService.getPetTypeArray();
+    this.sercivePlaceType = this.servicePlaceService.getServicePlaceTypeArray();
+
+    this.isPostcodeValid = true;
   }
 
 
@@ -29,17 +40,12 @@ export class MainSearchComponent implements OnInit {
       setInterval(() => {
         this.currentSlide = (this.currentSlide + 1) % 3;
       }, 4000);
-
     }
 
-  //  btnClick(): void {
-  //    this.router.navigate(['/search-page']);
-  //  };
-
-  store (): void {
-   this.searchDataTransferService.searchData = this.searchData;
- }
-
+    store (): void {
+      this.isPostcodeValid = this.validator.validatePostcode(this.searchData.postcode);
+      this.searchDataTransferService.searchData = Object.assign({}, this.searchData);
+    }
 
 
 }

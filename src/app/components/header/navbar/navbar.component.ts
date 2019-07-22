@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-navbar',
@@ -8,6 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
+    scrolled: boolean;
+
     constructor(private router: Router) { }
 
     toHomeTop(): void {
@@ -15,6 +17,7 @@ export class NavbarComponent implements OnInit {
             document.querySelector('app-header').scrollIntoView({ behavior: 'smooth', block: 'start' });
         } else {
             this.router.navigate(['/']);
+            window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
         }
     }
 
@@ -23,16 +26,25 @@ export class NavbarComponent implements OnInit {
     }
 
     toAboutSection(): void {
+        let aboutSection: HTMLElement = document.querySelector('app-about-section');
         if (this.router.url === '/') {
-            document.querySelector('.app-about').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // document.querySelector('app-about-section').scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' });
+            window.scrollTo({top: aboutSection.offsetTop - 50, left: 0, behavior: 'smooth'});
         } else {
             this.router.navigate(['/']).then(() => {
-                document.querySelector('app-about').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // document.querySelector('app-about-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                aboutSection = document.querySelector('app-about-section');
+                window.scrollTo({ top: aboutSection.offsetTop - 50, left: 0, behavior: 'smooth' });
             });
         }
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
+        window.addEventListener('scroll', () => { this.scrollCheck(); }, false);
+    }
+
+    private scrollCheck(): void {
+        this.scrolled = window.scrollY > 200;
     }
 
 }

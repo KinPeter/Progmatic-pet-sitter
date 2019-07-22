@@ -9,6 +9,9 @@ const routes: Routes = [
     { path: '', component: FrontPageComponent, pathMatch: 'full' },
     { path: 'search-page', component: SearchPageComponent},
     { path: 'registration-page', component: RegistrationPageComponent},
+
+    // otherwise redirect to home
+    { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
