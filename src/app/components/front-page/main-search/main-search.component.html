@@ -32,14 +32,14 @@
 								</div>
 								<div class="form-group">
 									<div class="select-style">
-										<select [(ngModel)]="selectedValue" class="form-control">
+										<select [(ngModel)]="selectedPlace" class="form-control">
 											<option *ngFor="let place of sercivePlaceType" [ngValue]="place.key">{{place.value}}</option>
 										</select>
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="select-style">
-										<select  [(ngModel)]="selectedValue" class="form-control">
+										<select  [(ngModel)]="selectedPetType" class="form-control">
 											<option *ngFor="let pet of petType" [ngValue]="pet.key">{{pet.value}}</option>
 										</select>
 									</div>
