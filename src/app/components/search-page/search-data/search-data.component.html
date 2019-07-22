@@ -8,15 +8,14 @@
 
     <div class="search_location">
       <label for="search_location">Location</label>
-      <input type="text" name="search_location" id="search_location" placeholder="Irányítószám" class="form-control" value="" />
+      <input type="text" name="search_location" id="search_location" placeholder="Irányítószám" class="form-control" [(ngModel)]="searchDataFromMainPage.postcode" />
     </div>
 
     <div class="search_type">
       <label>Service</label>
       <span class="select-style">
-        <select class="form-control">
-          <option>Kedvenced típusa</option>
-          <option *ngFor="let pet of petTypes" value="{{pet.key}}">{{pet.value}}</option>
+        <select [(ngModel)]="selectedValue" class="form-control">
+          <option *ngFor="let pet of petTypes" [ngValue]="pet.key">{{pet.value}}</option>
         </select>
       </span>
     </div>
@@ -24,16 +23,15 @@
     <div class="search_place">
       <label>Service</label>
       <span class="select-style">
-        <select class="form-control">
-          <option>Helyszín típusa</option>
-          <option *ngFor="let place of placeTypes" value="{{place.key}}">{{place.value}}</option>
+        <select [(ngModel)]="selectedValue" class="form-control">
+          <option *ngFor="let place of placeTypes" [ngValue]="place.key">{{place.value}}</option>
         </select>
       </span>
     </div>
 
     <div class="search_submit">
       <label>Submit</label>
-      <button class="btn btn-block btn-primary">Keresés</button>
+      <button class="btn btn-block btn-primary" (click)="see()">Keresés</button>
     </div>
   </div>
 
