@@ -65,6 +65,9 @@ export class LoginModalComponent implements OnInit {
     private isEmailValid: boolean;
     private isPasswordValid: boolean;
     private isLoading: boolean;
+    private isLoginSuccessful: boolean;
+    private isLoginError: boolean;
+    private errorMessage: string;
 
     constructor(
         private validator: FieldValidatorService,
@@ -77,10 +80,15 @@ export class LoginModalComponent implements OnInit {
         this.isEmailValid = true;
         this.isPasswordValid = true;
         this.isLoading = false;
+        this.isLoginSuccessful = false;
+        this.isLoginError = false;
+        this.errorMessage = '';
     }
 
     closeMe() {
         this.closeThis.emit();
+        this.isLoginError = false;
+        this.isLoginSuccessful = false;
     }
 
     sendLoginData(): void {
@@ -91,11 +99,18 @@ export class LoginModalComponent implements OnInit {
             this.isLoading = true;
 
             this.auth.login(this.loginData).then((response) => {
-                // this.isLoading = false;
-                // ???
+                this.isLoginSuccessful = true;
+                console.log(response);
+                // ??? mit kell még itt?
+                setTimeout(() => { this.closeMe(); }, 1500);
+            })
+            .catch((error) => {
+                this.errorMessage = error;
+                this.isLoginError = true;
+            })
+            .finally(() => {
+                this.isLoading = false;
             });
-
-            // this.closeMe();
         }
     }
 

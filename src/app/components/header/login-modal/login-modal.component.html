@@ -32,6 +32,8 @@
             Kérlek, add meg a jelszavad!
         </div>
     </div>
+    <div class="alert alert-success" *ngIf="isLoginSuccessful">A bejelentkezés sikeres.</div>
+    <div class="alert alert-danger" *ngIf="isLoginError">Hiba történt: {{ errorMessage }}</div>
     <div class="row">
         <div class="col-xs-8">
             <button class="btn btn-primary btn-inline" (click)="sendLoginData()">Bejelentkezek</button>
@@ -40,7 +42,7 @@
             </label>
         </div>
         <div class="col-xs-4">
-            <app-spinner *ngIf="!isLoading"></app-spinner>
+            <app-spinner *ngIf="isLoading"></app-spinner>
         </div>
     </div>
 </div>
