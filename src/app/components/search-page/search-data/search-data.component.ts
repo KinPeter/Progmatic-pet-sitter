@@ -15,7 +15,8 @@ export class SearchDataComponent implements OnInit {
   petTypes: KeyValue[];
   placeTypes: KeyValue[];
   searchDataFromMainPage: SearchData;
-  selectedValue: any;
+  selectedPetType: any;
+  selectedPlaceType: any;
 
   constructor(public dataTrService: SearchDataTransferService,
               public petTypeService: PettypeService,
@@ -24,10 +25,10 @@ export class SearchDataComponent implements OnInit {
 
       this.petTypes = this.petTypeService.getPetTypeArray();
       this.petTypes.unshift( {key: "NONE", value: "Kedvenced típusa"} );
-      this.selectedValue = "NONE";
+      this.selectedPetType = "NONE";
       this.placeTypes = this.placeService.getServicePlaceTypeArray();
       this.placeTypes.unshift( {key: "NONE", value: "Helyszín típusa"} );
-      this.selectedValue = "NONE";
+      this.selectedPlaceType = "NONE";
   }
 
   ngOnInit() {
@@ -36,8 +37,8 @@ export class SearchDataComponent implements OnInit {
           this.searchDataFromMainPage = {
             name: '',
             postcode: null,
-            place: null,
-            petType: null,
+            place: this.selectedPlaceType,
+            petType: this.selectedPetType,
           }
       }
   }

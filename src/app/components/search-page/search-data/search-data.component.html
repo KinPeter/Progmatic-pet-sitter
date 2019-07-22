@@ -14,7 +14,7 @@
     <div class="search_type">
       <label>Service</label>
       <span class="select-style">
-        <select [(ngModel)]="selectedValue" class="form-control">
+        <select [(ngModel)]="searchDataFromMainPage.petType" class="form-control">
           <option *ngFor="let pet of petTypes" [ngValue]="pet.key">{{pet.value}}</option>
         </select>
       </span>
@@ -23,7 +23,7 @@
     <div class="search_place">
       <label>Service</label>
       <span class="select-style">
-        <select [(ngModel)]="selectedValue" class="form-control">
+        <select [(ngModel)]="searchDataFromMainPage.place" class="form-control">
           <option *ngFor="let place of placeTypes" [ngValue]="place.key">{{place.value}}</option>
         </select>
       </span>
