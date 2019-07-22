@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SearchDataTransferService } from 'src/app/services/search-data-transfer.service';
 import { PettypeService } from 'src/app/services/pettype.service';
 import { ServicePlaceService } from 'src/app/services/service-place.service';
+import { FieldValidatorService } from 'src/app/services/field-validator.service';
 
 @Component({
   selector: 'app-search-data',
@@ -15,20 +16,27 @@ export class SearchDataComponent implements OnInit {
   petTypes: KeyValue[];
   placeTypes: KeyValue[];
   searchDataFromMainPage: SearchData;
+  isPostcodeValid: boolean;
   selectedPetType: any;
   selectedPlaceType: any;
 
   constructor(public dataTrService: SearchDataTransferService,
               public petTypeService: PettypeService,
               public placeService: ServicePlaceService,
+              public fieldValidator: FieldValidatorService,
               private router: Router,) {
 
       this.petTypes = this.petTypeService.getPetTypeArray();
       this.petTypes.unshift( {key: "NONE", value: "Kedvenced típusa"} );
-      this.selectedPetType = "NONE";
+      if(!this.dataTrService.searchData) {
+        this.selectedPetType = "NONE";
+      }
       this.placeTypes = this.placeService.getServicePlaceTypeArray();
       this.placeTypes.unshift( {key: "NONE", value: "Helyszín típusa"} );
-      this.selectedPlaceType = "NONE";
+      if(!this.dataTrService.searchData) {
+        this.selectedPlaceType = "NONE";
+      }
+      this.isPostcodeValid = true;
   }
 
   ngOnInit() {
@@ -42,5 +50,6 @@ export class SearchDataComponent implements OnInit {
           }
       }
   }
+
 
 }
