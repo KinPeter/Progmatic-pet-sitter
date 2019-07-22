@@ -21,8 +21,8 @@ import { NavbarComponent } from './components/header/navbar/navbar.component';
 import { SearchDataComponent } from './components/search-page/search-data/search-data.component';
 import { SearchListComponent } from './components/search-page/search-list/search-list.component';
 import { SearchListItemComponent } from './components/search-page/search-list/search-list-item/search-list-item.component';
-import { JwtInterceptor } from './services/interceptors/jwt-interceptor.service';
 import { ErrorInterceptor } from './services/interceptors/error-interceptor.service';
+import { SpinnerComponent } from './components/ui/spinner/spinner.component';
 
 @NgModule({
     declarations: [
@@ -41,7 +41,8 @@ import { ErrorInterceptor } from './services/interceptors/error-interceptor.serv
         NavbarComponent,
         SearchDataComponent,
         SearchListComponent,
-        SearchListItemComponent
+        SearchListItemComponent,
+        SpinnerComponent
     ],
     imports: [
         BrowserModule,
@@ -51,7 +52,6 @@ import { ErrorInterceptor } from './services/interceptors/error-interceptor.serv
         BrowserAnimationsModule
     ],
     providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
     ],
     bootstrap: [AppComponent]

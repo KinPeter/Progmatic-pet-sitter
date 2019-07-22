@@ -1,20 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
 import { User } from '../interfaces/user';
+import { LoginData } from '../interfaces/login-data';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthenticationService {
-    private URL = 'http://localhost/login';
+    private URL = 'http://192.168.1.237:8080/signin';
     public currentUser: User;
 
     constructor(private http: HttpClient) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
-    login(username: string, password: string) {
-        return this.http.post(this.URL, {username, password}).toPromise()
+    login(data: LoginData) {
+        return this.http.post(this.URL, {email: data.email, password: data.password}).toPromise()
         .then((response: User) => {
             this.currentUser = response;
             localStorage.setItem('currentUser', JSON.stringify(response));
