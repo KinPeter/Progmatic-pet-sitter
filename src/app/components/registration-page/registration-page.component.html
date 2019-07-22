@@ -34,8 +34,18 @@
         <input type="text" placeholder="Irányítószám megadása" name="postalCode" required>
         <label for="intro"><b>Bemutatkozó szöveg:</b></label>
         <input type="text" placeholder="Bemutatkozó szöveg megadása" name="intro" required>
+
+
         <label for="placeOfService"><b>Szolgáltatás nyújtásának helye:</b></label>
-        <input type="text" placeholder="Házhoz megyek/saját otthonomban fogadom" name="placeOfService" required>
+        <label class="container">Házhoz megyek
+          <input type="checkbox" checked="checked">
+          <span class="checkmark"></span>
+        </label>
+        <label class="container">Saját otthonomban fogadom
+          <input type="checkbox">
+          <span class="checkmark"></span>
+        </label>
+        
         <label for="petTypes"><b>Milyen állatot vállalsz:</b></label>
         <input type="text" placeholder="Vállalt állat megadása" name="petTypes" required>
         <label for="pricePerHour"><b>Órabér:</b></label>
