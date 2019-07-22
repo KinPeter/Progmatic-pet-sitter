@@ -1,23 +1,21 @@
 <div class="job_filters">
 
   <div class="search_jobs">
-    <div class="search_keywords" *ngIf="searchDataFromMainPage">
+    <div class="search_keywords">
       <label for="search_keywords">Keywords</label>
-      <input type="text" name="search_keywords" id="search_keywords" placeholder="Összes KiVi" class="form-control" [(ngModel)]="searchDataFromMainPage.name"/>
+      <input type="text" name="search_keywords" id="search_keywords" placeholder="Összes KiVi" class="form-control"
+          [(ngModel)]="searchDataFromMainPage.name"/>
     </div>
 
     <div class="search_location">
       <label for="search_location">Location</label>
-      <input type="text" name="search_location" id="search_location" placeholder="Irányítószám" class="form-control" [(ngModel)]="searchDataFromMainPage.postcode" />
-    </div>
-
-    <div class="search_type">
-      <label>Service</label>
-      <span class="select-style">
-        <select [(ngModel)]="searchDataFromMainPage.petType" class="form-control">
-          <option *ngFor="let pet of petTypes" [ngValue]="pet.key">{{pet.value}}</option>
-        </select>
-      </span>
+      <input type="text" name="search_location" id="search_location" placeholder="Irányítószám" class="form-control"
+      [(ngModel)]="searchDataFromMainPage.postcode"
+      [ngClass]="{'is-invalid': fieldValidator.validatePostcodeInComponent(isPostcodeValid, searchDataFromMainPage.postcode)}"/>
+      <div class="invalid-feedback"
+          *ngIf="fieldValidator.validatePostcodeInComponent(isPostcodeValid, searchDataFromMainPage.postcode)">
+          Kérlek, valós irányítószámot adj meg!
+      </div>
     </div>
 
     <div class="search_place">
@@ -29,9 +27,18 @@
       </span>
     </div>
 
+    <div class="search_type">
+      <label>Service</label>
+      <span class="select-style">
+        <select [(ngModel)]="searchDataFromMainPage.petType" class="form-control">
+          <option *ngFor="let pet of petTypes" [ngValue]="pet.key">{{pet.value}}</option>
+        </select>
+      </span>
+    </div>
+
     <div class="search_submit">
       <label>Submit</label>
-      <button class="btn btn-block btn-primary" (click)="see()">Keresés</button>
+      <button class="btn btn-block btn-primary">Keresés</button>
     </div>
   </div>
 
