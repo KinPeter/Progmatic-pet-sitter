@@ -18,7 +18,7 @@
 							<h2>Keress egy KiVit a közeledben</h2>
 							<div action="index.html#" method="POST" role="form">
 								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Összes KiVi">
+									<input type="text" class="form-control" [(ngModel)]="searchData.name" placeholder="Összes KiVi">
 								</div>
 								<div class="form-group">
                   <input type="text"
@@ -32,22 +32,15 @@
 								</div>
 								<div class="form-group">
 									<div class="select-style">
-										<select class="form-control">
-											<option>Helyszín típusa</option>
-											<option>Viszem a kisállatomat</option>
-											<option>Fogadom a KiVit</option>
+										<select [(ngModel)]="selectedValue" class="form-control">
+											<option *ngFor="let place of sercivePlaceType" [ngValue]="sercivePlaceType.key">{{place.value}}</option>
 										</select>
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="select-style">
-										<select class="form-control">
-											<option>Kedvenced típusa</option>
-											<option>Kutya</option>
-											<option>Macska</option>
-											<option>Madár</option>
-											<option>Rágcsáló</option>
-											<option>Hüllő</option>
+										<select  [(ngModel)]="selectedValue" class="form-control">
+											<option *ngFor="let pet of petType" [ngValue]="pet.key">{{pet.value}}</option>
 										</select>
 									</div>
 								</div>

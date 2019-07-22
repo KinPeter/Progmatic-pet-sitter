@@ -18,6 +18,7 @@ export class MainSearchComponent implements OnInit {
   petType: KeyValue[];
   sercivePlaceType: KeyValue[];
   isPostcodeValid: boolean;
+  selectedValue: any;
 
   constructor(private router: Router, private searchDataTransferService: SearchDataTransferService, private pettypeService: PettypeService, private servicePlaceService: ServicePlaceService, private validator: FieldValidatorService) {
     this.currentSlide = 0;
@@ -25,14 +26,18 @@ export class MainSearchComponent implements OnInit {
     this.searchData = {
     name: '',
     postcode: null,
-    place: PlaceOfService.OWNERS_HOME,
-    petType: PetType.BIRD,
+    place: null,
+    petType: null,
     }
 
     this.petType = this.pettypeService.getPetTypeArray();
     this.sercivePlaceType = this.servicePlaceService.getServicePlaceTypeArray();
+    this.sercivePlaceType.unshift( {key: "NONE", value: "Helyszín típusa"} );
+    this.petType.unshift( {key: "NONE", value: "Kedvenced típusa"} );
+    this.selectedValue = "NONE";
 
     this.isPostcodeValid = true;
+
   }
 
 
