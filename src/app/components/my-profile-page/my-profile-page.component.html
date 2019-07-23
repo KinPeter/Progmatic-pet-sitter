@@ -1,53 +1,101 @@
 <div action="action_page.php" style="border:1px solid #ccc">
-  <div class="container">
-    <h1>Profil</h1>
-    <p>Profil adatok</p>
-    <hr>
-    <label for="name"><b>Név</b></label>
-    <input type="text" placeholder="Név megadása" name="name" required>
-
-    <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Emailcím megadása" name="email" required>
-
-    <label for="psw"><b>Jelszó</b></label>
-    <input type="password" placeholder="Jelszó megadása" name="psw" required>
-
-    <label for="psw-repeat"><b>Jelszó megerősítése</b></label>
-    <input type="password" placeholder="Jelszó ismételt megadása" name="psw-repeat" required>
-
-
-    <div class="dropdown">
-      <button onclick="myFunction()" class="dropbtn">Kisállat tulaj vagyok</button>
-      <div id="myDropdown" class="dropdown-content">
-        <label for="petsname"><b>Kisállataim:</b></label>
-        <input type="text" placeholder="Kisállataim felsorolása" name="petsname" required>
+<div class="container">
+  <h1 class="page-header">Profil adatok</h1>
+  <div class="row">
+    <!-- left column -->
+    <div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="text-center">
+        <img src="https://fb-s-b-a.akamaihd.net/h-ak-xfa1/v/t1.0-1/c9.0.160.160/p160x160/420257_10151474103567424_1224916620_n.jpg?oh=0932a7be9adb74fd949d0211d9128ad7&oe=58BA7A17&__gda__=1488564886_feb0fc02d6307304a3d43aecff5a804a" class="avatar img-circle img-thumbnail" alt="avatar">
+        <h6>Új profil kép feltöltése</h6>
+        <input type="file" class="text-center center-block well well-sm">
       </div>
     </div>
-    <div class="dropdown">
-      <button onclick="myFunction()" class="dropbtn">KisállatVigyázó szeretnék lenni!</button>
-      <div id="myDropdown" class="dropdown-content">
-        <label for="city"><b>Város:</b></label>
-        <input type="text" placeholder="Város megadása" name="city" required>
-        <label for="address"><b>Utca:</b></label>
-        <input type="text" placeholder="Utca megadása" name="address" required>
-        <label for="postalCode"><b>Irányítószám</b></label>
-        <input type="text" placeholder="Irányítószám megadása" name="postalCode" required>
-        <label for="intro"><b>Bemutatkozó szöveg:</b></label>
-        <input type="text" placeholder="Bemutatkozó szöveg megadása" name="intro" required>
-        <label for="placeOfService"><b>Szolgáltatás nyújtásának helye:</b></label>
-        <input type="text" placeholder="Házhoz megyek/saját otthonomban fogadom" name="placeOfService" required>
-        <label for="petTypes"><b>Milyen állatot vállalsz:</b></label>
-        <input type="text" placeholder="Vállalt állat megadása" name="petTypes" required>
-        <label for="pricePerHour"><b>Órabér:</b></label>
-        <input type="text" placeholder="Órabér megadása" name="pricePerHour" required>
-        // profil foto
-      </div>
-    </div>
+    <!-- edit form column -->
+    <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+      <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <label class="col-lg-3 control-label"><b>Név:</b></label>
+          <div class="col-lg-8">
+            <input type="text" placeholder="Név megadása" name="name" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label"><b>E-mail cím:</b></label>
+          <div class="col-lg-8">
+            <input type="text" placeholder="Emailcím megadása" name="email" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label"><b>Új jelszó megadása:</b></label>
+          <div class="col-lg-8">
+            <input type="password" placeholder="Új jelszó megadása" name="psw" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label"><b>Új jelszó megerősítése:</b></label>
+          <div class="col-lg-8">
+            <input type="password" placeholder="Új jelszó megerősítése" name="psw-repeat" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label"><b>Kedvenceim:</b></label>
+          <div class="col-lg-8">
+            <input type="text" placeholder="Kisállataim felsorolása" name="petsname" required>
+          </div>
+        </div>
 
-
-    <div class="clearfix">
-      <button type="submit" class="signupbtn">Adatok módosítása</button>
+        <div class="form-group">
+          <label class="col-md-3 control-label"><b>Irányítószám:</b></label>
+          <div class="col-md-8">
+            <input type="text" placeholder="Irányítószám megadása" name="postalCode" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"><b>Város:</b></label>
+          <div class="col-md-8">
+            <input type="text" placeholder="Város megadása" name="city" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"><b>Utca:</b></label>
+          <div class="col-md-8">
+            <input type="text" placeholder="Utca megadása" name="address" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"><b>Bemutatkozó szöveg:</b></label>
+          <div class="col-md-8">
+            <input type="text" placeholder="Bemutatkozó szöveg megadása" name="intro" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"><b>Szolgáltatás nyújtásának helyszíne:</b></label>
+          <div class="col-md-8">
+            <input type="text" placeholder="Házhoz megyek/saját otthonomban fogadom" name="placeOfService" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"><b>Vállalt állatfajták:</b></label>
+          <div class="col-md-8">
+            <input type="text" placeholder="Vállalt állat megadása" name="petTypes" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"><b>Szolgáltatás díja (/óra):</b></label>
+          <div class="col-md-8">
+            <input type="text" placeholder="Órabér megadása" name="pricePerHour" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <input class="btn btn-success" value="Változtatások mentése" type="button">
+            <span></span>
+            <input class="btn btn-default" value="Mégsem" type="reset">
+          </div>
+        </div>
+      </form>
     </div>
-
-    </div>
+  </div>
+</div>
 </div>
