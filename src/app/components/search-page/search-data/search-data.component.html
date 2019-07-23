@@ -12,10 +12,10 @@
       <input type="text" name="search_location" id="search_location" placeholder="Irányítószám" class="form-control"
       [(ngModel)]="searchDataFromMainPage.postcode"
       [ngClass]="{'is-invalid': fieldValidator.validatePostcodeInComponent(isPostcodeValid, searchDataFromMainPage.postcode)}"/>
-      <div class="invalid-feedback"
+      <span class="invalid-feedback"
           *ngIf="fieldValidator.validatePostcodeInComponent(isPostcodeValid, searchDataFromMainPage.postcode)">
           Kérlek, valós irányítószámot adj meg!
-      </div>
+      </span>
     </div>
 
     <div class="search_place">
