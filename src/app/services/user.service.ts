@@ -29,7 +29,7 @@ export class UserService {
     // }
 
     modifyUser (user: User): Promise<User []> {
-    return this.http.put(this.URL + '?id=' + user.id, {user}, {withCredentials: true})
+    return this.http.put(this.URL + '?id=' + user.userId, {user}, {withCredentials: true})
     .toPromise().then(this.transformUserDTO);
     }
 
