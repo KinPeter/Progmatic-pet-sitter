@@ -2,14 +2,26 @@ import {PlaceOfService} from './search-data';
 import {PetType} from './search-data';
 
 export interface User {
-    id: number;
+    userId: number;
     name: string;
     email: string;
+    password?: string;
+    ownerData: Owner | null;
+    sitterData: Sitter | null;
+}
+
+export interface Owner {
+    pettype?: string;
+    // ...
+}
+
+export interface Sitter {
+    address: string;
     postcode: string;
     city: string;
-    address: string;
     introductionText: string;
-    place : PlaceOfService;
+    place: PlaceOfService;
     petType: PetType;
     wage: number;
+    // ...
 }

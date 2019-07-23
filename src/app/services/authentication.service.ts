@@ -13,11 +13,6 @@ export class AuthenticationService {
     public currentUser: User;
     public isUserLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-    testUser: User = {
-        name: 'Petike',
-        email: 'kinp@xy.com'
-    };
-
     constructor(private http: HttpClient) {
         if (localStorage.getItem('currentUser')) {
             this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -26,32 +21,32 @@ export class AuthenticationService {
     }
 
     login(data: LoginData) {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(this.testUser);
-                // reject('HIBA');
-            }, 1500);
-        })
-        .then((response: User) => {
-            this.currentUser = response;
-            localStorage.setItem('currentUser', JSON.stringify(response));
-            this.isUserLoggedIn.next(true);
-            return response;
-        });
-        console.log(data);
-        // return this.http.post(this.URL, {email: data.email, password: data.password}).toPromise()
-        // .then((response: User) => {
-        //     this.currentUser = response;
-        //     localStorage.setItem('currentUser', JSON.stringify(response));
-        //     this.isUserLoggedIn.next(true);
-        //     return response;
-        // })
-        // .catch((error) => {
-        //     this.currentUser = null;
-        //     console.log('authService error: ', error);
-        //     // HANDLE ERROR
-        //     return error;
-        // });
+
+        // login details in Form Data format
+        const formData = new FormData();
+        formData.append('username', data.email);
+        formData.append('password', data.password);
+
+        // send POST request with form data
+        return this.http.post(this.URL, formData).toPromise()
+            .then((response: any) => {
+                // for debugging
+                console.log('%c@AuthenticationService --> login().then() : ', 'color:darkorange;font-weight:bold;');
+                console.log('logged in: ' + response.user.name);
+                // ----------------
+                this.currentUser = response.user;
+                localStorage.setItem('currentUser', JSON.stringify(response.user));
+                this.isUserLoggedIn.next(true);
+                return response;
+            })
+            .catch((error) => {
+                this.currentUser = null;
+                // for debugging
+                console.log('%c@AuthenticationService --> login().catch() : ', 'color:darkorange;font-weight:bold;');
+                console.log(error);
+                // --------------
+                throw error; // throw forward to login-modal-component
+            });
     }
 
     logout() {
