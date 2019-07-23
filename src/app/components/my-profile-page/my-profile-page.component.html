@@ -10,23 +10,29 @@
           <input type="file" class="text-center center-block well well-sm">
         </div>
       </div>
+
       <div class="modal-body">
         <div class="alert alert-danger" role="alert" *ngIf="showNetworkAlert">
           A változtatások mentése nem sikerült, próbáld újra!
         </div>
+      </div>
       <!-- edit form column -->
       <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
         <form class="form-horizontal" role="form">
           <div class="form-group">
             <label class="col-lg-3 control-label"><b>Név:</b></label>
             <div class="col-lg-8">
-              <input type="text" placeholder="Név megadása" id="name" [(ngModel)]="user.name" [ngClass]="{'is-invalid': ! isNameValid() }" required>
+              <input type="text" placeholder="Név"  [(ngModel)]="user.name" [ngClass]="{'is-invalid': validator.validateName(isNameValid, user.name)}" required>
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label"><b>E-mail cím:</b></label>
             <div class="col-lg-8">
-              <input type="text" placeholder="Emailcím megadása" id="email" [(ngModel)]="user.email" [ngClass]="{'is-invalid': ! isEmailValid() }" required>
+              <input type="text" placeholder="Emailcím" id="email" [(ngModel)]="user.email" [ngClass]="{'is-invalid': validator.validateEmail(isEmailValid, user.email)}" required>
+            </div>
+            <div class="invalid-feedback"
+                *ngIf="validator.validateEmail(isEmailValid, user.email)">
+                Kérlek, valós e-mail címet adj meg!
             </div>
           </div>
           <div class="form-group">
@@ -51,7 +57,7 @@
           <div class="form-group">
             <label class="col-md-3 control-label"><b>Irányítószám:</b></label>
             <div class="col-md-8">
-              <input type="text" placeholder="Irányítószám megadása" id="postalCode" [(ngModel)]="student.postcode" [ngClass]="{'is-invalid': ! isPostcodeValid() }" required>
+              <input type="text" placeholder="Irányítószám megadása" id="postalCode" [(ngModel)]="user.postcode" [ngClass]="{'is-invalid': validator.validatePostcode(isPostcodeValid, user.postcode)}" required>
             </div>
           </div>
           <div class="form-group">
