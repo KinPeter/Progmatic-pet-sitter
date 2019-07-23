@@ -26,6 +26,13 @@ export class SearchDataComponent implements OnInit {
               public fieldValidator: FieldValidatorService,
               private router: Router,) {
 
+      this.searchDataFromMainPage = {
+        name: '',
+        postcode: null,
+        place: this.selectedPlaceType,
+        petType: this.selectedPetType,
+      }
+
       this.petTypes = this.petTypeService.getPetTypeArray();
       this.petTypes.unshift( {key: "NONE", value: "Kedvenced típusa"} );
       if(!this.dataTrService.searchData) {

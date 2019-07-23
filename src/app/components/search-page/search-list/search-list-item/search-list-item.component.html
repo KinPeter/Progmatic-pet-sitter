@@ -1,15 +1,15 @@
-<li class="job_listing">
+<!-- <li class="job_listing"> -->
     <a routerLink="profile.html#">
-      <img src="assets/images/job-thumb2.jpg" alt="KiVisPic" class="company_logo">
+      <img src="assets/images/job-thumb2.jpg" alt="KiVi'sPic" class="company_logo">
       <div class="position">
-        <h3>John Doe</h3>
+        <h3>{{sitter.name}}</h3>
         <div class="company">
           <strong>Dog Walker</strong>
         </div>
       </div>
       <div class="location">
         <i class="fa fa-map-marker"></i>
-          <!-- address -->
+        <span>{{sitter.postcode}}, {{sitter.city}}</span>
       </div>
       <!-- <ul class="meta">
         <li class="date">
@@ -17,4 +17,4 @@
         </li>
       </ul> -->
     </a>
-</li>
+<!-- </li> -->
