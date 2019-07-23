@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import {User} from '../../interfaces/user';
+import {UserService} from '../../services/user.service';
+import { PettypeService } from '../../services/pettype.service';
+import { ServicePlaceService } from '../../services/service-place.service';
+import { SearchData, PetType, PlaceOfService, KeyValue} from '../../interfaces/search-data';
 
 @Component({
     selector: 'app-my-profile-page',
@@ -7,9 +12,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyProfilePageComponent implements OnInit {
 
-    constructor() { }
+    @Input()
+    user: User;
+    errors: string[];
+    showNetworkAlert: boolean;
+    petType: KeyValue[];
+    sercivePlaceType: KeyValue[];
+
+    constructor(private pettypeService: PettypeService, private servicePlaceService: ServicePlaceService, private userService: UserService) {
+      this.errors = [];
+      this.showNetworkAlert = false;
+      this.petType = this.pettypeService.getPetTypeArray();
+      this.sercivePlaceType = this.servicePlaceService.getServicePlaceTypeArray();
+
+    }
 
     ngOnInit() {
     }
+
+    save(): void {
+    this.showNetworkAlert = false;
+    this.userService.modifyUser(this.user).catch(() =>{
+      showNetworkAlert: true;
+
+    });
+  }
 
 }
