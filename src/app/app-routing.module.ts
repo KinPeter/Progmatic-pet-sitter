@@ -11,7 +11,7 @@ import { WannabeSitterPageComponent } from './components/wannabe-sitter-page/wan
 
 const routes: Routes = [
     { path: '', component: FrontPageComponent, pathMatch: 'full' },
-    { path: 'search-page', component: SearchPageComponent},
+    { path: 'search/sitters', component: SearchPageComponent},
     { path: 'registration-page', component: RegistrationPageComponent},
     { path: 'my-profile-page', component: MyProfilePageComponent, canActivate: [AuthGuardService]},
     { path: 'wannabe-sitter-page', component: WannabeSitterPageComponent},

@@ -28,4 +28,8 @@ export class FieldValidatorService {
       }
     }
 
+    validateName(name: string): boolean {
+        return name.trim() !== '';
+    }
+
 }
