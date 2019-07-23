@@ -4,11 +4,33 @@ import { FieldValidatorService } from 'src/app/services/field-validator.service'
 import { PetType, PlaceOfService } from '../../interfaces/search-data';
 import { UserService } from 'src/app/services/user.service';
 import { User, Owner, Sitter } from '../../interfaces/user';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
     selector: 'app-registration-page',
     templateUrl: './registration-page.component.html',
-    styleUrls: ['./registration-page.component.scss']
+    styleUrls: ['./registration-page.component.scss'],
+    animations: [
+        trigger('dropdownForm', [
+            state('in', style({
+                opacity: 1,
+                transform: 'scaleY(1)'
+            })),
+            transition('void => *', [ // fade-in animation
+                style({ // initial style, before added to the DOM
+                    opacity: 0,
+                    transform: 'scaleY(0)'
+                }),
+                animate(300)
+            ]),
+            transition('* => void', [ // fade-out animation
+                animate(300, style({
+                    opacity: 0,
+                    transform: 'scaleY(0)'
+                }))
+            ])
+        ])
+    ]
 })
 export class RegistrationPageComponent implements OnInit {
 

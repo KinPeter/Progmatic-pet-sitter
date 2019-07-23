@@ -41,7 +41,7 @@
     <section>
         <h3>Kisállat tulajként regisztrálnál?</h3>
         <button class="btn btn-warning btn-sm" (click)="ownerDataOpen = !ownerDataOpen">Kisállat tulaj vagyok <i class="fa fa-caret-down"></i></button>
-        <div *ngIf="ownerDataOpen">
+        <div *ngIf="ownerDataOpen" [@dropdownForm] class="dropdown-form">
             <label for="myPetType"><b>Kérlek válaszd ki, milyen állatod van:</b></label>
             <select id="myPetType" [(ngModel)]="ownerData.petType" name="myPetType" class="form-control">
                 <option value="Kutya">Kutya</option>
@@ -61,7 +61,7 @@
     <section>
         <h3>Kisállat vigyázóként regisztrálnál?</h3>
         <button class="btn btn-warning btn-sm" (click)="sitterDataOpen = !sitterDataOpen">KisállatVigyázó szeretnék lenni! <i class="fa fa-caret-down"></i></button>
-        <div *ngIf="sitterDataOpen">
+        <div *ngIf="sitterDataOpen" [@dropdownForm] class="dropdown-form">
             <label for="city"><b>Város:</b></label>
             <input type="text" [(ngModel)]="sitterData.city" placeholder="Város megadása" name="city" class="form-control">
             <label for="address"><b>Utca:</b></label>
