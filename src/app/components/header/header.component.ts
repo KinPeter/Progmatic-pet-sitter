@@ -35,7 +35,9 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit(): void {
         window.addEventListener('scroll', () => { this.scrollCheck(); }, false);
+        console.log('%c@FrontPageComponent.OnInit()', 'color:darkorange;font-weight:bold');
         console.log('userLoggedIn: ', this.userLoggedIn);
+        if (this.userLoggedIn) { console.log(this.auth.currentUser); }
     }
 
     private scrollCheck(): void {

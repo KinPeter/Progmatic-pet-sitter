@@ -66,8 +66,7 @@ export class LoginModalComponent implements OnInit {
     private isPasswordValid: boolean;
     private isLoading: boolean;
     private isLoginSuccessful: boolean;
-    private isLoginError: boolean;
-    private errorMessage: string;
+    private isLoginError: number;
 
     constructor(
         private validator: FieldValidatorService,
@@ -81,13 +80,12 @@ export class LoginModalComponent implements OnInit {
         this.isPasswordValid = true;
         this.isLoading = false;
         this.isLoginSuccessful = false;
-        this.isLoginError = false;
-        this.errorMessage = '';
+        this.isLoginError = 0;
     }
 
     closeMe() {
         this.closeThis.emit();
-        this.isLoginError = false;
+        this.isLoginError = 0;
         this.isLoginSuccessful = false;
     }
 
@@ -101,18 +99,17 @@ export class LoginModalComponent implements OnInit {
             this.auth.login(this.loginData).then((response) => {
                 this.isLoginSuccessful = true;
                 // For Debugging
-                console.error('%c@LoginModalComponent --> sendLoginData().then() :', 'color:darkorange;font-weight:bold;');
+                console.log('%c@LoginModalComponent --> sendLoginData().then() :', 'color:darkorange;font-weight:bold;');
                 console.log(response);
                 // ---------------------
                 setTimeout(() => { this.closeMe(); }, 1500);
             })
             .catch((error) => {
                 // For Debugging
-                console.error('%c@LoginModalComponent --> sendLoginData().catch() :', 'color:darkorange;font-weight:bold;');
+                console.log('%c@LoginModalComponent --> sendLoginData().catch() :', 'color:darkorange;font-weight:bold;');
                 console.log(error);
                 // ---------------------
-                this.errorMessage = error.statusText;
-                this.isLoginError = true;
+                this.isLoginError = error.status;
                 setTimeout(() => { this.closeMe(); }, 5000);
             })
             .finally(() => {
