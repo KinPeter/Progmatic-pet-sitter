@@ -1,5 +1,18 @@
+@import '../../../variables.scss';
+
 header {
     transition: 0.4s;
+}
+
+h4.userLoginName {
+    margin-top: 2rem;
+    span {
+        font-weight: bold;
+        color: $kiviGreen;
+    }
+    i {
+        color: $kiviGreen;
+    }
 }
 
 .header-flex {
@@ -57,6 +70,9 @@ header.scrolled {
             position: fixed;
             top: 9px;
             left: calc(100vw - 32%);
+        }
+        h4.userLoginName {
+            display: none;
         }
     }
 }

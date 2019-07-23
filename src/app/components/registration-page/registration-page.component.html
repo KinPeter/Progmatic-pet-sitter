@@ -1,86 +1,102 @@
-<div action="action_page.php" style="border:1px solid #ccc">
-  <div class="container">
-    <h1>Regisztráció</h1>
-    <p>Töltsd ki az alábbi mezőket a sikeres regisztrációhoz!</p>
+<div class="container">
+<div class="row">
+<div class="col-md-6 col-md-offset-3">
+    <section>
+        <h1>Regisztráció</h1>
+        <p>Töltsd ki az alábbi mezőket a sikeres regisztrációhoz!</p>
+        <hr>
+        <label for="name"><b>Név</b></label>
+        <input type="text" [(ngModel)]="user.name" placeholder="Név megadása" name="name" class="form-control" required>
+
+        <label for="email"><b>Email</b></label>
+        <input type="text" [(ngModel)]="user.email" placeholder="Emailcím megadása" name="email" class="form-control" required>
+
+        <label for="psw"><b>Jelszó</b></label>
+        <input type="password" [(ngModel)]="user.password" placeholder="Jelszó megadása" name="psw" class="form-control" required>
+
+        <label for="psw-repeat"><b>Jelszó megerősítése</b></label>
+        <input type="password" [(ngModel)]="passwordConfirm" placeholder="Jelszó ismételt megadása" name="psw-repeat" class="form-control"
+            required>
+    </section>
+
+    <!-- <hr>
+
+    <section>
+        <h2>Fotó feltöltése</h2>
+        Válaszd ki a feltölteni kívánt fotót!
+        <input type="file" name="img" class="btn btn-primary btn-sm">
+        <br>
+    </section> -->
+
     <hr>
-    <label for="name"><b>Név</b></label>
-    <input type="text" placeholder="Név megadása" name="name" required>
 
-    <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Emailcím megadása" name="email" required>
+    <section>
+        <h2>Már most tudod, mire fogod használni az oldalt?</h2>
+        Bár regisztrációt követően is ráérsz választani, de ha szeretnéd, már most megadhatod az ehhez szükséges adatokat.
+        <br>
+    </section>
 
-    <label for="psw"><b>Jelszó</b></label>
-    <input type="password" placeholder="Jelszó megadása" name="psw" required>
+    <hr>
 
-    <label for="psw-repeat"><b>Jelszó megerősítése</b></label>
-    <input type="password" placeholder="Jelszó ismételt megadása" name="psw-repeat" required>
+    <section>
+        <h3>Kisállat tulajként regisztrálnál?</h3>
+        <button class="btn btn-warning btn-sm" (click)="ownerDataOpen = !ownerDataOpen">Kisállat tulaj vagyok <i class="fa fa-caret-down"></i></button>
+        <div *ngIf="ownerDataOpen" [@dropdownForm] class="dropdown-form">
+            <label for="myPetType"><b>Kérlek válaszd ki, milyen állatod van:</b></label>
+            <select id="myPetType" [(ngModel)]="ownerData.petType" name="myPetType" class="form-control">
+                <option value="Kutya">Kutya</option>
+                <option value="Macska">Macska</option>
+                <option value="Madár">Madár</option>
+                <option value="Rágcsáló">Rágcsáló</option>
+                <option value="Hüllő">Hüllő</option>
+            </select>
+            <label for="petsname"><b>Kisállatom neve:</b></label>
+            <input type="text" [(ngModel)]="ownerData.petName" placeholder="Kisállatom nevének megadása" name="petsname"
+                class="form-control">
+        </div>
+    </section>
 
-    <h1>Fotó feltöltése</h1>Válaszd ki a feltölteni kívánt fotót!<input type="file" name="img">
-    <br>
+    <hr>
+
+    <section>
+        <h3>Kisállat vigyázóként regisztrálnál?</h3>
+        <button class="btn btn-warning btn-sm" (click)="sitterDataOpen = !sitterDataOpen">KisállatVigyázó szeretnék lenni! <i class="fa fa-caret-down"></i></button>
+        <div *ngIf="sitterDataOpen" [@dropdownForm] class="dropdown-form">
+            <label for="city"><b>Város:</b></label>
+            <input type="text" [(ngModel)]="sitterData.city" placeholder="Város megadása" name="city" class="form-control">
+            <label for="address"><b>Utca:</b></label>
+            <input type="text" [(ngModel)]="sitterData.address" placeholder="Utca megadása" name="address" class="form-control">
+            <label for="postalCode"><b>Irányítószám</b></label>
+            <input type="text" [(ngModel)]="sitterData.postcode" placeholder="Irányítószám megadása" name="postalCode" class="form-control">
+            <label for="intro"><b>Bemutatkozó szöveg:</b></label>
+            <input type="text" [(ngModel)]="sitterData.intro" placeholder="Bemutatkozó szöveg megadása" name="intro" class="form-control">
+            <label for="placeOfService"><b>Szolgáltatás nyújtásának helye:</b></label>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" checked="checked">Házhoz megyek 
+                    </label>
+                </div>
+                <div class="col-md-6">
+                    <label class="checkbox-inline">
+                        <input type="checkbox">Saját otthonomban fogadom 
+                    </label>
+                </div>
+            </div>
+            <br>
+            <label for="petTypes"><b>Milyen állatot vállalsz:</b></label>
+            <input type="text" placeholder="Vállalt állat megadása" name="petTypes" class="form-control">
+            <label for="pricePerHour"><b>Órabér:</b></label>
+            <input type="text" [(ngModel)]="sitterData.wage" placeholder="Órabér megadása" name="pricePerHour" class="form-control">
+        </div>
+    </section>
 
 
-
-
-
-
-
-
-    <div class="dropdown">
-      <button onclick="myFunction()" class="dropbtn">Kisállat tulaj vagyok</button>
-      <div id="myDropdown" class="dropdown-content">
-          <br>
-          <label for="country">Kérlek válaszd ki, milyen állatod van:</label>
-          <select id="country" name="country">
-            <option value="Kutya">Kutya</option>
-            <option value="Macska">Macska</option>
-            <option value="Madár">Madár</option>
-            <option value="Rágcsáló">Rágcsáló</option>
-            <option value="Hüllő">Hüllő</option>
-          </select>
-          <br>
-          <label for="city"><b>Kisállatom neve:</b></label>
-          <input type="text" placeholder="Kisállatom nevének megadása" name="petsname" required>
-
-        <label for="petsname"><b></b></label>
-      </div>
+    <div class="text-center final-button-box">
+        <button type="button" class="btn btn-info" routerLink="/">Mégsem</button>
+        <button type="submit" class="btn btn-success" (click)="submitRegistration()">Regisztrálok</button>
     </div>
-    <div class="dropdown">
-      <button onclick="myFunction()" class="dropbtn">KisállatVigyázó szeretnék lenni!</button>
-      <div id="myDropdown" class="dropdown-content">
-        <label for="city"><b>Város:</b></label>
-        <input type="text" placeholder="Város megadása" name="city" required>
-        <label for="address"><b>Utca:</b></label>
-        <input type="text" placeholder="Utca megadása" name="address" required>
-        <label for="postalCode"><b>Irányítószám</b></label>
-        <input type="text" placeholder="Irányítószám megadása" name="postalCode" required>
-        <label for="intro"><b>Bemutatkozó szöveg:</b></label>
-        <input type="text" placeholder="Bemutatkozó szöveg megadása" name="intro" required>
-
-
-        <label for="placeOfService"><b>Szolgáltatás nyújtásának helye:</b></label>
-        <label class="container">Házhoz megyek
-          <input type="checkbox" checked="checked">
-          <span class="checkmark"></span>
-        </label>
-        <label class="container">Saját otthonomban fogadom
-          <input type="checkbox">
-          <span class="checkmark"></span>
-        </label>
-
-        <label for="petTypes"><b>Milyen állatot vállalsz:</b></label>
-        <input type="text" placeholder="Vállalt állat megadása" name="petTypes" required>
-        <label for="pricePerHour"><b>Órabér:</b></label>
-        <input type="text" placeholder="Órabér megadása" name="pricePerHour" required>
-      </div>
-    </div>
-
-
-    <div class="clearfix">
-      <button type="button" class="cancelbtn" (click)="toHomeTop()">Mégsem</button>
-      <button type="submit" class="signupbtn">Regisztrálok</button>
-    </div>
-
-
-
-    </div>
+</div>
+</div>
 </div>

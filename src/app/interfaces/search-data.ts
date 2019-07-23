@@ -1,20 +1,20 @@
 export enum PetType {
-  DOG = "Kutya",
-  CAT = "Macska",
-  BIRD = "Madár",
-  RODENT = "Rágcsáló",
-  REPTILE = "Hüllő"
+  DOG = 'Kutya',
+  CAT = 'Macska',
+  BIRD = 'Madár',
+  RODENT = 'Rágcsáló',
+  REPTILE = 'Hüllő'
 }
 
-export enum PlaceOfService{
-  SITTERS_HOME = "KiVihez viszem a kisállatomat",
-  OWNERS_HOME = "Fogadom a KiVit"
+export enum PlaceOfService {
+  SITTERS_HOME = 'KiVihez viszem a kisállatomat',
+  OWNERS_HOME = 'Fogadom a KiVit'
 }
 
 export interface SearchData {
   name: string;
   postcode: string;
-  place : PlaceOfService;
+  place: PlaceOfService;
   petType: PetType;
 }
 
