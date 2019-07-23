@@ -100,13 +100,20 @@ export class LoginModalComponent implements OnInit {
 
             this.auth.login(this.loginData).then((response) => {
                 this.isLoginSuccessful = true;
+                // For Debugging
+                console.error('%c@LoginModalComponent --> sendLoginData().then() :', 'color:darkorange;font-weight:bold;');
                 console.log(response);
-                // ??? mit kell még itt?
+                // ---------------------
                 setTimeout(() => { this.closeMe(); }, 1500);
             })
             .catch((error) => {
-                this.errorMessage = error;
+                // For Debugging
+                console.error('%c@LoginModalComponent --> sendLoginData().catch() :', 'color:darkorange;font-weight:bold;');
+                console.log(error);
+                // ---------------------
+                this.errorMessage = error.statusText;
                 this.isLoginError = true;
+                setTimeout(() => { this.closeMe(); }, 5000);
             })
             .finally(() => {
                 this.isLoading = false;

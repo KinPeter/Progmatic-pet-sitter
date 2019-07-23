@@ -52,7 +52,7 @@ import { SpinnerComponent } from './components/ui/spinner/spinner.component';
         BrowserAnimationsModule
     ],
     providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+        // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
     ],
     bootstrap: [AppComponent]
 })

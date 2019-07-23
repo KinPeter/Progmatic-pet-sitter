@@ -22,15 +22,16 @@
             <label class="pull-left">
                 Jelszó <span class="required">*</span>
             </label>
-            <span class="pull-right"><a href="page-login.html#">Elfelejtetted a jelszavad?</a></span>
         </div>
         <input type="password" 
-            class="form-control" 
-            [(ngModel)]="loginData.password"
-            [ngClass]="{'is-invalid': !isPasswordValid}" >
+        class="form-control" 
+        [(ngModel)]="loginData.password"
+        [ngClass]="{'is-invalid': !isPasswordValid}"
+        (keyup.enter)="sendLoginData()" >
         <div class="invalid-feedback" *ngIf="!isPasswordValid">
             Kérlek, add meg a jelszavad!
         </div>
+        <span class="pull-right"><a href="page-login.html#">Elfelejtetted a jelszavad?</a></span>
     </div>
     <div class="alert alert-success" *ngIf="isLoginSuccessful">A bejelentkezés sikeres.</div>
     <div class="alert alert-danger" *ngIf="isLoginError">Hiba történt: {{ errorMessage }}</div>
