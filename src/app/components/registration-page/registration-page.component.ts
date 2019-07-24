@@ -87,10 +87,6 @@ export class RegistrationPageComponent implements OnInit {
         this.ownerData = {
             pets: []
         };
-        // this.ownerData = {
-        //     petType: null,
-        //     petName: ''
-        // };
         this.sitterData = {
             address: '',
             postCode: null,
@@ -119,29 +115,16 @@ export class RegistrationPageComponent implements OnInit {
         console.log(this.sitterData.services);
     }
 
-    // checkPlaceForSitter(): boolean {
-    //     if (this.isSittersHomeChecked) {
-    //         this.sitterData.place.push(PlaceOfService.SITTERS_HOME);
-    //     }
-    //     if (this.isOwnersHomeChecked) {
-    //         this.sitterData.place.push(PlaceOfService.OWNERS_HOME);
-    //     }
-    //     return !!this.sitterData.place.length; // FALSy lesz ha üres
-    // }
-
-
 
     submitRegistration() {
         // ha le van nyitva - ergo kitöltötte az OWNER adatokat, adja hozzá a user-hez
-        // if (this.ownerDataOpen) { this.user.ownerData = this.ownerData; }
+        if (this.ownerDataOpen) {
+        //     this.user.ownerData = this.ownerData;
+        }
 
 
         // ha le van nyitva - ergo kitöltötte a SITTER adatokat, adja hozzá a user-hez
         if (this.sitterDataOpen) {
-            // // bejelölt-e legalább egy helyszínt
-            // if (!this.checkPlaceForSitter()) {
-            //     // csinálni valamit ha NEM jelölt meg egyet sem!
-            // }
 
             // this.user.sitterData = this.sitterData;
         }
