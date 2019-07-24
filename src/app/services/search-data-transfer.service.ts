@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {SearchData, PlaceOfService, PetType} from '../interfaces/search-data';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { SearchedSitterDTO } from '../interfaces/searchedSitter-dto';
 import { SearchedSitter } from '../interfaces/searchedSitter';
 import { SearchError } from '../errors/search-error';
@@ -11,32 +11,32 @@ import { SearchError } from '../errors/search-error';
 export class SearchDataTransferService {
 
   public searchData: SearchData;
-  private readonly URL = '?';
+  private readonly URL = 'http://192.168.1.237:8080/search/sitters';
   sitters: SearchedSitter[];
 
   constructor(private http: HttpClient) {
-    this.sitters = [
-      {
-        id: 1,
-        name: "Wincs Eszter",
-        postalCode: "4032",
-        city: "Debrecen",
-        services: {
-          place: PlaceOfService.SITTERS_HOME,
-          petType: PetType.DOG
-        }
-      },
-      {
-        id: 2,
-        name: "Citad Ella",
-        postalCode: "1111",
-        city: "Budapest",
-        services: {
-          place: PlaceOfService.OWNERS_HOME,
-          petType: PetType.CAT
-        }
-      }
-    ];
+    // this.sitters = [
+    //   {
+    //     id: 1,
+    //     name: "Wincs Eszter",
+    //     postalCode: "4032",
+    //     city: "Debrecen",
+    //     services: {
+    //       place: PlaceOfService.SITTERS_HOME,
+    //       petType: PetType.DOG
+    //     }
+    //   },
+    //   {
+    //     id: 2,
+    //     name: "Citad Ella",
+    //     postalCode: "1111",
+    //     city: "Budapest",
+    //     services: {
+    //       place: PlaceOfService.OWNERS_HOME,
+    //       petType: PetType.CAT
+    //     }
+    //   }
+    // ];
   }
 
   private transformSitterDTO(serverData: SearchedSitterDTO ): SearchedSitter[]{
@@ -58,7 +58,12 @@ export class SearchDataTransferService {
   }
 
   searchSitter(searchData: SearchData): void {
-      this.http.post(this.URL, {searchData}, {withCredentials: true})
+    console.log(JSON.stringify(searchData));
+    let httpParams = new HttpParams();
+Object.keys(searchData).forEach(function (key) {
+     httpParams = httpParams.append(key, searchData[key]);
+});
+      this.http.get(this.URL, {params: httpParams, withCredentials: true})
       .toPromise().then(this.transformSitterDTO).then(values => {
         this.sitters = values;
       });
