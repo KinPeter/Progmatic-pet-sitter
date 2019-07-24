@@ -31,23 +31,24 @@ export class MyProfilePageComponent implements OnInit {
   //    this.sercivePlaceType = this.servicePlaceService.getServicePlaceTypeArray();
       this.user = {
           userId: 1,
-          name: "Gina",
-          email: "abc@gmai.com",
+          name: 'Gina',
+          email: 'abc@gmai.com',
           ownerData: {
-            pettype: PetType.CAT
+            petType: PetType.CAT,
+            petName: 'Cirmi'
           },
           sitterData: {
-            address: "Csemete utca 10.",
-            postcode: "1036",
-            city: "Budapest",
-            introductionText: "string",
-            place: PlaceOfService.OWNERS_HOME,
-            petType: PetType.DOG,
+            address: 'Csemete utca 10.',
+            postcode: '1036',
+            city: 'Budapest',
+            intro: 'string',
+            place: [PlaceOfService.OWNERS_HOME],
+            petType: [PetType.DOG],
             wage: 5000,
           }
 
       }
-      //this.user = this.auth.currentUser;
+      // this.user = this.auth.currentUser;
 
 
     }
@@ -57,7 +58,7 @@ export class MyProfilePageComponent implements OnInit {
 
     save(): void {
     this.showNetworkAlert = false;
-    this.userService.modifyUser(this.user).catch(() =>{
+    this.userService.modifyUser(this.user).catch(() => {
       showNetworkAlert: true;
 
     });
