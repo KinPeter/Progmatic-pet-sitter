@@ -43,16 +43,27 @@
         <button class="btn btn-warning btn-sm" (click)="ownerDataOpen = !ownerDataOpen">Kisállat tulaj vagyok <i class="fa fa-caret-down"></i></button>
         <div *ngIf="ownerDataOpen" [@dropdownForm] class="dropdown-form">
             <label for="myPetType"><b>Kérlek válaszd ki, milyen állatod van:</b></label>
-            <select id="myPetType" [(ngModel)]="ownerData.petType" name="myPetType" class="form-control">
-                <option value="Kutya">Kutya</option>
-                <option value="Macska">Macska</option>
-                <option value="Madár">Madár</option>
-                <option value="Rágcsáló">Rágcsáló</option>
-                <option value="Hüllő">Hüllő</option>
+            <select id="myPetType" [(ngModel)]="currentPetType" name="myPetType" class="form-control">
+                <option value="DOG">Kutya</option>
+                <option value="CAT">Macska</option>
+                <option value="BIRD">Madár</option>
+                <option value="RODENT">Rágcsáló</option>
+                <option value="REPTILE">Hüllő</option>
             </select>
             <label for="petsname"><b>Kisállatom neve:</b></label>
-            <input type="text" [(ngModel)]="ownerData.petName" placeholder="Kisállatom nevének megadása" name="petsname"
+            <input type="text" [(ngModel)]="currentPetName" placeholder="Kisállatom nevének megadása" name="petsname"
                 class="form-control">
+            <button class="btn btn-success" (click)="addToMyPets()">Állat hozzáadása</button>
+            <hr>
+            <div *ngIf=ownerData.pets.length>
+                <h3>Állataid:</h3>
+                <ul>
+                    <li *ngFor="let pet of ownerData.pets">
+                        <b>{{ pet.petName }}</b> : {{ pet.petType }}
+                    </li>
+                </ul>
+                <hr>
+            </div>
         </div>
     </section>
 
@@ -69,26 +80,36 @@
             <label for="postalCode"><b>Irányítószám</b></label>
             <input type="text" [(ngModel)]="sitterData.postcode" placeholder="Irányítószám megadása" name="postalCode" class="form-control">
             <label for="intro"><b>Bemutatkozó szöveg:</b></label>
-            <input type="text" [(ngModel)]="sitterData.intro" placeholder="Bemutatkozó szöveg megadása" name="intro" class="form-control">
-            <label for="placeOfService"><b>Szolgáltatás nyújtásának helye:</b></label>
-            <br>
-            <div class="row">
-                <div class="col-md-6">
-                    <label class="checkbox-inline">
-                        <input type="checkbox" [(ngModel)]="isOwnersHomeChecked">Házhoz megyek 
-                    </label>
-                </div>
-                <div class="col-md-6">
-                    <label class="checkbox-inline">
-                        <input type="checkbox" [(ngModel)]="isSittersHomeChecked">Saját otthonomban fogadom 
-                    </label>
-                </div>
-            </div>
-            <br>
-            <label for="petTypes"><b>Milyen állatot vállalsz:</b></label>
-            <input type="text" placeholder="Vállalt állat megadása" name="petTypes" class="form-control">
+            <textarea type="text" [(ngModel)]="sitterData.intro" placeholder="Bemutatkozó szöveg megadása" name="intro" class="form-control"></textarea>
+
+            <hr>
+            <h3>Szolgáltatásaid:</h3>            
+            <label for="servicePlace"><b>Szolgáltatás nyújtásának helye:</b></label>
+            <select [(ngModel)]="currentPlaceOfService" name="servicePlace" class="form-control">
+                <option value="OWNERS_HOME">Házhoz megyek</option>
+                <option value="SITTERS_HOME">Saját otthonomban fogadom</option>
+            </select>
+            <label for="servicePetType"><b>Milyen állattal vállalod ezt a szolgáltatást:</b></label>
+            <select [(ngModel)]="currentServicePetType" name="servicePetType" class="form-control">
+                <option value="DOG">Kutya</option>
+                <option value="CAT">Macska</option>
+                <option value="BIRD">Madár</option>
+                <option value="RODENT">Rágcsáló</option>
+                <option value="REPTILE">Hüllő</option>
+            </select>
             <label for="pricePerHour"><b>Órabér:</b></label>
-            <input type="text" [(ngModel)]="sitterData.wage" placeholder="Órabér megadása" name="pricePerHour" class="form-control">
+            <input type="text" [(ngModel)]="currentWage" placeholder="Órabér megadása" name="pricePerHour" class="form-control">
+            <button class="btn btn-success" (click)="addToMyServices()">Szolgáltatás hozzáadása</button>
+            <hr>
+            <div *ngIf=sitterData.services.length>
+                <h3>Vállalt szolgáltatások:</h3>
+                <ul>
+                    <li *ngFor="let service of sitterData.services">
+                        <b>{{ service.placeOfService }}</b> : {{ service.petType }}, {{ service.pricePerHour }} Ft /óra
+                    </li>
+                </ul>
+                <hr>
+            </div>
         </div>
     </section>
 

@@ -6,6 +6,28 @@ import { UserService } from 'src/app/services/user.service';
 import { User, Owner, Sitter } from '../../interfaces/user';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
+// TEMPORARY
+export interface OwnersPet {
+    petName: string;
+    petType: PetType;
+}
+export interface OwnerDataTemp {
+    pets: OwnersPet[];
+}
+export interface SitterService {
+    placeOfService: PlaceOfService;
+    petType: PetType;
+    pricePerHour: number;
+}
+export interface SitterDataTemp {
+    address: string;
+    postCode: number;
+    city: string;
+    intro: string;
+    services: SitterService[];
+}
+// ---------
+
 @Component({
     selector: 'app-registration-page',
     templateUrl: './registration-page.component.html',
@@ -35,13 +57,20 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 export class RegistrationPageComponent implements OnInit {
 
     private user: User;
-    private sitterData: Sitter;
-    private ownerData: Owner;
     private passwordConfirm: '';
-    private isOwnersHomeChecked = false;
-    private isSittersHomeChecked = false;
+
+    // OWNER DATA fields
     private ownerDataOpen = false;
+    private ownerData: OwnerDataTemp; // <<<--- TEMP.
+    private currentPetName = '';
+    private currentPetType = null;
+
+    // SITTER DATA fields
     private sitterDataOpen = false;
+    private sitterData: SitterDataTemp; // <<<--- TEMP.
+    private currentPlaceOfService = PlaceOfService.OWNERS_HOME;
+    private currentServicePetType = PetType.DOG;
+    private currentWage = 0;
 
     constructor(
         private router: Router,
@@ -56,35 +85,55 @@ export class RegistrationPageComponent implements OnInit {
             sitterData: null
         };
         this.ownerData = {
-            petType: null,
-            petName: ''
+            pets: []
         };
+        // this.ownerData = {
+        //     petType: null,
+        //     petName: ''
+        // };
         this.sitterData = {
             address: '',
-            postcode: '',
+            postCode: null,
             city: '',
             intro: '',
-            place: [],
-            petType: [],
-            wage: 0
+            services: []
         };
     }
 
-    checkPlaceForSitter(): boolean {
-        if (this.isSittersHomeChecked) {
-            this.sitterData.place.push(PlaceOfService.SITTERS_HOME);
-        }
-        if (this.isOwnersHomeChecked) {
-            this.sitterData.place.push(PlaceOfService.OWNERS_HOME);
-        }
-        return !!this.sitterData.place.length; // FALSy lesz ha üres
+    addToMyPets(): void {
+        this.ownerData.pets.push({petName: this.currentPetName, petType: this.currentPetType});
+        this.currentPetName = '';
+        this.currentPetType = null;
+        console.log(this.ownerData.pets);
     }
+
+    addToMyServices(): void {
+        this.sitterData.services.push({
+            placeOfService: this.currentPlaceOfService,
+            petType: this.currentServicePetType,
+            pricePerHour: this.currentWage
+        });
+        this.currentPlaceOfService = null;
+        this.currentServicePetType = null;
+        this.currentWage = 0;
+        console.log(this.sitterData.services);
+    }
+
+    // checkPlaceForSitter(): boolean {
+    //     if (this.isSittersHomeChecked) {
+    //         this.sitterData.place.push(PlaceOfService.SITTERS_HOME);
+    //     }
+    //     if (this.isOwnersHomeChecked) {
+    //         this.sitterData.place.push(PlaceOfService.OWNERS_HOME);
+    //     }
+    //     return !!this.sitterData.place.length; // FALSy lesz ha üres
+    // }
 
 
 
     submitRegistration() {
         // ha le van nyitva - ergo kitöltötte az OWNER adatokat, adja hozzá a user-hez
-        if (this.ownerDataOpen) { this.user.ownerData = this.ownerData; }
+        // if (this.ownerDataOpen) { this.user.ownerData = this.ownerData; }
 
 
         // ha le van nyitva - ergo kitöltötte a SITTER adatokat, adja hozzá a user-hez
@@ -94,7 +143,7 @@ export class RegistrationPageComponent implements OnInit {
             //     // csinálni valamit ha NEM jelölt meg egyet sem!
             // }
 
-            this.user.sitterData = this.sitterData;
+            // this.user.sitterData = this.sitterData;
         }
 
 

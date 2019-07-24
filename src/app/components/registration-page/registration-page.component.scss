@@ -8,8 +8,12 @@
   margin: 5rem auto 8rem;
 }
 
-input, select {
+input, select, textarea {
   margin-bottom: 1rem;
+}
+
+textarea {
+  resize: vertical;
 }
 
 .btn-warning {
