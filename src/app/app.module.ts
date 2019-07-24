@@ -42,7 +42,7 @@ import { SpinnerComponent } from './components/ui/spinner/spinner.component';
         SearchDataComponent,
         SearchListComponent,
         SearchListItemComponent,
-        SpinnerComponent
+        SpinnerComponent,
     ],
     imports: [
         BrowserModule,
