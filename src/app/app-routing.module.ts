@@ -7,6 +7,7 @@ import { SearchPageComponent } from './components/search-page/search-page.compon
 import { RegistrationPageComponent } from './components/registration-page/registration-page.component';
 import { MyProfilePageComponent } from './components/my-profile-page/my-profile-page.component';
 import { WannabeSitterPageComponent } from './components/wannabe-sitter-page/wannabe-sitter-page.component';
+import { SitterProfilePageComponent } from './components/sitter-profile-page/sitter-profile-page.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
     { path: 'registration-page', component: RegistrationPageComponent},
     { path: 'my-profile-page', component: MyProfilePageComponent, canActivate: [AuthGuardService]},
     { path: 'wannabe-sitter-page', component: WannabeSitterPageComponent},
+    { path: 'sitter-profile-page', component: SitterProfilePageComponent},
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
