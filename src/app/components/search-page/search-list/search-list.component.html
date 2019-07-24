@@ -1,8 +1,8 @@
 <!-- <ul class="job_listings" *ngIf="!isLoading && sitters.length === 0">
   <li class="job_listing">Nincs a keresésnek megfelelő KiVi</li>
 </ul> -->
-<ul>
-  <li app-search-list-item *ngFor="let s of sitters" [sitter]="s" (refresh)="refreshSitters($event)"></li>
+<ul class="job_listings">
+  <li app-search-list-item class="job_listing" *ngFor="let s of sitters" [sitter]="s" (refresh)="refreshSitters($event)"></li>
 </ul>
 
 <div class="spacer"></div>

@@ -1,8 +1,13 @@
+import { PlaceOfService, PetType } from './search-data';
+
 export interface SearchedSitter {
     id: number;
-    photo?: Blob;
     name: string;
-    postcode: string;
+    postalCode: string;
     city: string;
+    services: {
+      place: PlaceOfService;
+      petType: PetType;
+    }
     //wage: number;
 }

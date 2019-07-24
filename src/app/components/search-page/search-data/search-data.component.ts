@@ -5,6 +5,7 @@ import { SearchDataTransferService } from 'src/app/services/search-data-transfer
 import { PettypeService } from 'src/app/services/pettype.service';
 import { ServicePlaceService } from 'src/app/services/service-place.service';
 import { FieldValidatorService } from 'src/app/services/field-validator.service';
+import { SearchedSitter } from 'src/app/interfaces/searchedSitter';
 
 @Component({
   selector: 'app-search-data',
@@ -29,8 +30,8 @@ export class SearchDataComponent implements OnInit {
       this.searchDataFromMainPage = {
         name: '',
         postcode: null,
-        place: this.selectedPlaceType,
-        petType: this.selectedPetType,
+        place: null,
+        petType: null,
       }
 
       this.petTypes = this.petTypeService.getPetTypeArray();
@@ -56,6 +57,9 @@ export class SearchDataComponent implements OnInit {
             petType: this.selectedPetType,
           }
       }
+  }
+  search(): void {
+      this.dataTrService.searchSitter(this.searchDataFromMainPage);
   }
 
 

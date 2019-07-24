@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchDataTransferService } from 'src/app/services/search-data-transfer.service';
 import { SearchedSitter } from 'src/app/interfaces/searchedSitter';
+import { PlaceOfService, PetType, SearchData } from 'src/app/interfaces/search-data';
 
 
 @Component({
@@ -15,21 +16,7 @@ export class SearchListComponent implements OnInit {
 
 
   constructor(private searchDataService: SearchDataTransferService) {
-      this.sitters = [
-        {
-          id: 1,
-          name: "Wincs Eszter",
-          postcode: "4032",
-          city: "Debrecen"
-        },
-        {
-          id: 2,
-          name: "Citad Ella",
-          postcode: "1111",
-          city: "Budapest"
-        }
-      ];
-
+    this.sitters = this.searchDataService.sitters;
   }
 
   ngOnInit() {
