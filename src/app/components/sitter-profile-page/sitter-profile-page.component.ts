@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SearchedSitter } from 'src/app/interfaces/searchedSitter';
 
 @Component({
     selector: 'app-sitter-profile-page',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./sitter-profile-page.component.scss']
 })
 export class SitterProfilePageComponent implements OnInit {
+
+    sitter: SearchedSitter;
 
     constructor() { }
 
