@@ -3,7 +3,7 @@ import {SearchData, PlaceOfService, PetType} from '../interfaces/search-data';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { SearchedSitterDTO } from '../interfaces/searchedSitter-dto';
 import { SearchedSitter } from '../interfaces/searchedSitter';
-import { SearchError } from '../errors/search-error';
+//import { SearchError } from '../errors/search-error';
 
 @Injectable({
   providedIn: 'root'
@@ -40,10 +40,7 @@ export class SearchDataTransferService {
   }
 
   private transformSitterDTO(serverData: SearchedSitterDTO ): SearchedSitter[]{
-    if (!serverData.success){
-      throw new SearchError(serverData['error-infos']);
-    }
-    return serverData.searchedSitter;
+      return serverData.searchedSitter;
   }
 
 
@@ -52,22 +49,23 @@ export class SearchDataTransferService {
       .then( this.transformSitterDTO );
   }
 
-  getSitter(userId: number): Promise<SearchedSitter> {
-      return this.http.get(this.URL + '?id=' + userId, {withCredentials: true})
-      .toPromise().then(this.transformSitterDTO).then( values => values[0]);
-  }
+  // getSitter(userId: number): Promise<SearchedSitter> {
+  //     return this.http.get(this.URL + '?id=' + userId, {withCredentials: true})
+  //     .toPromise().then(this.transformSitterDTO).then( values => values[0]);
+  // }
 
   searchSitter(searchData: SearchData): void {
-    console.log(JSON.stringify(searchData));
-    let httpParams = new HttpParams();
-Object.keys(searchData).forEach(function (key) {
-     httpParams = httpParams.append(key, searchData[key]);
-});
-      this.http.get(this.URL, {params: httpParams, withCredentials: true})
-      .toPromise().then(this.transformSitterDTO).then(values => {
-        this.sitters = values;
+      let httpParams = new HttpParams();
+      Object.keys(searchData).forEach(function (key) {
+        httpParams = httpParams.append(key, searchData[key]);
       });
-  }
+
+      this.http.get(this.URL, {params: httpParams, withCredentials: true})
+      .toPromise()/*.then(this.transformSitterDTO)*/.then(values => {
+        console.log(values);
+        this.sitters =  values as SearchedSitter[];
+      });
+    }
 
 
 }

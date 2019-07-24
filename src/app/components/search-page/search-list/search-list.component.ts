@@ -20,10 +20,10 @@ export class SearchListComponent implements OnInit {
   }
 
   ngOnInit() {
-      // this.searchDataService.getSitters().then( sitters => {
-      //   this.sitters = sitters;
-      //   this.isLoading = false;
-      // });
+      this.searchDataService.getSitters().then( sitters => {
+        this.sitters = sitters;
+        //this.isLoading = false;
+      });
   }
   refreshSitters(sitters: SearchedSitter[]){
       this.sitters = sitters;
