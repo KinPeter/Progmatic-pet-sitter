@@ -20,6 +20,8 @@ export class MyProfilePageComponent implements OnInit {
 
     errors: string[];
     showNetworkAlert: boolean;
+
+
   //  petType: KeyValue[];
   //  sercivePlaceType: KeyValue[];
 
@@ -27,16 +29,20 @@ export class MyProfilePageComponent implements OnInit {
       private userService: UserService, private validator: FieldValidatorService, private auth: AuthenticationService) {
       this.errors = [];
       this.showNetworkAlert = false;
-  //    this.petType = this.pettypeService.getPetTypeArray();
-  //    this.sercivePlaceType = this.servicePlaceService.getServicePlaceTypeArray();
+    //  this.petType = this.pettypeService.getPetTypeArray();
+    //  this.sercivePlaceType = this.servicePlaceService.getServicePlaceTypeArray();
       this.user = {
           userId: 1,
           name: 'Gina',
           email: 'abc@gmai.com',
+          ownerData: null,
+          /*
           ownerData: {
             petType: PetType.CAT,
             petName: 'Cirmi'
-          },
+          },*/
+
+        //  sitterData: null
           sitterData: {
             address: 'Csemete utca 10.',
             postcode: '1036',
@@ -62,6 +68,20 @@ export class MyProfilePageComponent implements OnInit {
       showNetworkAlert: true;
 
     });
-  }
+
+    }
+
+    showSitterData(): boolean{
+      if (this.user.sitterData != null) {
+        return true;
+      }
+    }
+
+    showOwnerData(): boolean{
+      if (this.user.ownerData != null) {
+        return true;
+      }
+    }
+
 
 }
