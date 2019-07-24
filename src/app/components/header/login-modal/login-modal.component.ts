@@ -80,12 +80,12 @@ export class LoginModalComponent implements OnInit {
         this.isPasswordValid = true;
         this.isLoading = false;
         this.isLoginSuccessful = false;
-        this.isLoginError = 0;
+        this.isLoginError = -1;
     }
 
     closeMe() {
         this.closeThis.emit();
-        this.isLoginError = 0;
+        this.isLoginError = -1;
         this.isLoginSuccessful = false;
     }
 

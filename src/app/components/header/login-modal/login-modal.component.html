@@ -35,7 +35,7 @@
     </div>
     <div class="alert alert-success" *ngIf="isLoginSuccessful">A bejelentkezés sikeres.</div>
     <div class="alert alert-danger" *ngIf="isLoginError === 401">Hibás felhasználónév vagy jelszó.</div>
-    <div class="alert alert-danger" *ngIf="isLoginError > 401">Hiba történt, kérlek próbáld meg később.</div>
+    <div class="alert alert-danger" *ngIf="isLoginError === 0 || isLoginError > 401">Hiba történt, kérlek próbáld meg később.</div>
     <div class="row">
         <div class="col-xs-8">
             <button class="btn btn-primary btn-inline" (click)="sendLoginData()">Bejelentkezek</button>
