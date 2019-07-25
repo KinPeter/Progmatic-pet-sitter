@@ -22,6 +22,7 @@
       <div class="col-md-8 col-md-offset-1 col-sm-6 col-xs-12 personal-info">
         <div class="form-horizontal" role="form">
           <div class="form-group">
+            <h3>Személyes adataid:</h3>
             <label class="col-lg-3 control-label"><b>Név:</b></label>
             <div class="col-lg-8">
               <input type="text" placeholder="Név" name="username" [(ngModel)]="user.name" [ngClass]="{'is-invalid': validator.validateName(user.name)}" class="form-control" required>
@@ -51,8 +52,8 @@
           </div>
           <div *ngIf="showOwnerData()" class="form-group">
         <!--    <label class="col-lg-3 control-label"><b>Kedvenceim:</b></label> -->
-            <label  for="myPetType" class="col-md-3 control-label"><b>Kedvenceim:</b></label>
-            <div class="col-md-8">
+            <label  for="myPetType" class="col-lg-3 control-label"><b>Kisállatom fajtája:</b></label>
+            <div class="col-lg-8">
               <select id="myPetType" [(ngModel)]="currentPetType" name="myPetType" class="form-control">
                   <!--option value=PetType.DOG>Kutya</option>
                   <option value=PetType.CAT>Macska</option>
@@ -60,26 +61,29 @@
                   <option value=PetType.RODENT>Rágcsáló</option>
                   <option value=PetType.REPTILE>Hüllő</option-->
                   <option *ngFor="let type of petTypes" [value]="type.key">{{type.value}}</option>
-                </select>
-                <label for="petsname"><b>Kisállatom neve:</b></label>
-                <input type="text" [(ngModel)]="currentPetName" placeholder="Kisállatom nevének megadása" name="petsname"
-                    class="form-control">
+              </select>
+            </div>
+            <label for="petsname" class="col-lg-3 control-label"><b>Kisállatom neve:</b></label>
+            <div class="col-lg-8">
+              <input type="text" [(ngModel)]="currentPetName" placeholder="Kisállatom nevének megadása" name="petsname"
+                class="form-control">
                 <button class="btn btn-success" (click)="addToMyPets()">Állat hozzáadása</button>
                 <hr>
                 <div *ngIf=user.ownerData.pets.length>
-                    <h3>Állataid:</h3>
-                    <ul>
-                        <li *ngFor="let pet of user.ownerData.pets">
-                            <b>{{ pet.petName }}</b> : {{ pet.petType }}
-                        </li>
-                    </ul>
-                    <hr>
+                  <h3>Állataid:</h3>
+                  <ul>
+                      <li *ngFor="let pet of user.ownerData.pets">
+                        <b>{{ pet.petName }}</b> : {{ pet.petType }}
+                      </li>
+                  </ul>
+                  <hr>
                 </div>
             </div>
           </div>
+
           <div *ngIf="showSitterData()" class="form-group">
-            <label class="col-md-3 control-label"><b>Irányítószám:</b></label>
-            <div class="col-md-8">
+            <label class="col-lg-3 control-label"><b>Irányítószám:</b></label>
+            <div class="col-lg-8">
               <input type="text" name="zipcode" placeholder="Irányítószám megadása" id="postalCode" [(ngModel)]="user.sitterData.postcode" [ngClass]="{'is-invalid': validator.validatePostcodeInComponent(isPostcodeValid, user.sitterData.postcode)}" class="form-control">
             </div>
             <div class="invalid-feedback"
@@ -88,55 +92,85 @@
             </div>
           </div>
           <div *ngIf="showSitterData()" class="form-group">
-            <label class="col-md-3 control-label"><b>Város:</b></label>
-            <div class="col-md-8">
+            <label class="col-lg-3 control-label"><b>Város:</b></label>
+            <div class="col-lg-8">
               <input type="text" name="city" placeholder="Város megadása" id="city" [(ngModel)]="user.sitterData.city" class="form-control" required>
             </div>
           </div>
           <div *ngIf="showSitterData()" class="form-group">
             <label class="col-md-3 control-label"><b>Utca:</b></label>
-            <div class="col-md-8">
+            <div class="col-lg-8">
               <input type="text" name="street" placeholder="Utca megadása" id="address" [(ngModel)]="user.sitterData.address" class="form-control" required>
             </div>
           </div>
           <div *ngIf="showSitterData()" class="form-group">
-            <label class="col-md-3 control-label"><b>Bemutatkozó szöveg:</b></label>
-            <div class="col-md-8">
+            <label class="col-lg-3 control-label"><b>Bemutatkozó szöveg:</b></label>
+            <div class="col-lg-8">
               <input type="text" name="intro" placeholder="Bemutatkozó szöveg megadása" id="intro" [(ngModel)]="user.sitterData.introductionText"  class="form-control" required>
             </div>
           </div>
+          <h3>Szolgáltatásaid:</h3>
           <div *ngIf="showSitterData()" class="form-group">
-            <label for="servicePlace" class="col-md-3 control-label"><b>Szolgáltatás nyújtásának helye:</b></label>
-            <div class="col-md-8">
+            <label for="servicePlace" class="col-lg-3 control-label"><b>Szolgáltatás nyújtásának helye:</b></label>
+            <div class="col-lg-8">
               <select [(ngModel)]="currentPlaceOfService" name="servicePlace" class="form-control">
-                  <option value="OWNERS_HOME">Házhoz megyek</option>
-                  <option value="SITTERS_HOME">Saját otthonomban fogadom</option>
-              </select>
+                <!--  <option value="OWNERS_HOME">Házhoz megyek</option>
+                  <option value="SITTERS_HOME">Saját otthonomban fogadom</option> -->
+                  <option *ngFor="let place of servicePlaces" [value]="place.key">{{place.value}}</option>
+                </select>
+              <!--  <hr>
+                <div *ngIf=user.sitterData.placeOfService>
+                    <ul>
+                        <li *ngFor="let place of user.sitterData.placeOfService">
+                            <b>{{ place.servicePlaces }}</b>
+                        </li>
+                    </ul>
+                    <hr>
+                </div> -->
             </div>
           </div>
           <div *ngIf="showSitterData()" class="form-group">
-            <label  for="servicePetType" class="col-md-3 control-label"><b>Milyen állattal vállalod ezt a szolgáltatást:</b></label>
-            <div class="col-md-8">
+            <label  for="servicePetType" class="col-lg-3 control-label"><b>Milyen állattal vállalod ezt a szolgáltatást:</b></label>
+            <div class="col-lg-8">
               <select id="myPetType" [(ngModel)]="currentPetType" name="myPetType" class="form-control">
-                  <option value="DOG">Kutya</option>
+                <!--  <option value="DOG">Kutya</option>
                   <option value="CAT">Macska</option>
                   <option value="BIRD">Madár</option>
                   <option value="RODENT">Rágcsáló</option>
-                  <option value="REPTILE">Hüllő</option>
+                  <option value="REPTILE">Hüllő</option> -->
+                  <option *ngFor="let type of petTypes" [value]="type.key">{{type.value}}</option>
                 </select>
-
+            <!--    <div *ngIf=user.sitterData.petType>
+                    <ul>
+                        <li *ngFor="let pet of user.sitterData.petType">
+                            <b>{{ pet.petType }}</b>
+                        </li>
+                    </ul>
+                </div> -->
             </div>
           </div>
           <div *ngIf="showSitterData()" class="form-group">
-            <label class="col-md-3 control-label"><b>Órabér:</b></label>
-            <div class="col-md-8">
-              <input type="text" name="wage" placeholder="Órabér megadása" id="pricePerHour"[(ngModel)]="user.sitterData.wage" class="form-control" required>
+            <label class="col-lg-3 control-label"><b>Órabér:</b></label>
+            <div class="col-lg-8">
+              <input type="text" [(ngModel)]="currentWage" placeholder="Órabér megadása" name="pricePerHour" class="form-control">
+          <!--    <input type="text" name="wage" placeholder="Órabér megadása" id="pricePerHour"[(ngModel)]="user.sitterData.wage" class="form-control" required> -->
+              <button class="btn btn-success" (click)="addToMyServices()">Szolgáltatás hozzáadása</button>
+              <hr>
+              <div *ngIf= user.sitterData.services.length>
+                  <h3>Vállalt szolgáltatások:</h3>
+                  <ul>
+                      <li *ngFor="let service of user.sitterData.services">
+                          <b>{{ service.placeOfService }}</b> : {{ service.petType }}, {{ service.pricePerHour }} Ft /óra
+                      </li>
+                  </ul>
+                  <hr>
+              </div>
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-3 control-label"></label>
-            <div class="col-md-8">
-              <input class="btn btn-primary" value="Változtatások mentése" (click)="save()" type="button">
+            <label class="col-lg-3 control-label"></label>
+            <div class="col-lg-8">
+              <input class="btn btn-success" value="Változtatások mentése" (click)="save()" type="button">
             </div>
           </div>
         </div>

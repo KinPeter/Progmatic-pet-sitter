@@ -35,7 +35,10 @@ export class MyProfilePageComponent implements OnInit {
 
 
     petTypes: KeyValue[];
+    servicePlaces: KeyValue[];
   //  sercivePlaceType: KeyValue[];
+
+
 
     constructor(private pettypeService: PettypeService, private servicePlaceService: ServicePlaceService,
       private userService: UserService, private validator: FieldValidatorService, private auth: AuthenticationService) {
@@ -47,6 +50,13 @@ export class MyProfilePageComponent implements OnInit {
       for(let type in PetType) {
         this.petTypes.push({"key": type, "value": PetType[type]});
       }
+
+      this.servicePlaces= [];
+      for(let place in PlaceOfService) {
+        this.servicePlaces.push({"key": place, "value": PlaceOfService[place]});
+      }
+
+
 
     //  this.petType = this.pettypeService.getPetTypeArray();
     //  this.sercivePlaceType = this.servicePlaceService.getServicePlaceTypeArray();
@@ -98,6 +108,8 @@ export class MyProfilePageComponent implements OnInit {
     }
 
     addToMyServices(): void {
+      this.currentPetType = PetType[this.currentPetType];
+      this.currentPlaceOfService = PlaceOfService[this.currentPlaceOfService];
         this.user.sitterData.services.push({
             placeOfService: this.currentPlaceOfService,
             petType: this.currentServicePetType,
