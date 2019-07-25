@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PetType, PlaceOfService, KeyValue, SearchData } from 'src/app/interfaces/search-data';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { SearchDataTransferService } from 'src/app/services/search-data-transfer.service';
 import { PettypeService } from 'src/app/services/pettype.service';
 import { ServicePlaceService } from 'src/app/services/service-place.service';
@@ -14,6 +14,9 @@ import { SearchedSitter } from 'src/app/interfaces/searchedSitter';
 })
 export class SearchDataComponent implements OnInit {
 
+  @Output()
+  eventSearched: EventEmitter<SearchedSitter[]> = new EventEmitter();
+
   petTypes: KeyValue[];
   placeTypes: KeyValue[];
   searchDataFromMainPage: SearchData;
@@ -25,11 +28,12 @@ export class SearchDataComponent implements OnInit {
               public petTypeService: PettypeService,
               public placeService: ServicePlaceService,
               public fieldValidator: FieldValidatorService,
-              private router: Router,) {
+              private router: Router,
+              private route: ActivatedRoute) {
 
       this.searchDataFromMainPage = {
         name: '',
-        postcode: null,
+        postcode: '',
         place: null,
         petType: null,
       }
@@ -52,14 +56,18 @@ export class SearchDataComponent implements OnInit {
       if(this.searchDataFromMainPage === undefined){
           this.searchDataFromMainPage = {
             name: '',
-            postcode: null,
+            postcode: '',
             place: this.selectedPlaceType,
             petType: this.selectedPetType,
           }
       }
   }
   search(): void {
-      this.dataTrService.searchSitter(this.searchDataFromMainPage);
+    //spinner
+    
+    this.dataTrService.searchSitter(this.searchDataFromMainPage).then(values => {
+      this.eventSearched.emit(values);
+    });
   }
 
 

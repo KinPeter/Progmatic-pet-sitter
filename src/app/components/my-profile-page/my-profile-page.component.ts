@@ -60,6 +60,7 @@ export class MyProfilePageComponent implements OnInit {
 
     //  this.petType = this.pettypeService.getPetTypeArray();
     //  this.sercivePlaceType = this.servicePlaceService.getServicePlaceTypeArray();
+
       this.user = {
           userId: 1,
           name: 'Gina',

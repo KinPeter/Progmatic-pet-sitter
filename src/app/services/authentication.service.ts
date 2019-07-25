@@ -9,7 +9,7 @@ import { LoginData } from '../interfaces/login-data';
     providedIn: 'root'
 })
 export class AuthenticationService {
-    private URL = 'http://192.168.1.237:8080';
+    private URL = 'http://192.168.1.210:8080';
     public currentUser: User;
     public isUserLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
@@ -23,16 +23,16 @@ export class AuthenticationService {
             this.currentUser = response;
             this.isUserLoggedIn.next(true);
             // for debugging
-            console.log('%c@AuthenticationService --> getUserIfLoggedIn().then() : ', 'color:darkorange;font-weight:bold;');
-            console.log(response);
-            console.log('logged in: ' + response.name);
+            // console.log('%c@AuthenticationService --> getUserIfLoggedIn().then() : ', 'color:darkorange;font-weight:bold;');
+            // console.log(response);
+            // console.log('logged in: ' + response.name);
             // ----------------
         })
         .catch((error) => {
             this.currentUser = null;
             // for debugging
-            console.log('%c@AuthenticationService --> getUserIfLoggedIn().catch() : ', 'color:darkorange;font-weight:bold;');
-            console.log(error);
+            // console.log('%c@AuthenticationService --> getUserIfLoggedIn().catch() : ', 'color:darkorange;font-weight:bold;');
+            // console.log(error);
             // ----------------
         });
     }
@@ -43,24 +43,22 @@ export class AuthenticationService {
         formData.append('username', data.email);
         formData.append('password', data.password);
 
-        console.log('login url: ' + this.URL);
         // send POST request with form data
         return this.http.post(this.URL + '/signin', formData, { withCredentials: true }).toPromise()
             .then((response: any) => {
                 // for debugging
-                console.log('%c@AuthenticationService --> login().then() : ', 'color:darkorange;font-weight:bold;');
-                console.log('logged in: ' + response.user.name);
+                // console.log('%c@AuthenticationService --> login().then() : ', 'color:darkorange;font-weight:bold;');
+                // console.log('logged in: ' + response.user.name);
                 // ----------------
                 this.currentUser = response.user;
-                // localStorage.setItem('currentUser', JSON.stringify(response.user));
                 this.isUserLoggedIn.next(true);
                 return response;
             })
             .catch((error) => {
                 this.currentUser = null;
                 // for debugging
-                console.log('%c@AuthenticationService --> login().catch() : ', 'color:darkorange;font-weight:bold;');
-                console.log(error);
+                // console.log('%c@AuthenticationService --> login().catch() : ', 'color:darkorange;font-weight:bold;');
+                // console.log(error);
                 // --------------
                 throw error; // throw forward to login-modal-component
             });
@@ -69,12 +67,12 @@ export class AuthenticationService {
     logout() {
         this.http.post(this.URL + '/logout', {}, { withCredentials: true }).toPromise()
         .then((response: any) => {
-            console.log('%c@AuthenticationService --> logout().then() : SUCCESSFUL', 'color:darkorange;font-weight:bold;');
-            console.log(response);
+            // console.log('%c@AuthenticationService --> logout().then() : SUCCESSFUL', 'color:darkorange;font-weight:bold;');
+            // console.log(response);
         })
         .catch((error) => {
-            console.log('%c@AuthenticationService --> logout().catch() : ERROR', 'color:darkorange;font-weight:bold;');
-            console.log(error);
+            // console.log('%c@AuthenticationService --> logout().catch() : ERROR', 'color:darkorange;font-weight:bold;');
+            // console.log(error);
         })
         .finally(() => {
             this.isUserLoggedIn.next(false);
