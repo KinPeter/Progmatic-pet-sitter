@@ -83,6 +83,29 @@ export class LoginModalComponent implements OnInit {
         this.isLoginError = -1;
     }
 
+    // ---- getters/setters for unitTests:
+    setLoginData(email: string, password: string) {
+        this.loginData.email = email;
+        this.loginData.password = password;
+    }
+    getIsEmailValid() {
+        return this.isEmailValid;
+    }
+    getIsPasswordValid() {
+        return this.isPasswordValid;
+    }
+    setErrorSuccessFlags(error: number, success: boolean) {
+        this.isLoginError = error;
+        this.isLoginSuccessful = success;
+    }
+    getLoginError() {
+        return this.isLoginError;
+    }
+    getLoginSuccess() {
+        return this.isLoginSuccessful;
+    }
+    // -----------------------------------
+
     closeMe() {
         this.closeThis.emit();
         this.isLoginError = -1;
@@ -99,15 +122,15 @@ export class LoginModalComponent implements OnInit {
             this.auth.login(this.loginData).then((response) => {
                 this.isLoginSuccessful = true;
                 // For Debugging
-                console.log('%c@LoginModalComponent --> sendLoginData().then() :', 'color:darkorange;font-weight:bold;');
-                console.log(response);
+                // console.log('%c@LoginModalComponent --> sendLoginData().then() :', 'color:darkorange;font-weight:bold;');
+                // console.log(response);
                 // ---------------------
                 setTimeout(() => { this.closeMe(); }, 1500);
             })
             .catch((error) => {
                 // For Debugging
-                console.log('%c@LoginModalComponent --> sendLoginData().catch() :', 'color:darkorange;font-weight:bold;');
-                console.log(error);
+                // console.log('%c@LoginModalComponent --> sendLoginData().catch() :', 'color:darkorange;font-weight:bold;');
+                // console.log(error);
                 // ---------------------
                 this.isLoginError = error.status;
                 setTimeout(() => { this.closeMe(); }, 5000);
