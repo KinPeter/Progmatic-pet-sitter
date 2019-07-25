@@ -21,7 +21,7 @@ import { NavbarComponent } from './components/header/navbar/navbar.component';
 import { SearchDataComponent } from './components/search-page/search-data/search-data.component';
 import { SearchListComponent } from './components/search-page/search-list/search-list.component';
 import { SearchListItemComponent } from './components/search-page/search-list/search-list-item/search-list-item.component';
-import { ErrorInterceptor } from './services/interceptors/error-interceptor.service';
+// import { ErrorInterceptor } from './services/interceptors/error-interceptor.service';
 import { SpinnerComponent } from './components/ui/spinner/spinner.component';
 
 @NgModule({
