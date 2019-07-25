@@ -20,6 +20,8 @@ export class MyProfilePageComponent implements OnInit {
 
     errors: string[];
     showNetworkAlert: boolean;
+    isEmailValid: boolean;
+    isPasswordValid = true;
 
 
   //  petType: KeyValue[];
@@ -29,31 +31,40 @@ export class MyProfilePageComponent implements OnInit {
       private userService: UserService, private validator: FieldValidatorService, private auth: AuthenticationService) {
       this.errors = [];
       this.showNetworkAlert = false;
+      this.isEmailValid = true;
+      this.isPasswordValid = true;
+
     //  this.petType = this.pettypeService.getPetTypeArray();
     //  this.sercivePlaceType = this.servicePlaceService.getServicePlaceTypeArray();
       this.user = {
           userId: 1,
           name: 'Gina',
           email: 'abc@gmai.com',
-          ownerData: null,
-          /*
+        //  ownerData: null,
           ownerData: {
-            petType: PetType.CAT,
-            petName: 'Cirmi'
-          },*/
-
-        //  sitterData: null
+            pets: [{
+              petName: 'Cirmi',
+              petType: PetType.CAT
+          }]
+        },
           sitterData: {
             address: 'Csemete utca 10.',
-            postcode: '1036',
+            postCode: '1036',
             city: 'Budapest',
             intro: 'string',
-            place: [PlaceOfService.OWNERS_HOME],
-            petType: [PetType.DOG],
-            wage: 5000,
+            services: [{
+              placeOfService: PlaceOfService.OWNERS_HOME,
+              petType: PetType.DOG,
+              pricePerHour: 5000,
+            }]
           }
+      };
 
-      }
+
+
+
+
+
       // this.user = this.auth.currentUser;
 
 
