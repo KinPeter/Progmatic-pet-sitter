@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { SearchDataTransferService } from 'src/app/services/search-data-transfer.service';
 import { SearchedSitter } from 'src/app/interfaces/searchedSitter';
 import { PlaceOfService, PetType, SearchData } from 'src/app/interfaces/search-data';
@@ -11,22 +11,15 @@ import { PlaceOfService, PetType, SearchData } from 'src/app/interfaces/search-d
 })
 export class SearchListComponent implements OnInit {
 
+  @Input()
   sitters: SearchedSitter[];
+
   isLoading: boolean;
 
-
-  constructor(private searchDataService: SearchDataTransferService) {
-    this.sitters = this.searchDataService.sitters;
-  }
+  constructor(private searchDataService: SearchDataTransferService) {}
 
   ngOnInit() {
-      this.searchDataService.getSitters().then( sitters => {
-        this.sitters = sitters;
-        //this.isLoading = false;
-      });
-  }
-  refreshSitters(sitters: SearchedSitter[]){
-      this.sitters = sitters;
+      // console.log(this.sitters);
   }
 
 }

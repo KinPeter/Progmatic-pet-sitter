@@ -31,6 +31,7 @@ export class MyProfilePageComponent implements OnInit {
       this.showNetworkAlert = false;
     //  this.petType = this.pettypeService.getPetTypeArray();
     //  this.sercivePlaceType = this.servicePlaceService.getServicePlaceTypeArray();
+
       this.user = {
           userId: 1,
           name: 'Gina',
@@ -54,6 +55,7 @@ export class MyProfilePageComponent implements OnInit {
           }
 
       }
+      
       // this.user = this.auth.currentUser;
 
 

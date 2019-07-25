@@ -9,7 +9,7 @@ import { LoginData } from '../interfaces/login-data';
     providedIn: 'root'
 })
 export class AuthenticationService {
-    private URL = 'http://192.168.1.237:8080';
+    private URL = 'http://192.168.1.210:8080';
     public currentUser: User;
     public isUserLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 

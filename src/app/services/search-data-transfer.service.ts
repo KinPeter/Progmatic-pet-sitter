@@ -11,7 +11,7 @@ import { SearchedSitter } from '../interfaces/searchedSitter';
 export class SearchDataTransferService {
 
   public searchData: SearchData;
-  private readonly URL = 'http://192.168.1.237:8080/search/sitters';
+  private readonly URL = 'http://192.168.1.210:8080/search/sitters';
   sitters: SearchedSitter[];
 
   constructor(private http: HttpClient) {
@@ -39,14 +39,10 @@ export class SearchDataTransferService {
     // ];
   }
 
-  private transformSitterDTO(serverData: SearchedSitterDTO ): SearchedSitter[]{
-      return serverData.searchedSitter;
-  }
-
 
   getSitters(): Promise<SearchedSitter[]> {
       return this.http.get(this.URL, {withCredentials: true}).toPromise()
-      .then( this.transformSitterDTO );
+      .then( );
   }
 
   // getSitter(userId: number): Promise<SearchedSitter> {
@@ -54,18 +50,25 @@ export class SearchDataTransferService {
   //     .toPromise().then(this.transformSitterDTO).then( values => values[0]);
   // }
 
-  searchSitter(searchData: SearchData): void {
+  searchSitter(searchData: SearchData): Promise<SearchedSitter[]> {
       let httpParams = new HttpParams();
       Object.keys(searchData).forEach(function (key) {
         httpParams = httpParams.append(key, searchData[key]);
       });
 
-      this.http.get(this.URL, {params: httpParams, withCredentials: true})
-      .toPromise()/*.then(this.transformSitterDTO)*/.then(values => {
-        console.log(values);
-        this.sitters =  values as SearchedSitter[];
-      });
-    }
+      return this.http.get<SearchedSitter[]>(this.URL, {params: httpParams, withCredentials: true})
+        .toPromise();
+  }
+
+  // resolve(searchData: SearchData): Promise<SearchedSitter[]> | boolean {
+  //   return this.searchSitter(searchData).then(values => {
+  //     if (values) {
+  //       console.log(values);
+  //       return values as SearchedSitter[];
+  //     }
+  //   });
+  //   return false;
+  // }
 
 
 }

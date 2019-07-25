@@ -8,6 +8,7 @@ import { RegistrationPageComponent } from './components/registration-page/regist
 import { MyProfilePageComponent } from './components/my-profile-page/my-profile-page.component';
 import { WannabeSitterPageComponent } from './components/wannabe-sitter-page/wannabe-sitter-page.component';
 import { SitterProfilePageComponent } from './components/sitter-profile-page/sitter-profile-page.component';
+import { SearchDataTransferService } from './services/search-data-transfer.service';
 
 
 const routes: Routes = [
