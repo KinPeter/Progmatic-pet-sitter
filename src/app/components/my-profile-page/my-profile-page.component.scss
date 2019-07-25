@@ -7,14 +7,11 @@
   margin: 5px 0 22px 0;
   display: inline-block;
   border: none;
-  background: #f1f1f1;
+  background: #ffffff;
 
 }
 
-input[type=text]:focus, input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
-}
+
 
 hr {
   border: 1px solid #f1f1f1;
@@ -96,5 +93,5 @@ input[type=submit]:hover {
 }
 
 div#img-photo.text-center {
-  margin-top: 30px;
+  margin-top: 30px
 }

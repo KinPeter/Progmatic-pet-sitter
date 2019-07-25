@@ -5,11 +5,11 @@
     <h1 class="page-header">Profil adatok</h1>
     <div class="row">
       <!-- left column -->
-      <div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="text-center" id="img-photo">
           <img src="http://lorempixel.com/200/200/people/9/" class="avatar img-circle img-thumbnail" alt="avatar">
           <h6>Új profil kép feltöltése</h6>
-          <input type="file" class="text-center center-block well well-sm">
+          <input type="file" class="text-center center-block well well-sm" class="form-control">
         </div>
       </div>
 
@@ -19,25 +19,25 @@
         </div>
       </div>
       <!-- edit form column -->
-      <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+      <div class="col-md-8 col-md-offset-1 col-sm-6 col-xs-12 personal-info">
         <div class="form-horizontal" role="form">
           <div class="form-group">
             <label class="col-lg-3 control-label"><b>Név:</b></label>
             <div class="col-lg-8">
-              <input type="text" placeholder="Név" name="username" [(ngModel)]="user.name" [ngClass]="{'is-invalid': validator.validateName(user.name)}" required>
+              <input type="text" placeholder="Név" name="username" [(ngModel)]="user.name" [ngClass]="{'is-invalid': validator.validateName(user.name)}" class="form-control" required>
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label"><b>E-mail cím:</b></label>
             <div class="col-lg-8">
-              <input type="text" placeholder="Emailcím" name="email" id="email" [(ngModel)]="user.email" [ngClass]="{'is-invalid': !isEmailValid}"  required>
+              <input type="text" placeholder="Emailcím" name="email" id="email" [(ngModel)]="user.email" [ngClass]="{'is-invalid': !isEmailValid}" class="form-control" required>
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label"><b>Új jelszó megadása:</b></label>
             <div class="col-lg-8">
               <input type="password" name="pass" placeholder="Új jelszó megadása" id="psw" [(ngModel)]="user.password"
-              [ngClass]="{'is-invalid': isPasswordValid}" required>
+              [ngClass]="{'is-invalid': isPasswordValid}" class="form-control" required>
             </div>
             <div class="invalid-feedback" *ngIf="!isPasswordValid">
                 Kérlek, add meg a jelszavad!
@@ -46,19 +46,41 @@
           <div class="form-group">
             <label class="col-lg-3 control-label"><b>Új jelszó megerősítése:</b></label>
             <div class="col-lg-8">
-              <input type="password" name="pass-again" placeholder="Új jelszó megerősítése" id="psw-repeat" required>
+              <input type="password" name="pass-again" placeholder="Új jelszó megerősítése" id="psw-repeat" class="form-control" required>
             </div>
           </div>
           <div *ngIf="showOwnerData()" class="form-group">
-            <label class="col-lg-3 control-label"><b>Kedvenceim:</b></label>
-            <div class="col-lg-8">
-              <input type="text" name="pets" placeholder="Kisállataim felsorolása" id="petsname" [(ngModel)]="user.ownerData.petType" required>
+        <!--    <label class="col-lg-3 control-label"><b>Kedvenceim:</b></label> -->
+            <label  for="myPetType" class="col-md-3 control-label"><b>Kedvenceim:</b></label>
+            <div class="col-md-8">
+              <select id="myPetType" [(ngModel)]="currentPetType" name="myPetType" class="form-control">
+                  <!--option value=PetType.DOG>Kutya</option>
+                  <option value=PetType.CAT>Macska</option>
+                  <option value=PetType.BIRD>Madár</option>
+                  <option value=PetType.RODENT>Rágcsáló</option>
+                  <option value=PetType.REPTILE>Hüllő</option-->
+                  <option *ngFor="let type of petTypes" [value]="type.key">{{type.value}}</option>
+                </select>
+                <label for="petsname"><b>Kisállatom neve:</b></label>
+                <input type="text" [(ngModel)]="currentPetName" placeholder="Kisállatom nevének megadása" name="petsname"
+                    class="form-control">
+                <button class="btn btn-success" (click)="addToMyPets()">Állat hozzáadása</button>
+                <hr>
+                <div *ngIf=user.ownerData.pets.length>
+                    <h3>Állataid:</h3>
+                    <ul>
+                        <li *ngFor="let pet of user.ownerData.pets">
+                            <b>{{ pet.petName }}</b> : {{ pet.petType }}
+                        </li>
+                    </ul>
+                    <hr>
+                </div>
             </div>
           </div>
           <div *ngIf="showSitterData()" class="form-group">
             <label class="col-md-3 control-label"><b>Irányítószám:</b></label>
             <div class="col-md-8">
-              <input type="text" name="zipcode" placeholder="Irányítószám megadása" id="postalCode" [(ngModel)]="user.sitterData.postcode" [ngClass]="{'is-invalid': validator.validatePostcodeInComponent(isPostcodeValid, user.sitterData.postcode)}">
+              <input type="text" name="zipcode" placeholder="Irányítószám megadása" id="postalCode" [(ngModel)]="user.sitterData.postcode" [ngClass]="{'is-invalid': validator.validatePostcodeInComponent(isPostcodeValid, user.sitterData.postcode)}" class="form-control">
             </div>
             <div class="invalid-feedback"
                 *ngIf="validator.validatePostcodeInComponent(isPostcodeValid, user.sitterData.postcode)">
@@ -68,37 +90,47 @@
           <div *ngIf="showSitterData()" class="form-group">
             <label class="col-md-3 control-label"><b>Város:</b></label>
             <div class="col-md-8">
-              <input type="text" name="city" placeholder="Város megadása" id="city" [(ngModel)]="user.sitterData.city"required>
+              <input type="text" name="city" placeholder="Város megadása" id="city" [(ngModel)]="user.sitterData.city" class="form-control" required>
             </div>
           </div>
           <div *ngIf="showSitterData()" class="form-group">
             <label class="col-md-3 control-label"><b>Utca:</b></label>
             <div class="col-md-8">
-              <input type="text" name="street" placeholder="Utca megadása" id="address" [(ngModel)]="user.sitterData.address"required>
+              <input type="text" name="street" placeholder="Utca megadása" id="address" [(ngModel)]="user.sitterData.address" class="form-control" required>
             </div>
           </div>
           <div *ngIf="showSitterData()" class="form-group">
             <label class="col-md-3 control-label"><b>Bemutatkozó szöveg:</b></label>
             <div class="col-md-8">
-              <input type="text" name="intro" placeholder="Bemutatkozó szöveg megadása" id="intro" [(ngModel)]="user.sitterData.introductionText" required>
+              <input type="text" name="intro" placeholder="Bemutatkozó szöveg megadása" id="intro" [(ngModel)]="user.sitterData.introductionText"  class="form-control" required>
             </div>
           </div>
           <div *ngIf="showSitterData()" class="form-group">
-            <label class="col-md-3 control-label"><b>Szolgáltatás nyújtásának helyszíne:</b></label>
+            <label for="servicePlace" class="col-md-3 control-label"><b>Szolgáltatás nyújtásának helye:</b></label>
             <div class="col-md-8">
-              <input type="text" name="placeofservice" placeholder="Házhoz megyek/saját otthonomban fogadom" id="placeOfService" [(ngModel)]="user.sitterData.placeOfService"required>
+              <select [(ngModel)]="currentPlaceOfService" name="servicePlace" class="form-control">
+                  <option value="OWNERS_HOME">Házhoz megyek</option>
+                  <option value="SITTERS_HOME">Saját otthonomban fogadom</option>
+              </select>
             </div>
           </div>
           <div *ngIf="showSitterData()" class="form-group">
-            <label class="col-md-3 control-label"><b>Milyen állatot vállalsz:</b></label>
+            <label  for="servicePetType" class="col-md-3 control-label"><b>Milyen állattal vállalod ezt a szolgáltatást:</b></label>
             <div class="col-md-8">
-              <input type="text" name="pettype" placeholder="Milyen állatot vállalsz" id="petTypes" [(ngModel)]="user.sitterData.petType"required>
+              <select id="myPetType" [(ngModel)]="currentPetType" name="myPetType" class="form-control">
+                  <option value="DOG">Kutya</option>
+                  <option value="CAT">Macska</option>
+                  <option value="BIRD">Madár</option>
+                  <option value="RODENT">Rágcsáló</option>
+                  <option value="REPTILE">Hüllő</option>
+                </select>
+
             </div>
           </div>
           <div *ngIf="showSitterData()" class="form-group">
             <label class="col-md-3 control-label"><b>Órabér:</b></label>
             <div class="col-md-8">
-              <input type="text" name="wage" placeholder="Órabér megadása" id="pricePerHour"[(ngModel)]="user.sitterData.wage" required>
+              <input type="text" name="wage" placeholder="Órabér megadása" id="pricePerHour"[(ngModel)]="user.sitterData.wage" class="form-control" required>
             </div>
           </div>
           <div class="form-group">
