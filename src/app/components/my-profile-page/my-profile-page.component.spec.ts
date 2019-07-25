@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MyProfilePageComponent } from './my-profile-page.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule } from '@angular/forms';
 
 describe('MyProfilePageComponent', () => {
     let component: MyProfilePageComponent;
@@ -8,7 +11,8 @@ describe('MyProfilePageComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [MyProfilePageComponent]
+            declarations: [MyProfilePageComponent],
+            imports: [HttpClientModule, RouterTestingModule, FormsModule]
         })
             .compileComponents();
     }));
