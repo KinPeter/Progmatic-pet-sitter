@@ -10,18 +10,25 @@ export interface User {
     sitterData: Sitter | null;
 }
 
-export interface Owner {
-    petType: PetType;
+export interface OwnersPet {
     petName: string;
+    petType: PetType;
+}
+
+export interface Owner {
+    pets: OwnersPet[];
+}
+
+export interface SitterService {
+    placeOfService: PlaceOfService;
+    petType: PetType;
+    pricePerHour: number;
 }
 
 export interface Sitter {
     address: string;
-    postcode: string;
+    postCode: string;
     city: string;
     intro: string;
-    place: PlaceOfService[];
-    petType: PetType[];
-    wage: number;
-    // ...
+    services: SitterService[];
 }

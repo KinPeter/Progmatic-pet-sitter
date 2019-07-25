@@ -6,27 +6,6 @@ import { UserService } from 'src/app/services/user.service';
 import { User, Owner, Sitter } from '../../interfaces/user';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
-// TEMPORARY
-export interface OwnersPet {
-    petName: string;
-    petType: PetType;
-}
-export interface OwnerDataTemp {
-    pets: OwnersPet[];
-}
-export interface SitterService {
-    placeOfService: PlaceOfService;
-    petType: PetType;
-    pricePerHour: number;
-}
-export interface SitterDataTemp {
-    address: string;
-    postCode: number;
-    city: string;
-    intro: string;
-    services: SitterService[];
-}
-// ---------
 
 @Component({
     selector: 'app-registration-page',
@@ -61,13 +40,13 @@ export class RegistrationPageComponent implements OnInit {
 
     // OWNER DATA fields
     private ownerDataOpen = false;
-    private ownerData: OwnerDataTemp; // <<<--- TEMP.
+    private ownerData: Owner;
     private currentPetName = '';
     private currentPetType = null;
 
     // SITTER DATA fields
     private sitterDataOpen = false;
-    private sitterData: SitterDataTemp; // <<<--- TEMP.
+    private sitterData: Sitter;
     private currentPlaceOfService = PlaceOfService.OWNERS_HOME;
     private currentServicePetType = PetType.DOG;
     private currentWage = 0;
@@ -89,7 +68,7 @@ export class RegistrationPageComponent implements OnInit {
         };
         this.sitterData = {
             address: '',
-            postCode: null,
+            postCode: '',
             city: '',
             intro: '',
             services: []
@@ -119,14 +98,13 @@ export class RegistrationPageComponent implements OnInit {
     submitRegistration() {
         // ha le van nyitva - ergo kitöltötte az OWNER adatokat, adja hozzá a user-hez
         if (this.ownerDataOpen) {
-        //     this.user.ownerData = this.ownerData;
+            this.user.ownerData = this.ownerData;
         }
 
 
         // ha le van nyitva - ergo kitöltötte a SITTER adatokat, adja hozzá a user-hez
         if (this.sitterDataOpen) {
-
-            // this.user.sitterData = this.sitterData;
+            this.user.sitterData = this.sitterData;
         }
 
 
