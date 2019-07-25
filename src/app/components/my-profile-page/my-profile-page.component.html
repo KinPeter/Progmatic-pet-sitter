@@ -30,17 +30,17 @@
           <div class="form-group">
             <label class="col-lg-3 control-label"><b>E-mail cím:</b></label>
             <div class="col-lg-8">
-              <input type="text" placeholder="Emailcím" name="email" id="email" [(ngModel)]="user.email" [ngClass]="{'is-invalid': validator.validateEmail(user.email)}" required>
-            </div>
-            <div class="invalid-feedback"
-                *ngIf="validator.validateEmail(isEmailValid, user.email)">
-                Kérlek, valós e-mail címet adj meg!
+              <input type="text" placeholder="Emailcím" name="email" id="email" [(ngModel)]="user.email" [ngClass]="{'is-invalid': !isEmailValid}"  required>
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label"><b>Új jelszó megadása:</b></label>
             <div class="col-lg-8">
-              <input type="password" name="pass" placeholder="Új jelszó megadása" id="psw" required>
+              <input type="password" name="pass" placeholder="Új jelszó megadása" id="psw" [(ngModel)]="user.password"
+              [ngClass]="{'is-invalid': isPasswordValid}" required>
+            </div>
+            <div class="invalid-feedback" *ngIf="!isPasswordValid">
+                Kérlek, add meg a jelszavad!
             </div>
           </div>
           <div class="form-group">
@@ -58,7 +58,11 @@
           <div *ngIf="showSitterData()" class="form-group">
             <label class="col-md-3 control-label"><b>Irányítószám:</b></label>
             <div class="col-md-8">
-              <input type="text" name="zipcode" placeholder="Irányítószám megadása" id="postalCode" [(ngModel)]="user.sitterData.postcode" [ngClass]="{'is-invalid': validator.validatePostcode(isPostcodeValid, user.sitterData.postcode)}" required>
+              <input type="text" name="zipcode" placeholder="Irányítószám megadása" id="postalCode" [(ngModel)]="user.sitterData.postcode" [ngClass]="{'is-invalid': validator.validatePostcodeInComponent(isPostcodeValid, user.sitterData.postcode)}">
+            </div>
+            <div class="invalid-feedback"
+                *ngIf="validator.validatePostcodeInComponent(isPostcodeValid, user.sitterData.postcode)">
+                Kérlek, valós irányítószámot adj meg!
             </div>
           </div>
           <div *ngIf="showSitterData()" class="form-group">
