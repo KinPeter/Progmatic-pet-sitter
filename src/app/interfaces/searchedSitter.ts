@@ -2,7 +2,7 @@ import { PlaceOfService, PetType } from './search-data';
 
 export interface SearchedSitter {
     id: number;
-    name: string;
+    userName: string;
     profilePhoto: null;
     city: string;
     address: string;
