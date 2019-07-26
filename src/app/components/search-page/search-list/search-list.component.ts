@@ -19,7 +19,7 @@ export class SearchListComponent implements OnInit {
   constructor(private searchDataService: SearchDataTransferService) {}
 
   ngOnInit() {
-      // console.log(this.sitters);
+      
   }
 
 }

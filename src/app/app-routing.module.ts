@@ -13,11 +13,11 @@ import { SearchDataTransferService } from './services/search-data-transfer.servi
 
 const routes: Routes = [
     { path: '', component: FrontPageComponent, pathMatch: 'full' },
-    { path: 'search/sitters', component: SearchPageComponent},
+    { path: 'sitter/search', component: SearchPageComponent},
     { path: 'registration-page', component: RegistrationPageComponent},
     { path: 'my-profile-page', component: MyProfilePageComponent, canActivate: [AuthGuardService]},
     { path: 'wannabe-sitter-page', component: WannabeSitterPageComponent},
-    { path: 'sitter-profile-page', component: SitterProfilePageComponent},
+    { path: 'sitter/:sitter_id', component: SitterProfilePageComponent},
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

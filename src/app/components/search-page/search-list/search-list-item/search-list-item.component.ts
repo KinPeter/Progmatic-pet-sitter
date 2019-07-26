@@ -16,9 +16,5 @@ export class SearchListItemComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  store(): void{
-      
-  }
-
+  
 }
