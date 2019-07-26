@@ -10,6 +10,8 @@ export class SitterProfilePageComponent implements OnInit {
 
     sitter: SearchedSitter;
 
+    
+
     constructor() { }
 
     ngOnInit() {

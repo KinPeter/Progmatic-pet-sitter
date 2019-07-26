@@ -6,6 +6,7 @@ import { ServicePlaceService } from '../../services/service-place.service';
 import { SearchData, PetType, PlaceOfService, KeyValue} from '../../interfaces/search-data';
 import { FieldValidatorService } from 'src/app/services/field-validator.service';
 import { AuthenticationService } from '../../services/authentication.service';
+import { HttpClient, HttpEventType} from '@angular/common/http';
 
 @Component({
     selector: 'app-my-profile-page',
@@ -13,6 +14,10 @@ import { AuthenticationService } from '../../services/authentication.service';
     styleUrls: ['./my-profile-page.component.scss']
 })
 export class MyProfilePageComponent implements OnInit {
+
+    selectedFile: File = null;
+
+
 
     user: User;
     sitter: Sitter;
@@ -31,7 +36,7 @@ export class MyProfilePageComponent implements OnInit {
     errors: string[];
     showNetworkAlert: boolean;
     isEmailValid: boolean;
-    isPasswordValid = true;
+    isPasswordValid: boolean;
 
 
     petTypes: KeyValue[];
@@ -40,8 +45,11 @@ export class MyProfilePageComponent implements OnInit {
 
 
 
+
+
     constructor(private pettypeService: PettypeService, private servicePlaceService: ServicePlaceService,
-      private userService: UserService, private validator: FieldValidatorService, private auth: AuthenticationService) {
+      private userService: UserService, private validator: FieldValidatorService, private auth: AuthenticationService,
+      private http: HttpClient) {
       this.errors = [];
       this.showNetworkAlert = false;
       this.isEmailValid = true;
@@ -89,6 +97,27 @@ export class MyProfilePageComponent implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    onFileSelected(event){
+      this.selectedFile = <File>event.target.file[0];
+    }
+
+    onUpload() {
+      const fd = new FormData();
+      fd.append('image', this.selectedFile, this.selectedFile.name);
+      this.http.post('', fd, {
+        reportProgress: true,
+        observe: 'events'
+      })
+      .subscribe(event =>{
+        if (event.type === HttpEventType.UploadProgress){
+          console.log('Uplouad progress: ' + Math.round(event.loaded / event.total) * 100 + '%')
+        } else if(event.type === HttpEventType.Response){
+          console.log(event)
+        }
+
+      })
     }
 
     save(): void {

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 
 import { User } from '../interfaces/user';
-import { LoginData } from '../interfaces/login-data';
+import { LoginData, ForgotPasswordData } from '../interfaces/login-data';
 
 @Injectable({
     providedIn: 'root'
@@ -22,18 +22,9 @@ export class AuthenticationService {
         .then((response: any) => {
             this.currentUser = response;
             this.isUserLoggedIn.next(true);
-            // for debugging
-            // console.log('%c@AuthenticationService --> getUserIfLoggedIn().then() : ', 'color:darkorange;font-weight:bold;');
-            // console.log(response);
-            // console.log('logged in: ' + response.name);
-            // ----------------
         })
         .catch((error) => {
             this.currentUser = null;
-            // for debugging
-            // console.log('%c@AuthenticationService --> getUserIfLoggedIn().catch() : ', 'color:darkorange;font-weight:bold;');
-            // console.log(error);
-            // ----------------
         });
     }
 
@@ -46,22 +37,19 @@ export class AuthenticationService {
         // send POST request with form data
         return this.http.post(this.URL + '/signin', formData, { withCredentials: true }).toPromise()
             .then((response: any) => {
-                // for debugging
-                // console.log('%c@AuthenticationService --> login().then() : ', 'color:darkorange;font-weight:bold;');
-                // console.log('logged in: ' + response.user.name);
-                // ----------------
                 this.currentUser = response.user;
                 this.isUserLoggedIn.next(true);
                 return response;
             })
             .catch((error) => {
                 this.currentUser = null;
-                // for debugging
-                // console.log('%c@AuthenticationService --> login().catch() : ', 'color:darkorange;font-weight:bold;');
-                // console.log(error);
-                // --------------
                 throw error; // throw forward to login-modal-component
             });
+    }
+
+    sendForgotPasswordRequest(email: string): Promise<any> {
+        const forgotPasswordData: ForgotPasswordData = {email};
+        return this.http.post(this.URL + '/resetpassword', forgotPasswordData, {withCredentials: true}).toPromise();
     }
 
     logout() {
@@ -77,7 +65,7 @@ export class AuthenticationService {
         .finally(() => {
             this.isUserLoggedIn.next(false);
             this.currentUser = null;
-            // location.reload(true);//tslint:disable-line
+            location.reload(true); //tslint:disable-line
         });
     }
 }
