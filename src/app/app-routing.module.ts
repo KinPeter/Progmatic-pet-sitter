@@ -12,6 +12,7 @@ import { SearchDataTransferService } from './services/search-data-transfer.servi
 
 
 const routes: Routes = [
+    // **** Légyszi a meglévő route path-okat már ne változtassuk, ha lehet!! ****
     { path: '', component: FrontPageComponent, pathMatch: 'full' },
     { path: 'sitter/search', component: SearchPageComponent},
     { path: 'registration-page', component: RegistrationPageComponent},
