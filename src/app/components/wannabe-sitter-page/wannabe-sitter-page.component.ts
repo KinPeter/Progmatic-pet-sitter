@@ -15,6 +15,14 @@ export class WannabeSitterPageComponent implements OnInit {
         });
     }
 
+    // getter/setter for Unit tests:
+    getUserLoggedIn(): boolean {
+        return this.userLoggedIn;
+    }
+    setUserLoggedIn(status: boolean): void {
+        this.userLoggedIn = status;
+    }
+
     ngOnInit() {
     }
 

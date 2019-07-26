@@ -41,4 +41,11 @@ export class HeaderComponent implements OnInit {
         this.scrolled = window.scrollY > 200;
     }
 
+    // getter/setter for Unit tests
+    getUserLoggedIn(): boolean {
+        return this.userLoggedIn;
+    }
+    setUserLoggedIn(status: boolean) {
+        this.userLoggedIn = status;
+    }
 }
