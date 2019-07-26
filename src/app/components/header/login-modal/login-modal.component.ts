@@ -62,11 +62,13 @@ export class LoginModalComponent implements OnInit {
 
     @Output() closeThis = new EventEmitter();
     private loginData: LoginData;
-    private isEmailValid: boolean;
-    private isPasswordValid: boolean;
-    private isLoading: boolean;
-    private isLoginSuccessful: boolean;
-    private isLoginError: number;
+    private isEmailValid = true;
+    private isPasswordValid = true;
+    private isLoading = false;
+    private isLoginSuccessful = false;
+    private isLoginError = -1;
+    private isForgotPasswordSuccessful = false;
+    private isForgotPasswordError = false;
 
     constructor(
         private validator: FieldValidatorService,
@@ -76,11 +78,6 @@ export class LoginModalComponent implements OnInit {
             email: '',
             password: ''
         };
-        this.isEmailValid = true;
-        this.isPasswordValid = true;
-        this.isLoading = false;
-        this.isLoginSuccessful = false;
-        this.isLoginError = -1;
     }
 
     // ---- getters/setters for unitTests:
@@ -110,6 +107,8 @@ export class LoginModalComponent implements OnInit {
         this.closeThis.emit();
         this.isLoginError = -1;
         this.isLoginSuccessful = false;
+        this.isForgotPasswordSuccessful = false;
+        this.isForgotPasswordError = false;
     }
 
     sendLoginData(): void {
@@ -121,18 +120,29 @@ export class LoginModalComponent implements OnInit {
 
             this.auth.login(this.loginData).then((response) => {
                 this.isLoginSuccessful = true;
-                // For Debugging
-                // console.log('%c@LoginModalComponent --> sendLoginData().then() :', 'color:darkorange;font-weight:bold;');
-                // console.log(response);
-                // ---------------------
                 setTimeout(() => { this.closeMe(); }, 1500);
             })
             .catch((error) => {
-                // For Debugging
-                // console.log('%c@LoginModalComponent --> sendLoginData().catch() :', 'color:darkorange;font-weight:bold;');
-                // console.log(error);
-                // ---------------------
                 this.isLoginError = error.status;
+                setTimeout(() => { this.closeMe(); }, 5000);
+            })
+            .finally(() => {
+                this.isLoading = false;
+            });
+        }
+    }
+
+    sendForgotPassword(): void {
+        this.isEmailValid = this.validator.validateEmail(this.loginData.email);
+        if (this.isEmailValid) {
+            this.isLoading = true;
+            this.auth.sendForgotPasswordRequest(this.loginData.email)
+            .then((response) => {
+                this.isForgotPasswordSuccessful = true;
+                setTimeout(() => { this.closeMe(); }, 5000);
+            })
+            .catch((error) => {
+                this.isForgotPasswordError = true;
                 setTimeout(() => { this.closeMe(); }, 5000);
             })
             .finally(() => {
