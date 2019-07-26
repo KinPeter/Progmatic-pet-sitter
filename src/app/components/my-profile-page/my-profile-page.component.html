@@ -8,11 +8,11 @@
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="text-center" id="img-photo">
       <!--   <img src="http://lorempixel.com/200/200/people/9/" class="avatar img-circle img-thumbnail" alt="avatar"> -->
+          <img class="avatar img-circle img-thumbnail" alt="avatar">
           <h6>Új profil kép feltöltése</h6>
           <input type="file" (change)="onFileSelected($event)" class="text-center center-block well well-sm" class="form-control" #fileInput>
-
-          <button (click)="fileInput.click()">Válassz file-t</button>
-          <button (click)="onUpload()">Feltöltés</button>
+        <!--  <input class="btn btn-success" (click)="fileInput.click()" value="Válassz képet"> -->
+          <input class="btn btn-success"  type="button" (click)="onUpload()" value="Feltöltés">
         </div>
       </div>
 
@@ -23,9 +23,10 @@
       </div>
       <!-- edit form column -->
       <div class="col-md-8 col-md-offset-1 col-sm-6 col-xs-12 personal-info">
+
         <div class="form-horizontal" role="form">
           <div class="form-group">
-            <h3>Személyes adataid:</h3>
+            <h3>Személyes adataid</h3>
             <label class="col-lg-3 control-label"><b>Név:</b></label>
             <div class="col-lg-8">
               <input type="text" placeholder="Név" name="username" [(ngModel)]="user.name" [ngClass]="{'is-invalid': validator.validateName(user.name)}" class="form-control" required>
@@ -55,7 +56,7 @@
           </div>
           <div *ngIf="showOwnerData()" class="form-group">
         <!--    <label class="col-lg-3 control-label"><b>Kedvenceim:</b></label> -->
-            <label  for="myPetType" class="col-lg-3 control-label"><b>Kisállatom fajtája:</b></label>
+            <label  for="myPetType" class="col-lg-3 control-label"><b>Kisállatod fajtája:</b></label>
             <div class="col-lg-8">
               <select id="myPetType" [(ngModel)]="currentPetType" name="myPetType" class="form-control">
                   <!--option value=PetType.DOG>Kutya</option>
@@ -66,14 +67,14 @@
                   <option *ngFor="let type of petTypes" [value]="type.key">{{type.value}}</option>
               </select>
             </div>
-            <label for="petsname" class="col-lg-3 control-label"><b>Kisállatom neve:</b></label>
+            <label for="petsname" class="col-lg-3 control-label"><b>Kisállatod neve:</b></label>
             <div class="col-lg-8">
               <input type="text" [(ngModel)]="currentPetName" placeholder="Kisállatom nevének megadása" name="petsname"
                 class="form-control">
                 <input class="btn btn-success" (click)="addToMyPets()" value="Állat hozzáadása">
                 <hr>
                 <div *ngIf=user.ownerData.pets.length>
-                  <h3>Állataid:</h3>
+                  <h3>Kisállataid:</h3>
                   <ul>
                       <li *ngFor="let pet of user.ownerData.pets">
                         <b>{{ pet.petName }}</b> : {{ pet.petType }}
@@ -101,7 +102,7 @@
             </div>
           </div>
           <div *ngIf="showSitterData()" class="form-group">
-            <label class="col-md-3 control-label"><b>Utca:</b></label>
+            <label class="col-lg-3 control-label"><b>Utca:</b></label>
             <div class="col-lg-8">
               <input type="text" name="street" placeholder="Utca megadása" id="address" [(ngModel)]="user.sitterData.address" class="form-control" required>
             </div>
@@ -112,7 +113,7 @@
               <input type="text" name="intro" placeholder="Bemutatkozó szöveg megadása" id="intro" [(ngModel)]="user.sitterData.introductionText"  class="form-control" required>
             </div>
           </div>
-          <h3>Szolgáltatásaid:</h3>
+          <h3>Szolgáltatásaid</h3>
           <div *ngIf="showSitterData()" class="form-group">
             <label for="servicePlace" class="col-lg-3 control-label"><b>Szolgáltatás nyújtásának helye:</b></label>
             <div class="col-lg-8">
