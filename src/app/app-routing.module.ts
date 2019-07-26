@@ -9,6 +9,8 @@ import { MyProfilePageComponent } from './components/my-profile-page/my-profile-
 import { WannabeSitterPageComponent } from './components/wannabe-sitter-page/wannabe-sitter-page.component';
 import { SitterProfilePageComponent } from './components/sitter-profile-page/sitter-profile-page.component';
 import { SearchDataTransferService } from './services/search-data-transfer.service';
+// temporary for development
+import { SitterCalendarComponent } from './components/sitter-calendar/sitter-calendar.component';
 
 
 const routes: Routes = [
@@ -19,6 +21,9 @@ const routes: Routes = [
     { path: 'my-profile-page', component: MyProfilePageComponent, canActivate: [AuthGuardService]},
     { path: 'wannabe-sitter-page', component: WannabeSitterPageComponent},
     { path: 'sitter/:sitter_id', component: SitterProfilePageComponent},
+
+    // temporary for development
+    { path: 'calendar', component: SitterCalendarComponent },
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
