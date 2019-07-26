@@ -25,4 +25,20 @@ describe('WannabeSitterPageComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should set userLoggedIn to false if no user', () => {
+        expect(component.getUserLoggedIn()).toBeFalsy();
+    });
+
+    it('should render buttons according to user login status', () => {
+        const compiled = fixture.debugElement.nativeElement;
+        expect(compiled.querySelector('button').textContent).toContain('Regisztrálok');
+        component.setUserLoggedIn(true);
+        fixture.detectChanges();
+        expect(compiled.querySelector('button').textContent).toContain('Kitöltöm a profilom');
+        component.setUserLoggedIn(false);
+        fixture.detectChanges();
+        expect(compiled.querySelector('button').textContent).toContain('Regisztrálok');
+    });
+
 });

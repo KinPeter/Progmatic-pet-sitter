@@ -60,11 +60,13 @@ export class SearchDataComponent implements OnInit {
             place: this.selectedPlaceType,
             petType: this.selectedPetType,
           }
+      } else {
+        this.search();
       }
   }
   search(): void {
     //spinner
-    
+
     this.dataTrService.searchSitter(this.searchDataFromMainPage).then(values => {
       this.eventSearched.emit(values);
     });

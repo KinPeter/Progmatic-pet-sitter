@@ -29,4 +29,22 @@ describe('HeaderComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should set userLoggedIn to false if no user', () => {
+        expect(component.getUserLoggedIn()).toBeFalsy();
+    });
+
+    it('should render buttons according to user login status', () => {
+        const compiled = fixture.debugElement.nativeElement;
+        expect(compiled.querySelector('.my-head-info a:first-of-type').textContent).toContain('Bejelentkezés');
+        expect(compiled.querySelector('.my-head-info a:last-of-type').textContent).toContain('Regisztráció');
+        component.setUserLoggedIn(true);
+        fixture.detectChanges();
+        expect(compiled.querySelector('.my-head-info a:first-of-type').textContent).toContain('Profilom');
+        expect(compiled.querySelector('.my-head-info a:last-of-type').textContent).toContain('Kijelentkezés');
+        component.setUserLoggedIn(false);
+        fixture.detectChanges();
+        expect(compiled.querySelector('.my-head-info a:first-of-type').textContent).toContain('Bejelentkezés');
+        expect(compiled.querySelector('.my-head-info a:last-of-type').textContent).toContain('Regisztráció');
+    });
 });

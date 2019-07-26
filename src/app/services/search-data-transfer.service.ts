@@ -11,7 +11,7 @@ import { SearchedSitter } from '../interfaces/searchedSitter';
 export class SearchDataTransferService {
 
   public searchData: SearchData;
-  private readonly URL = 'http://192.168.1.210:8080/search/sitters';
+  private readonly URL = 'http://192.168.1.237:8080/search/sitters';
   sitters: SearchedSitter[];
 
   constructor(private http: HttpClient) {
@@ -59,16 +59,5 @@ export class SearchDataTransferService {
       return this.http.get<SearchedSitter[]>(this.URL, {params: httpParams, withCredentials: true})
         .toPromise();
   }
-
-  // resolve(searchData: SearchData): Promise<SearchedSitter[]> | boolean {
-  //   return this.searchSitter(searchData).then(values => {
-  //     if (values) {
-  //       console.log(values);
-  //       return values as SearchedSitter[];
-  //     }
-  //   });
-  //   return false;
-  // }
-
 
 }

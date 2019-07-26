@@ -7,9 +7,12 @@
       <!-- left column -->
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="text-center" id="img-photo">
-          <img src="http://lorempixel.com/200/200/people/9/" class="avatar img-circle img-thumbnail" alt="avatar">
+      <!--   <img src="http://lorempixel.com/200/200/people/9/" class="avatar img-circle img-thumbnail" alt="avatar"> -->
           <h6>Új profil kép feltöltése</h6>
-          <input type="file" class="text-center center-block well well-sm" class="form-control">
+          <input type="file" (change)="onFileSelected($event)" class="text-center center-block well well-sm" class="form-control" #fileInput>
+
+          <button (click)="fileInput.click()">Válassz file-t</button>
+          <button (click)="onUpload()">Feltöltés</button>
         </div>
       </div>
 
@@ -38,7 +41,7 @@
             <label class="col-lg-3 control-label"><b>Új jelszó megadása:</b></label>
             <div class="col-lg-8">
               <input type="password" name="pass" placeholder="Új jelszó megadása" id="psw" [(ngModel)]="user.password"
-              [ngClass]="{'is-invalid': isPasswordValid}" class="form-control" required>
+              [ngClass]="{'is-invalid': !isPasswordValid}" class="form-control" required>
             </div>
             <div class="invalid-feedback" *ngIf="!isPasswordValid">
                 Kérlek, add meg a jelszavad!
@@ -67,7 +70,7 @@
             <div class="col-lg-8">
               <input type="text" [(ngModel)]="currentPetName" placeholder="Kisállatom nevének megadása" name="petsname"
                 class="form-control">
-                <button class="btn btn-success" (click)="addToMyPets()">Állat hozzáadása</button>
+                <input class="btn btn-success" (click)="addToMyPets()" value="Állat hozzáadása">
                 <hr>
                 <div *ngIf=user.ownerData.pets.length>
                   <h3>Állataid:</h3>
@@ -154,7 +157,7 @@
             <div class="col-lg-8">
               <input type="text" [(ngModel)]="currentWage" placeholder="Órabér megadása" name="pricePerHour" class="form-control">
           <!--    <input type="text" name="wage" placeholder="Órabér megadása" id="pricePerHour"[(ngModel)]="user.sitterData.wage" class="form-control" required> -->
-              <button class="btn btn-success" (click)="addToMyServices()">Szolgáltatás hozzáadása</button>
+              <input class="btn btn-success"  type="button" (click)="addToMyServices()" value="Szolgáltatás hozzáadása">
               <hr>
               <div *ngIf= user.sitterData.services.length>
                   <h3>Vállalt szolgáltatások:</h3>
@@ -170,7 +173,7 @@
           <div class="form-group">
             <label class="col-lg-3 control-label"></label>
             <div class="col-lg-8">
-              <input class="btn btn-success" value="Változtatások mentése" (click)="save()" type="button">
+              <input class="btn btn-primary" value="Változtatások mentése" (click)="save()" type="button">
             </div>
           </div>
         </div>
