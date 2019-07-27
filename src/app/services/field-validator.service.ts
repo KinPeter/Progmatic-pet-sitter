@@ -28,6 +28,15 @@ export class FieldValidatorService {
       }
     }
 
+    validateEmailInComponent(isEmailValid: boolean, email: string) : boolean {
+      if (email == null ) {
+        return false;
+      } else {
+        isEmailValid = this.validateEmail( email );
+        return !isEmailValid;
+      }
+    }
+
     validateName(name: string): boolean {
         return name.trim() == '';
     }
