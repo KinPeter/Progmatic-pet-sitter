@@ -7,11 +7,33 @@ import { SearchData, PetType, PlaceOfService, KeyValue} from '../../interfaces/s
 import { FieldValidatorService } from 'src/app/services/field-validator.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { HttpClient, HttpEventType} from '@angular/common/http';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
     selector: 'app-my-profile-page',
     templateUrl: './my-profile-page.component.html',
-    styleUrls: ['./my-profile-page.component.scss']
+    styleUrls: ['./my-profile-page.component.scss'],
+    animations: [
+        trigger('dropdownForm', [
+            state('in', style({
+                opacity: 1,
+                transform: 'scaleY(1)'
+            })),
+            transition('void => *', [ // fade-in animation
+                style({ // initial style, before added to the DOM
+                    opacity: 0,
+                    transform: 'scaleY(0)'
+                }),
+                animate(300)
+            ]),
+            transition('* => void', [ // fade-out animation
+                animate(300, style({
+                    opacity: 0,
+                    transform: 'scaleY(0)'
+                }))
+            ])
+        ])
+    ]
 })
 export class MyProfilePageComponent implements OnInit {
 
@@ -42,6 +64,10 @@ export class MyProfilePageComponent implements OnInit {
     petTypes: KeyValue[];
     servicePlaces: KeyValue[];
   //  sercivePlaceType: KeyValue[];
+
+
+    addPetOpen = false;
+    addServiceOpen = false;
 
 
 
