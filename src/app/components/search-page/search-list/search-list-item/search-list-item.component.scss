@@ -1,0 +1,120 @@
+div.job_listings li.job_listing a,
+div.job_listings li.no_job_listings_found a {
+  position: relative;
+  display: block;
+  padding: 20px;
+  min-height: 104px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+div.job_listings li.job_listing a:hover,
+div.job_listings li.no_job_listings_found a:hover {
+  background: #fafafa;
+}
+div.job_listings li.job_listing a img.company_logo,
+div.job_listings li.no_job_listings_found a img.company_logo {
+  width: 64px;
+  height: 64px;
+  padding: 2px;
+  background: #fff;
+  border: 1px solid #ececec;
+  border-radius: 50%;
+  left: 20px;
+}
+div.job_listings li.job_listing a div.position,
+div.job_listings li.no_job_listings_found a div.position {
+  padding-left: 80px;
+  padding-top: 10px;
+  float: none;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  div.job_listings li.job_listing a div.position,
+  div.job_listings li.no_job_listings_found a div.position {
+    float: left;
+    width: 50%;
+  }
+}
+div.job_listings li.job_listing a div.position .company h2,
+div.job_listings li.no_job_listings_found a div.position .company h2 {
+  font-weight: 700;
+  white-space: nowrap;
+	overflow: hidden;
+}
+div.job_listings li.job_listing a div.position .company strong,
+div.job_listings li.no_job_listings_found a div.position .company strong {
+  font-weight: 300;
+  color: #8c8c8c;
+  font-style: italic;
+  font-size: 14px;
+}
+div.job_listings li.job_listing a div.location,
+div.job_listings li.no_job_listings_found a div.location {
+  font-size: 14px;
+  padding-top: 10px;
+  float: none;
+  width: 100%;
+  padding-left: 80px;
+}
+@media (min-width: 768px) {
+  div.job_listings li.job_listing a div.location,
+  div.job_listings li.no_job_listings_found a div.location {
+    float: left;
+    width: 20%;
+    padding-left: 0;
+  }
+}
+div.job_listings li.job_listing a div.location .fa,
+div.job_listings li.no_job_listings_found a div.location .fa {
+  margin-right: 6px;
+  color: #a6ce39;
+}
+div.job_listings li.job_listing a ul.meta,
+div.job_listings li.no_job_listings_found a ul.meta {
+  float: none;
+  width: 100%;
+  text-align: left;
+  padding: 0 0 0 80px;
+}
+@media (min-width: 768px) {
+  div.job_listings li.job_listing a ul.meta,
+  div.job_listings li.no_job_listings_found a ul.meta {
+    float: right;
+    text-align: right;
+    width: 20%;
+    padding: 20px 0 0 0;
+  }
+}
+div.job_listings li.job_listing a ul.meta li,
+div.job_listings li.no_job_listings_found a ul.meta li {
+  font-size: 14px;
+}
+div.job_listings li.job_listing.job_position_featured a,
+div.job_listings li.no_job_listings_found.job_position_featured a {
+  background: #ffc74d;
+  color: #fff;
+}
+div.job_listings li.job_listing.job_position_featured a:hover,
+div.job_listings li.no_job_listings_found.job_position_featured a:hover {
+  background: #ffb71a;
+}
+div.job_listings li.job_listing.job_position_featured a div.position,
+div.job_listings li.no_job_listings_found.job_position_featured a div.position {
+  color: #fff;
+}
+div.job_listings li.job_listing.job_position_featured a div.position .company strong,
+div.job_listings li.no_job_listings_found.job_position_featured a div.position .company strong {
+  color: #fff;
+}
+div.job_listings li.job_listing.job_position_featured a div.location,
+div.job_listings li.no_job_listings_found.job_position_featured a div.location {
+  color: #fff;
+}
+div.job_listings li.job_listing.job_position_featured a div.location .fa,
+div.job_listings li.no_job_listings_found.job_position_featured a div.location .fa {
+  color: #fff;
+}
+div.job_listings li.job_listing.job_position_featured a ul.meta li,
+div.job_listings li.no_job_listings_found.job_position_featured a ul.meta li {
+  color: #fff;
+}
