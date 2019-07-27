@@ -35,7 +35,7 @@ export class MyProfilePageComponent implements OnInit {
 
     errors: string[];
     showNetworkAlert: boolean;
-    isEmailValid: boolean;
+  //  isEmailValid: boolean;
     isPasswordValid: boolean;
 
 
@@ -52,7 +52,7 @@ export class MyProfilePageComponent implements OnInit {
       private http: HttpClient) {
       this.errors = [];
       this.showNetworkAlert = false;
-      this.isEmailValid = true;
+  //    this.isEmailValid = true;
       this.isPasswordValid = true;
       this.petTypes = [];
       for(let type in PetType) {
