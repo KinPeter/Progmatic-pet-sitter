@@ -69,6 +69,9 @@ export class MyProfilePageComponent implements OnInit {
     addPetOpen = false;
     addServiceOpen = false;
 
+    selectedPetType: any;
+    selectedPlace: any;
+
 
 
 
@@ -118,6 +121,13 @@ export class MyProfilePageComponent implements OnInit {
             }]
           }
       };
+
+      this.petTypes = this.pettypeService.getPetTypeArray();
+      this.servicePlaces = this.servicePlaceService.getServicePlaceTypeArray();
+      this.servicePlaces.unshift( {key: "NONE", value: "Helyszín típusa"} );
+      this.petTypes.unshift( {key: "NONE", value: "Kedvenced típusa"} );
+      this.selectedPetType = "NONE";
+      this.selectedPlace = "NONE";
 
       // this.user = this.auth.currentUser;
     }
