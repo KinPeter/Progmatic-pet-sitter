@@ -76,12 +76,16 @@ export class RegistrationPageComponent implements OnInit {
         };
         this.errors = {
             name: false,
-            email: false,
+            email: {'empty': false, 'not_valid': false},
             password: {'empty': false, 'not_same': false},
             passwordConfirm: {'empty': false, 'not_same': false},
+            petType: false,
+            petsname: false,
             address: false,
-            postCode: false,
+            postCode: {'empty': false, 'not_valid': false},
             city: false,
+            servicePlace: false,
+            servicePetType: false,
             currentWage: false
 
         };
@@ -113,9 +117,13 @@ export class RegistrationPageComponent implements OnInit {
             email: {'empty': false, 'not_valid': false},
             password: {'empty': false, 'not_same': false},
             passwordConfirm: {'empty': false, 'not_same': false},
+            petType: false,
+            petsname: false,
             address: false,
             postCode: {'empty': false, 'not_valid': false},
             city: false,
+            servicePlace: false,
+            servicePetType: false,
             currentWage: false
 
         };
@@ -150,7 +158,9 @@ export class RegistrationPageComponent implements OnInit {
             this.errors.passwordConfirm.not_same = true;
         }
 
+        this.errors.petType = this.validator.validateName(this.user.name);
 
+        this.errors.petsname = this.validator.validateName(this.user.name);
 
         this.errors.city = this.validator.validateName(this.sitterData.city);
 
@@ -172,8 +182,12 @@ export class RegistrationPageComponent implements OnInit {
             this.errors.email.not_valid = false;
         }
 
-
         this.errors.currentWage = this.validator.validateName(this.sitterData.postCode);
+
+        this.errors.servicePlace = this.validator.validateName(this.user.name);
+
+        this.errors.servicePetType = this.validator.validateName(this.user.name);
+
 
 
 
@@ -190,9 +204,6 @@ export class RegistrationPageComponent implements OnInit {
         if (this.sitterDataOpen) {
             this.user.sitterData = this.sitterData;
         }
-
-
-        // ha a jelszó és az ismétlése nem egyezik
 
 
         // végül:

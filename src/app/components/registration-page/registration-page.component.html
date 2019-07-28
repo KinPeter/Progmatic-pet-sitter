@@ -70,18 +70,22 @@
         <button class="btn btn-warning btn-sm" (click)="ownerDataOpen = !ownerDataOpen">Kisállat tulaj vagyok <i class="fa fa-caret-down"></i></button>
         <div *ngIf="ownerDataOpen" [@dropdownForm] class="dropdown-form">
             <label for="myPetType"><b>Kérlek válaszd ki, milyen állatod van:</b></label>
-            <select id="myPetType" [(ngModel)]="currentPetType" name="myPetType" class="form-control">
+            <select id="myPetType" [(ngModel)]="currentPetType" name="myPetType" [ngClass]="{'is-invalid': errors.petType}" class="form-control">
                 <option value="DOG">Kutya</option>
                 <option value="CAT">Macska</option>
                 <option value="BIRD">Madár</option>
                 <option value="RODENT">Rágcsáló</option>
                 <option value="REPTILE">Hüllő</option>
             </select>
+            <div class="invalid-feedback"
+                *ngIf="errors.petType">
+                Kérlek válaszd ki, milyen állatod van!
+            </div>
             <label for="petsname"><b>Kisállatom neve:</b></label>
             <input type="text" [(ngModel)]="currentPetName" placeholder="Kisállatom nevének megadása" name="petsname"
-            [ngClass]="{'is-invalid': errors.name}" class="form-control">
+            [ngClass]="{'is-invalid': errors.petsname}" class="form-control">
                 <div class="invalid-feedback"
-                    *ngIf="errors.name">
+                    *ngIf="errors.petsname">
                     Kérlek, ne üres mezőt, hanem a kisállatod nevét add meg!
                 </div>
             <button class="btn btn-success" (click)="addToMyPets()">Állat hozzáadása</button>
@@ -119,34 +123,41 @@
             </div>
 
             <label for="postalCode"><b>Irányítószám</b></label>
-            <input type="text" [(ngModel)]="sitterData.postCode" placeholder="Irányítószám megadása" name="postalCode" [ngClass]="{'is-invalid': errors.postCode.empty}" class="form-control">
+            <input type="text" [(ngModel)]="sitterData.postCode" placeholder="Irányítószám megadása" name="postalCode" [ngClass]="{'is-invalid': errors.postCode.empty || errors.passwordConfirm.not_valid}" class="form-control">
             <div class="invalid-feedback"
                 *ngIf="errors.postCode.empty">
                 Kérlek, ne üres mezőt, hanem az irányítószámodat add meg!
             </div>
             <div class="invalid-feedback"
                 *ngIf="errors.postCode.not_valid">
-                Kérlek, egy érvényes email címet adj meg!
+                Kérlek, egy létező irányítószámot adj meg!
             </div>
 
             <label for="intro"><b>Bemutatkozó szöveg:</b></label>
             <textarea type="text" [(ngModel)]="sitterData.intro" placeholder="Bemutatkozó szöveg megadása" name="intro" class="form-control"></textarea>
-
             <hr>
             <h3>Szolgáltatásaid:</h3>
             <label for="servicePlace"><b>Szolgáltatás nyújtásának helye:</b></label>
-            <select [(ngModel)]="currentPlaceOfService" name="servicePlace" class="form-control">
+            <select [(ngModel)]="currentPlaceOfService" name="servicePlace" [ngClass]="{'is-invalid': errors.servicePlace}" class="form-control">
                 <option value="OWNERS_HOME">Házhoz megyek</option>
                 <option value="SITTERS_HOME">Saját otthonomban fogadom</option>
             </select>
+            <div class="invalid-feedback"
+                *ngIf="errors.servicePlace">
+                Kérlek válaszd ki, hol szeretnél vigyázni a kisállatra!
+            </div>
             <label for="servicePetType"><b>Milyen állattal vállalod ezt a szolgáltatást:</b></label>
-            <select [(ngModel)]="currentServicePetType" name="servicePetType" class="form-control">
+            <select [(ngModel)]="currentServicePetType" name="servicePetType" [ngClass]="{'is-invalid': errors.servicePetType}" class="form-control">
                 <option value="DOG">Kutya</option>
                 <option value="CAT">Macska</option>
                 <option value="BIRD">Madár</option>
                 <option value="RODENT">Rágcsáló</option>
                 <option value="REPTILE">Hüllő</option>
             </select>
+            <div class="invalid-feedback"
+                *ngIf="errors.servicePetType">
+                Kérlek válaszd ki, milyen állatokra szeretnél vigyázni!
+            </div>
             <label for="pricePerHour"><b>Órabér:</b></label>
             <input type="text" [(ngModel)]="currentWage" placeholder="Órabér megadása" name="pricePerHour" [ngClass]="{'is-invalid': errors.currentWage}" class="form-control">
             <div class="invalid-feedback"
