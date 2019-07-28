@@ -7,8 +7,8 @@ export enum PetType {
 }
 
 export enum PlaceOfService {
-  SITTERS_HOME = 'KiVihez viszem a kisállatomat',
-  OWNERS_HOME = 'Fogadom a KiVit'
+  SITTERS_HOME = 'KiVi otthona',
+  OWNERS_HOME = 'Kisállattulajdonos otthona'
 }
 
 export interface SearchData {
