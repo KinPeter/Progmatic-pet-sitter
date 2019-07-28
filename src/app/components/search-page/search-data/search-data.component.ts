@@ -60,9 +60,8 @@ export class SearchDataComponent implements OnInit {
             place: this.selectedPlaceType,
             petType: this.selectedPetType,
           }
-      } else {
-        this.search();
       }
+      this.search();
   }
   search(): void {
     //spinner

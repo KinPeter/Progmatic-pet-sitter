@@ -9,15 +9,21 @@ import { MyProfilePageComponent } from './components/my-profile-page/my-profile-
 import { WannabeSitterPageComponent } from './components/wannabe-sitter-page/wannabe-sitter-page.component';
 import { SitterProfilePageComponent } from './components/sitter-profile-page/sitter-profile-page.component';
 import { SearchDataTransferService } from './services/search-data-transfer.service';
+// temporary for development
+import { SitterCalendarComponent } from './components/sitter-calendar/sitter-calendar.component';
 
 
 const routes: Routes = [
+    // **** Légyszi a meglévő route path-okat már ne változtassuk, ha lehet!! ****
     { path: '', component: FrontPageComponent, pathMatch: 'full' },
-    { path: 'search/sitters', component: SearchPageComponent},
+    { path: 'sitter/search', component: SearchPageComponent},
     { path: 'registration-page', component: RegistrationPageComponent},
     { path: 'my-profile-page', component: MyProfilePageComponent, canActivate: [AuthGuardService]},
     { path: 'wannabe-sitter-page', component: WannabeSitterPageComponent},
-    { path: 'sitter-profile-page', component: SitterProfilePageComponent},
+    { path: 'sitter/:sitter_id', component: SitterProfilePageComponent},
+
+    // temporary for development
+    { path: 'calendar', component: SitterCalendarComponent },
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

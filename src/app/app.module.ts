@@ -23,6 +23,8 @@ import { SearchListComponent } from './components/search-page/search-list/search
 import { SearchListItemComponent } from './components/search-page/search-list/search-list-item/search-list-item.component';
 // import { ErrorInterceptor } from './services/interceptors/error-interceptor.service';
 import { SpinnerComponent } from './components/ui/spinner/spinner.component';
+import { SitterCalendarComponent } from './components/sitter-calendar/sitter-calendar.component';
+import { CalendarDatePipe } from './pipes/calendar-date.pipe';
 
 @NgModule({
     declarations: [
@@ -43,6 +45,8 @@ import { SpinnerComponent } from './components/ui/spinner/spinner.component';
         SearchListComponent,
         SearchListItemComponent,
         SpinnerComponent,
+        SitterCalendarComponent,
+        CalendarDatePipe,
     ],
     imports: [
         BrowserModule,

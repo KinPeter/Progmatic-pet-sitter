@@ -25,10 +25,17 @@ export interface SitterService {
     pricePerHour: number;
 }
 
+export interface Day {
+    id: number;
+    availability: string;
+    date: string;
+}
+
 export interface Sitter {
     address: string;
     postCode: string;
     city: string;
     intro: string;
     services: SitterService[];
+    availabilities?: Day[];
 }

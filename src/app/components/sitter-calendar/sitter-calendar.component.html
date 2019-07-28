@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="calendar">
+                <div class="weeks">
+                    <div class="day day-of-week">H</div>
+                    <div class="day day-of-week">K</div>
+                    <div class="day day-of-week">Sze</div>
+                    <div class="day day-of-week">Cs</div>
+                    <div class="day day-of-week">P</div>
+                    <div class="day day-of-week">Szo</div>
+                    <div class="day day-of-week">V</div>
+                </div>
+                <div class="hr"></div>
+                <div class="weeks">
+                    <div class="day" 
+                        *ngFor="let day of availabilities" 
+                        [ngClass]="getMyClass(day)"
+                        (click)="changeMe(day)">
+                        <div>{{ day.availability !== 'BLANK' ? (day.date | calendarDate) : null }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
