@@ -20,7 +20,7 @@ export interface Owner {
 }
 
 export interface SitterService {
-    placeOfService: PlaceOfService;
+    place: PlaceOfService;
     petType: PetType;
     pricePerHour: number;
 }
