@@ -1,75 +1,92 @@
-<section class="page-content">
-	<div class="container">
-
-		<div class="row">
-			<div class="content col-md-8">
-
-				<div class="job-profile-info">
-					<div class="row">
-						<div class="col-md-5">
-							<figure class="alignnone">
-								<img src="http://lorempixel.com/200/200/people/9/" class="avatar img-circle img-thumbnail" alt="avatar" alt="">
-							</figure>
-						</div>
-						<div class="col-md-7">
-							<h2 class="name">Név</h2>
-							<i class="tagline"></i>
-							<ul class="meta">
-								<li>Házhoz megyek</li>
-								<li>Saját otthonomban fogadom</li>
-							</ul>
-
-
-							<div class="spacer-lg"></div>
-
-							<a href="job-profile.html#" class="btn btn-success btn-lg"><span class="fa fa-envelope"></span> Üzenet Küldése</a>
+<div class="container" *ngIf="!isLoading">
+	<div class="row">
+		<div class="content col-md-7">
+			<div class="job-profile-info">
+				<div class="row sitter-card">
+					<div class="col-md-5">
+						<figure class="alignnone">
+							<img src="/assets/images/defaultAvatar.png" class="avatar img-circle img-thumbnail" alt="avatar" alt="">
+						</figure>
+					</div>
+					<div class="col-md-7">
+						<h1 class="name">{{ sitter.userName }}</h1>
+						<i class="tagline"></i>
+						<ul class="info">
+							<li>
+								<i class="fa fa-map-marker"></i>
+								{{ sitter.postalCode }}
+								{{ sitter.city }}
+								{{ sitter.address }},
+							</li>
+						</ul>
+						<div class="ratings">
+							<h4>Értékelésem:</h4>	
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star"></span>
+							<span class="fa fa-star-half-o"></span>
+							<span class="fa fa-star-o"></span>
 						</div>
 					</div>
-
-					<div class="spacer-lg"></div>
-
-					<h4>Bemutatkozás</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eu nisi ac mi malesuada vestibulum. Phasellus tempor nunc eleifend cursus molestie. Mauris lectus arcu, pellentesque at sodales sit amet, condimentum id nunc.</p>
-
-					<p>Donec ornare mattis suscipit. Praesent fermentum accumsan vulputate. Sed velit nulla, sagittis non erat id, dictum vestibulum ligula. Maecenas sed enim sem. Etiam scelerisque gravida purus nec interdum. Phasellus venenatis ligula in faucibus consequat. Aliquam dictum nulla eu varius porta. Maecenas congue dui id posuere fermentum. Morbi at iaculis nibh, at semper augue</p>
-
-					<hr class="lg">
-
-					<h4>Helyszín</h4>
-					<!-- Google Map -->
-					<div class="googlemap-wrapper">
-						<div id="map_canvas" class="map-canvas"></div>
-					</div>
-					<!-- Google Map / End -->
-
-					<hr class="lg">
-
-					<div class="row">
-
-						<div class="col-sm-4 col-md-4">
-							<h4>Milyen állattal vállalod ezt a szolgáltatást</h4>
-							<div class="list list__arrow2">
-								<ul>
-									<li>Kutya</li>
-									<li>Macska</li>
-									<li>Madár</li>
-									<li>Rágcsáló</li>
-									<li>Hüllő</li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-sm-4 col-md-4">
-							<h4>Órabér</h4>
-							<div class="list list__arrow2">
-								<ul>
-									<li>0</li>
-								</ul>
-							</div>
-						</div>
-						<a href="job-profile.html#" class="btn btn-success btn-lg"><span class="fa fa-envelope"></span> Üzenet Küldése</a>
-					</div>
+				</div>
+				<hr>
+				<h4>Mikor érek rá?</h4>
+				<p>Alább láthatod, hogy a következő 30 napban mikor tudnék foglalkozni kedvenceddel.</p>
+				<app-sitter-calendar 
+					*ngIf="!isLoading" 
+					[isComingFromSitterProfile]=true 
+					[viewedSitter]="sitter">
+				</app-sitter-calendar>
+				<div class="map-legend">
+					<div><span class="legend-green"></span> Egész nap ráérek</div>
+					<div><span class="legend-orange"></span> Talán ráérek</div>
+					<div><span class="legend-red"></span> Sajnos elfoglalt vagyok</div>
+					
 				</div>
 			</div>
 		</div>
+		
+		<div class="content col-md-5">
+			<h4>Pár szóban rólam:</h4>
+			<p>{{ sitter.intro }}</p>
+			<hr>
+			<h4>Szolgáltatásaim:</h4>
+			<blockquote *ngFor="let service of sitter.services">
+				<i class="entypo circled-info"></i>
+				<div class="row">
+					<div class="col-xs-5">
+						<i class="fa fa-home"></i> 
+						Hol?
+					</div>
+					<div class="col-xs-7">
+						<span>{{ getPlaceOfService(service.place) }}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-5">
+						<i class="fa fa-paw"></i> 
+						Milyen állattal?
+					</div>
+					<div class="col-xs-7">
+						<span>{{ getPetType(service.petType) }}</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-5">
+						<i class="fa fa-gift"></i> 
+						Mennyiért?
+					</div>
+					<div class="col-xs-7">
+						<span>{{ service.pricePerHour }} Ft /óra</span>
+					</div>
+				</div>
+			</blockquote>
+
+		</div>
 	</div>
-</section>
+
+</div>
+
+
+
+
