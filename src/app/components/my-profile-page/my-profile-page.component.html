@@ -8,7 +8,7 @@
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="text-center" id="img-photo">
       <!--   <img src="http://lorempixel.com/200/200/people/9/" class="avatar img-circle img-thumbnail" alt="avatar"> -->
-          <img src="http://192.168.1.210:8080/user/{{user.userId}}/image" class="avatar img-circle img-thumbnail" alt="avatar">
+          <img src="http://192.168.1.209:8080/user/{{user.userId}}/image" class="avatar img-circle img-thumbnail" alt="avatar">
           <h6>Új profilkép feltöltése</h6>
           <input type="file" (change)="onFileSelected($event)" class="text-center center-block well well-sm" class="form-control" #fileInput>
         <!--  <input class="btn btn-success" (click)="fileInput.click()" value="Válassz képet"> -->
@@ -57,20 +57,8 @@
               <input type="password" name="pass-again" placeholder="Új jelszó megerősítése" id="psw-repeat" class="form-control" required>
             </div>
           </div>
-          <div *ngIf="showOwnerData()" >
-            <h3>Kisállataid</h3>
-            <div class="form-group">
-                <div class="col-lg-8">
-                    <div *ngIf=user.ownerData.pets.length>
-                      <ul>
-                        <li *ngFor="let pet of user.ownerData.pets">
-                          <b>{{ pet.petName }}</b> : {{ pet.petType }}
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-              </div>
 
+          <div>
             <button class="btn btn-warning btn-sm" (click)="addPetOpen = !addPetOpen">Kisállat hozzáadása<i class="fa fa-caret-down"></i></button>
             <div *ngIf="addPetOpen" [@dropdownForm] class="dropdown-form">
                 <div class="form-group">
@@ -90,13 +78,29 @@
                   </div>
                 </div>
             </div>
+          </div>
+
+          <div *ngIf="showOwnerData()">
+            <h3>Kisállataid</h3>
+            <div class="form-group">
+                <div class="col-lg-8">
+                    <div *ngIf=user.ownerData.pets.length>
+                      <ul>
+                        <li *ngFor="let pet of user.ownerData.pets">
+                          <b>{{ pet.petName }}</b> : {{ pet.petType }}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+              </div>
+          </div>
 
 
         <div *ngIf="showSitterData()">
           <div class="form-group">
             <label class="col-lg-3 control-label"><b>Irányítószám:</b></label>
             <div class="col-lg-8">
-              <input type="text" name="zipcode" placeholder="Irányítószám megadása" id="postalCode" [(ngModel)]="user.sitterData.postcode" [ngClass]="{'is-invalid': validator.validatePostcodeInComponent(isPostcodeValid, user.sitterData.postcode)}" class="form-control">
+              <input type="text" name="zipcode" placeholder="Irányítószám megadása" id="postalCode" [(ngModel)]="user.sitterData.postalCode" [ngClass]="{'is-invalid': validator.validatePostcodeInComponent(isPostcodeValid, user.sitterData.postcode)}" class="form-control">
             </div>
             <div class="invalid-feedback"
                 *ngIf="validator.validatePostcodeInComponent(isPostcodeValid, user.sitterData.postcode)">
@@ -118,16 +122,16 @@
           <div  class="form-group">
             <label class="col-lg-3 control-label"><b>Bemutatkozó szöveg:</b></label>
             <div class="col-lg-8">
-              <input type="text" name="intro" placeholder="Bemutatkozó szöveg megadása" id="intro" [(ngModel)]="user.sitterData.introductionText"  class="form-control" required>
+              <input type="text" name="intro" placeholder="Bemutatkozó szöveg megadása" id="intro" [(ngModel)]="user.sitterData.intro"  class="form-control" required>
             </div>
           </div>
           <hr>
           <div class="form-group">
-            <h3>Vállalt szolgáltatások:</h3>
+            <h3>Vállalt szolgáltatások</h3>
             <div *ngIf= user.sitterData.services.length>
               <ul>
                   <li *ngFor="let service of user.sitterData.services">
-                      <b>{{ service.placeOfService }}</b> : {{ service.petType }}, {{ service.pricePerHour }} Ft /óra
+                      <b>{{ service.place }}</b> : {{ service.petType }}, {{ service.pricePerHour }} Ft /óra
                   </li>
               </ul>
             </div>
