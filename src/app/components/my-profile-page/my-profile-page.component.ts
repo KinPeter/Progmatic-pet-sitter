@@ -48,11 +48,11 @@ export class MyProfilePageComponent implements OnInit {
 
     // OWNER DATA fieldsb
     currentPetName = '';
-    currentPetType = null;
+    currentPetType : any;
 
     // SITTER DATA fields
-    currentPlaceOfService = PlaceOfService.OWNERS_HOME;
-    currentServicePetType = PetType.DOG;
+    currentPlaceOfService : any;
+    currentServicePetType : any;
     currentWage = 0;
 
     errors: string[];
@@ -68,9 +68,6 @@ export class MyProfilePageComponent implements OnInit {
 
     addPetOpen = false;
     addServiceOpen = false;
-
-    selectedPetType: any;
-    selectedPlace: any;
 
 
 
@@ -126,8 +123,9 @@ export class MyProfilePageComponent implements OnInit {
       this.servicePlaces = this.servicePlaceService.getServicePlaceTypeArray();
       this.servicePlaces.unshift( {key: "NONE", value: "Helyszín típusa"} );
       this.petTypes.unshift( {key: "NONE", value: "Kedvenced típusa"} );
-      this.selectedPetType = "NONE";
-      this.selectedPlace = "NONE";
+      this.currentPetType = "NONE";
+      this.currentPlaceOfService = "NONE";
+      this.currentServicePetType = "NONE";
 
       // this.user = this.auth.currentUser;
     }
@@ -169,7 +167,7 @@ export class MyProfilePageComponent implements OnInit {
         this.currentPetType = PetType[this.currentPetType];
         this.user.ownerData.pets.push({petName: this.currentPetName, petType: this.currentPetType});
         this.currentPetName = '';
-        this.currentPetType = null;
+        this.currentPetType = "NONE";
         console.log(this.user.ownerData.pets);
     }
 

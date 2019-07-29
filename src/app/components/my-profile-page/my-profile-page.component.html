@@ -8,11 +8,11 @@
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="text-center" id="img-photo">
       <!--   <img src="http://lorempixel.com/200/200/people/9/" class="avatar img-circle img-thumbnail" alt="avatar"> -->
-          <img class="avatar img-circle img-thumbnail" alt="avatar">
-          <h6>Új profil kép feltöltése</h6>
+          <img src="http://192.168.1.210:8080/user/{{user.userId}}/image" class="avatar img-circle img-thumbnail" alt="avatar">
+          <h6>Új profilkép feltöltése</h6>
           <input type="file" (change)="onFileSelected($event)" class="text-center center-block well well-sm" class="form-control" #fileInput>
         <!--  <input class="btn btn-success" (click)="fileInput.click()" value="Válassz képet"> -->
-          <button class="btn btn-success"  type="button" (click)="onUpload()">Választott kép feltöltése</button>
+          <button class="btn btn-success"  type="button" (click)="onUpload()">Kiválasztott kép feltöltése</button>
         </div>
       </div>
 
@@ -148,7 +148,7 @@
             <div class="form-group">
               <label  for="servicePetType" class="col-lg-3 control-label"><b>Milyen állattal vállalod ezt a szolgáltatást:</b></label>
               <div class="col-lg-8">
-                <select id="myPetType" [(ngModel)]="currentPetType" name="myPetType" class="form-control">
+                <select id="myPetType" [(ngModel)]="currentServicePetType" name="myPetType" class="form-control">
 
                   <option *ngFor="let type of petTypes" [value]="type.key">{{type.value}}</option>
                 </select>
