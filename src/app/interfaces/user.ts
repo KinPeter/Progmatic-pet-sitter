@@ -33,7 +33,7 @@ export interface Day {
 
 export interface Sitter {
     address: string;
-    postCode: string;
+    postalCode: string;
     city: string;
     intro: string;
     services: SitterService[];
