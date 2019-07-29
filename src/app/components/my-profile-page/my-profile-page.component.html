@@ -70,12 +70,14 @@
                             <ul>
                               <li *ngFor="let pet of user.ownerData.pets">
                                 <b>{{ pet.petName }}</b> : {{ pet.petType }}
+                                <button class="btn btn-warning btn-sm" (click)="deletePet()" >Kisállat törlése</button>
                               </li>
                             </ul>
                           </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="form-group">
                   <label  for="myPetType" class="col-lg-3 control-label"><b>Kisállatod fajtája:</b></label>
                   <div class="col-lg-8">
@@ -105,10 +107,10 @@
                 <div class="form-group">
                   <label class="col-lg-3 control-label"><b>Irányítószám:</b></label>
                   <div class="col-lg-8">
-                    <input type="text" name="zipcode" placeholder="Irányítószám megadása" id="postalCode" [(ngModel)]="user.sitterData.postalCode" [ngClass]="{'is-invalid': validator.validatePostcodeInComponent(isPostcodeValid, user.sitterData.postcode)}" class="form-control">
+                    <input type="text" name="zipcode" placeholder="Irányítószám megadása" id="postalCode" [(ngModel)]="user.sitterData.postalCode" [ngClass]="{'is-invalid': validator.validatePostcodeInComponent(isPostcodeValid, user.sitterData.postalCode)}" class="form-control">
                   </div>
                   <div class="invalid-feedback"
-                      *ngIf="validator.validatePostcodeInComponent(isPostcodeValid, user.sitterData.postcode)">
+                      *ngIf="validator.validatePostcodeInComponent(isPostcodeValid, user.sitterData.postalCode)">
                       Kérlek, valós irányítószámot adj meg!
                   </div>
                 </div>
@@ -138,6 +140,7 @@
                       <ul>
                         <li *ngFor="let service of user.sitterData.services">
                             <b>{{ service.place }}</b> : {{ service.petType }}, {{ service.pricePerHour }} Ft /óra
+                            <button class="btn btn-warning btn-sm" (click)="deleteService()" >Szolgáltatás törlése</button>
                         </li>
                       </ul>
                     </div>
