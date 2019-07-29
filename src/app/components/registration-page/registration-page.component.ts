@@ -93,18 +93,23 @@ export class RegistrationPageComponent implements OnInit {
     }
 
     addToMyPets(): void {
+        if (this.currentPetType != null && this.currentPetName != '') {
         this.ownerData.pets.push({petName: this.currentPetName, petType: this.currentPetType});
+        }
         this.currentPetName = '';
         this.currentPetType = null;
         console.log(this.ownerData.pets);
-    }
+    };
 
     addToMyServices(): void {
+        if (this.currentPlaceOfService != null && this.currentServicePetType != null && this.currentWage != 0) {
+
         this.sitterData.services.push({
             place: this.currentPlaceOfService,
             petType: this.currentServicePetType,
             pricePerHour: this.currentWage
-        });
+
+        })};
         this.currentPlaceOfService = null;
         this.currentServicePetType = null;
         this.currentWage = 0;
@@ -167,7 +172,7 @@ export class RegistrationPageComponent implements OnInit {
         this.errors.city = this.validator.validateName(this.sitterData.city);
 
         this.errors.address = this.validator.validateName(this.sitterData.address);
-        
+
         this.errors.intro = this.validator.validateName(this.sitterData.intro);
 
         this.errors.postCode.empty = this.validator.validateName(this.sitterData.postCode);
