@@ -84,6 +84,7 @@ export class RegistrationPageComponent implements OnInit {
             address: false,
             postCode: {'empty': false, 'not_valid': false},
             city: false,
+            intro: false,
             servicePlace: false,
             servicePetType: false,
             currentWage: false
@@ -100,7 +101,7 @@ export class RegistrationPageComponent implements OnInit {
 
     addToMyServices(): void {
         this.sitterData.services.push({
-            placeOfService: this.currentPlaceOfService,
+            place: this.currentPlaceOfService,
             petType: this.currentServicePetType,
             pricePerHour: this.currentWage
         });
@@ -122,6 +123,7 @@ export class RegistrationPageComponent implements OnInit {
             address: false,
             postCode: {'empty': false, 'not_valid': false},
             city: false,
+            intro: false,
             servicePlace: false,
             servicePetType: false,
             currentWage: false
@@ -165,6 +167,8 @@ export class RegistrationPageComponent implements OnInit {
         this.errors.city = this.validator.validateName(this.sitterData.city);
 
         this.errors.address = this.validator.validateName(this.sitterData.address);
+        
+        this.errors.intro = this.validator.validateName(this.sitterData.intro);
 
         this.errors.postCode.empty = this.validator.validateName(this.sitterData.postCode);
         this.errors.postCode.not_valid = !this.validator.validatePostcode(this.sitterData.postCode);
@@ -187,11 +191,6 @@ export class RegistrationPageComponent implements OnInit {
         this.errors.servicePlace = this.validator.validateName(this.user.name);
 
         this.errors.servicePetType = this.validator.validateName(this.user.name);
-
-
-
-
-
 
 
         // ha le van nyitva - ergo kitöltötte az OWNER adatokat, adja hozzá a user-hez

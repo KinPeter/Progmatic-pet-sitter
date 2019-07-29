@@ -134,7 +134,11 @@
             </div>
 
             <label for="intro"><b>Bemutatkozó szöveg:</b></label>
-            <textarea type="text" [(ngModel)]="sitterData.intro" placeholder="Bemutatkozó szöveg megadása" name="intro" class="form-control"></textarea>
+            <textarea type="text" [(ngModel)]="sitterData.intro" placeholder="Bemutatkozó szöveg megadása" name="intro" [ngClass]="{'is-invalid': errors.intro}" class="form-control"></textarea>
+            <div class="invalid-feedback"
+                *ngIf="errors.intro">
+                Kérlek, írj egy pár szót magadról!
+            </div>
             <hr>
             <h3>Szolgáltatásaid:</h3>
             <label for="servicePlace"><b>Szolgáltatás nyújtásának helye:</b></label>
