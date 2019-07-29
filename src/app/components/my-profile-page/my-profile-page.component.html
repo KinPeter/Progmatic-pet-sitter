@@ -8,7 +8,7 @@
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="text-center" id="img-photo">
       <!--   <img src="http://lorempixel.com/200/200/people/9/" class="avatar img-circle img-thumbnail" alt="avatar"> -->
-          <img src="http://192.168.1.210:8080/user/{{user.userId}}/image" class="avatar img-circle img-thumbnail" alt="avatar">
+          <img src="http://192.168.1.209:8080/user/{{user.userId}}/image" class="avatar img-circle img-thumbnail" alt="avatar">
           <h6>Új profilkép feltöltése</h6>
           <input type="file" (change)="onFileSelected($event)" class="text-center center-block well well-sm" class="form-control" #fileInput>
         <!--  <input class="btn btn-success" (click)="fileInput.click()" value="Válassz képet"> -->
@@ -57,7 +57,8 @@
               <input type="password" name="pass-again" placeholder="Új jelszó megerősítése" id="psw-repeat" class="form-control" required>
             </div>
           </div>
-          <div *ngIf="showOwnerData()" >
+
+          <div *ngIf="showOwnerData()">
             <h3>Kisállataid</h3>
             <div class="form-group">
                 <div class="col-lg-8">
@@ -90,13 +91,14 @@
                   </div>
                 </div>
             </div>
+          </div>
 
 
         <div *ngIf="showSitterData()">
           <div class="form-group">
             <label class="col-lg-3 control-label"><b>Irányítószám:</b></label>
             <div class="col-lg-8">
-              <input type="text" name="zipcode" placeholder="Irányítószám megadása" id="postalCode" [(ngModel)]="user.sitterData.postcode" [ngClass]="{'is-invalid': validator.validatePostcodeInComponent(isPostcodeValid, user.sitterData.postcode)}" class="form-control">
+              <input type="text" name="zipcode" placeholder="Irányítószám megadása" id="postalCode" [(ngModel)]="user.sitterData.postalCode" [ngClass]="{'is-invalid': validator.validatePostcodeInComponent(isPostcodeValid, user.sitterData.postcode)}" class="form-control">
             </div>
             <div class="invalid-feedback"
                 *ngIf="validator.validatePostcodeInComponent(isPostcodeValid, user.sitterData.postcode)">
@@ -118,7 +120,7 @@
           <div  class="form-group">
             <label class="col-lg-3 control-label"><b>Bemutatkozó szöveg:</b></label>
             <div class="col-lg-8">
-              <input type="text" name="intro" placeholder="Bemutatkozó szöveg megadása" id="intro" [(ngModel)]="user.sitterData.introductionText"  class="form-control" required>
+              <input type="text" name="intro" placeholder="Bemutatkozó szöveg megadása" id="intro" [(ngModel)]="user.sitterData.intro"  class="form-control" required>
             </div>
           </div>
           <hr>

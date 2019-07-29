@@ -94,18 +94,18 @@ export class MyProfilePageComponent implements OnInit {
 
     //  this.petType = this.pettypeService.getPetTypeArray();
     //  this.sercivePlaceType = this.servicePlaceService.getServicePlaceTypeArray();
-
+/*
       this.user = {
           userId: 1,
           name: 'Gina',
           email: 'abc@gmai.com',
-        //  ownerData: null,
+          ownerData: null,
           ownerData: {
             pets: [{
               petName: 'Cirmi',
               petType: PetType.CAT
           }]
-        },
+}
           sitterData: {
             address: 'Csemete utca 10.',
             postCode: '1036',
@@ -117,7 +117,7 @@ export class MyProfilePageComponent implements OnInit {
               pricePerHour: 5000,
             }]
           }
-      };
+      }; */
 
       this.petTypes = this.pettypeService.getPetTypeArray();
       this.servicePlaces = this.servicePlaceService.getServicePlaceTypeArray();
@@ -127,7 +127,8 @@ export class MyProfilePageComponent implements OnInit {
       this.currentPlaceOfService = "NONE";
       this.currentServicePetType = "NONE";
 
-      // this.user = this.auth.currentUser;
+      this.user = this.auth.currentUser;
+    console.log(this.user);
     }
 
     ngOnInit() {
