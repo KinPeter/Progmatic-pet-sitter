@@ -1,7 +1,8 @@
 <a routerLink="/sitter/{{sitter.id}}">
-  <img src="http://192.168.1.210:8080/user/{{sitter.id}}/image" alt="KiVi'sPic" class="company_logo">
+  <!-- <img src="assets/images/defaultAvatar.png" alt="KiVi'sPic" class="company_logo"> -->
+  <img src="http://192.168.1.209:8080/user/{{sitter.id}}/image" alt="KiVi'sPic" class="company_logo">
   <div class="position">
-    <h3>{{sitter.userName}}</h3>
+    <h2>{{sitter.userName}}</h2>
     <div class="company">
       <span><i>{{sitter.intro}}</i></span>
     </div>
@@ -10,9 +11,15 @@
     <i class="fa fa-map-marker"></i>
     <span>{{sitter.postalCode}}, {{sitter.city}}</span>
   </div>
-  <!-- <ul class="meta">
+  <ul class="meta">
     <li class="date">
       Értékelés
+      <br>
+      <span class="fa fa-star-o"></span>
+      <span class="fa fa-star-o"></span>
+      <span class="fa fa-star-o"></span>
+      <span class="fa fa-star-o"></span>
+      <span class="fa fa-star-o"></span>
     </li>
-  </ul> -->
+  </ul>
 </a>
