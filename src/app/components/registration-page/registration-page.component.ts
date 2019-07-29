@@ -36,7 +36,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 export class RegistrationPageComponent implements OnInit {
 
     private user: User;
-    private passwordConfirm: '';
+    private passwordConfirm = '';
 
     // OWNER DATA fields
     private ownerDataOpen = false;
@@ -50,6 +50,7 @@ export class RegistrationPageComponent implements OnInit {
     private currentPlaceOfService = PlaceOfService.OWNERS_HOME;
     private currentServicePetType = PetType.DOG;
     private currentWage = 0;
+    private errors: any;
 
     constructor(
         private router: Router,
@@ -72,6 +73,21 @@ export class RegistrationPageComponent implements OnInit {
             city: '',
             intro: '',
             services: []
+        };
+        this.errors = {
+            name: false,
+            email: {'empty': false, 'not_valid': false},
+            password: {'empty': false, 'not_same': false},
+            passwordConfirm: {'empty': false, 'not_same': false},
+            petType: false,
+            petsname: false,
+            address: false,
+            postCode: {'empty': false, 'not_valid': false},
+            city: false,
+            servicePlace: false,
+            servicePetType: false,
+            currentWage: false
+
         };
     }
 
@@ -96,6 +112,88 @@ export class RegistrationPageComponent implements OnInit {
 
 
     submitRegistration() {
+        this.errors = {
+            name: false,
+            email: {'empty': false, 'not_valid': false},
+            password: {'empty': false, 'not_same': false},
+            passwordConfirm: {'empty': false, 'not_same': false},
+            petType: false,
+            petsname: false,
+            address: false,
+            postCode: {'empty': false, 'not_valid': false},
+            city: false,
+            servicePlace: false,
+            servicePetType: false,
+            currentWage: false
+
+        };
+        // név validáládsa
+        this.errors.name = this.validator.validateName(this.user.name);
+        // email validáládsa
+        this.errors.email.empty = this.validator.validateName(this.user.email);
+        this.errors.email.not_valid != this.validator.validateEmail(this.user.email);
+
+        if (this.errors.email.empty) {
+            this.errors.email.empty = true;
+            this.errors.email.not_valid = true;
+        }
+        if (!this.errors.email.empty && !this.validator.validateEmail(this.user.email)) {
+            this.errors.email.empty = false;
+            this.errors.email.not_valid = true;
+        }
+        if (this.validator.validateEmail(this.user.email)) {
+            this.errors.email.empty = false;
+            this.errors.email.not_valid = false;
+        }
+        // jelszó validáládsa
+        this.errors.password.empty = this.validator.validateName(this.user.password);
+        this.errors.passwordConfirm.empty = this.validator.validateName(this.passwordConfirm);
+
+        if (!this.errors.password.empty && this.user.password !== this.passwordConfirm) {
+            this.errors.password.not_same = true;
+            this.errors.passwordConfirm.not_same = true;
+        }
+        if (!this.errors.passwordConfirm.empty && this.user.password !== this.passwordConfirm) {
+            this.errors.password.not_same = true;
+            this.errors.passwordConfirm.not_same = true;
+        }
+
+        this.errors.petType = this.validator.validateName(this.user.name);
+
+        this.errors.petsname = this.validator.validateName(this.user.name);
+
+        this.errors.city = this.validator.validateName(this.sitterData.city);
+
+        this.errors.address = this.validator.validateName(this.sitterData.address);
+
+        this.errors.postCode.empty = this.validator.validateName(this.sitterData.postCode);
+        this.errors.postCode.not_valid = !this.validator.validatePostcode(this.sitterData.postCode);
+
+        if (this.errors.email.empty) {
+            this.errors.email.empty = true;
+            this.errors.email.not_valid = true;
+        }
+        if (!this.errors.email.empty && !this.validator.validateEmail(this.user.email)) {
+            this.errors.email.empty = false;
+            this.errors.email.not_valid = true;
+        }
+        if (this.validator.validateEmail(this.user.email)) {
+            this.errors.email.empty = false;
+            this.errors.email.not_valid = false;
+        }
+
+        this.errors.currentWage = this.validator.validateName(this.sitterData.postCode);
+
+        this.errors.servicePlace = this.validator.validateName(this.user.name);
+
+        this.errors.servicePetType = this.validator.validateName(this.user.name);
+
+
+
+
+
+
+
         // ha le van nyitva - ergo kitöltötte az OWNER adatokat, adja hozzá a user-hez
         if (this.ownerDataOpen) {
             this.user.ownerData = this.ownerData;
@@ -107,12 +205,6 @@ export class RegistrationPageComponent implements OnInit {
             this.user.sitterData = this.sitterData;
         }
 
-
-        // ha a jelszó és az ismétlése nem egyezik
-        if (this.user.password !== this.passwordConfirm) {
-            // csinálj valamit!
-            throw new Error();
-        }
 
         // végül:
         console.log(this.user);
