@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
+
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { SearchDataTransferService } from 'src/app/services/search-data-transfer.service';
 import { Day } from '../../interfaces/user';
-import { SearchedSitter } from 'src/app/interfaces/searchedSitter';
+import { SitterView } from 'src/app/interfaces/sitterView';
 
 @Component({
     selector: 'app-sitter-calendar',
@@ -10,79 +12,43 @@ import { SearchedSitter } from 'src/app/interfaces/searchedSitter';
 })
 export class SitterCalendarComponent implements OnInit {
 
-    // ha TRUE, az azt jelenti, hogy pl a sitter-profile megjelenítő oldalon van, ott nem működnek a kattintós metódusok
-    // ha FALSE akkor módosítható lesz az adat, pl amikor a sitter a saját profiloldalán szerkeszti
-    @Input() isReadOnly = false;
+    // flag, ami azt állítja, hogy mely funckiók működjenek:
+    // TRUE: ha keresés után egy Sitter profilját nézegetjük
+    // FALSE: ha a Sitter a saját profilját -> naptárját szerkeszti épp
+    @Input() isComingFromSitterProfile = false;
 
-    // ha a keresésről kerülünk a sitter profile oldalra, akkor attól a komponenstől kéne megkapja a megjelenítendő adatokat
-    @Input() searchedSitter: SearchedSitter = null;
+    @Input() viewedSitter: SitterView;
 
-    // DUMMY lista olyan formátumban, ahogy majd a szerverről jön
-    private availabilities: Day[] = [
-        { id: 31, availability: 'FREE', date: '2019.07.23' }, // próbáld ki átírni az első napot, és aszerint
-        { id: 32, availability: 'FREE', date: '2019.07.24' }, // tologatja el a napokat :) cooool :D
-        { id: 33, availability: 'FREE', date: '2019.07.25' },
-        { id: 34, availability: 'LIMITED', date: '2019.07.26' },
-        { id: 35, availability: 'FREE', date: '2019.07.27' },
-        { id: 36, availability: 'FREE', date: '2019.07.28' },
-        { id: 37, availability: 'FREE', date: '2019.07.29' },
-        { id: 38, availability: 'FREE', date: '2019.07.30' },
-        { id: 39, availability: 'FREE', date: '2019.07.31' },
-        { id: 40, availability: 'FREE', date: '2019.08.01' },
-        { id: 41, availability: 'LIMITED', date: '2019.08.02' },
-        { id: 42, availability: 'FREE', date: '2019.08.03' },
-        { id: 43, availability: 'FREE', date: '2019.08.04' },
-        { id: 44, availability: 'LIMITED', date: '2019.08.05' },
-        { id: 45, availability: 'FREE', date: '2019.08.06' },
-        { id: 46, availability: 'FREE', date: '2019.08.07' },
-        { id: 47, availability: 'BUSY', date: '2019.08.08' },
-        { id: 48, availability: 'BUSY', date: '2019.08.09' },
-        { id: 49, availability: 'BUSY', date: '2019.08.10' },
-        { id: 50, availability: 'LIMITED', date: '2019.08.11' },
-        { id: 51, availability: 'FREE', date: '2019.08.12' },
-        { id: 52, availability: 'FREE', date: '2019.08.13' },
-        { id: 53, availability: 'FREE', date: '2019.08.14' },
-        { id: 54, availability: 'FREE', date: '2019.08.15' },
-        { id: 55, availability: 'FREE', date: '2019.08.16' },
-        { id: 56, availability: 'FREE', date: '2019.08.17' },
-        { id: 57, availability: 'BUSY', date: '2019.08.18' },
-        { id: 58, availability: 'BUSY', date: '2019.08.19' },
-        { id: 59, availability: 'FREE', date: '2019.08.20' },
-        { id: 60, availability: 'FREE', date: '2019.08.21' },
-    ];
+    private availabilities: Day[];
 
-
-    constructor(private auth: AuthenticationService) {
-        if (this.isReadOnly) {
-            // this.availabilities = this.searchedSitter.availabilities;
-        } else {
-            // ha a profilszerkesztő oldalon vagyunk, akkor a jelenleg bejelentkezett user adata kell
-            // if (auth.currentUser.sitterData) {
-            //     this.availabilities = auth.currentUser.sitterData.availabilities;
-            // }
-        }
-    }
+    constructor(
+        private auth: AuthenticationService,
+        private data: SearchDataTransferService
+    ) {}
 
     ngOnInit() {
-        this.setBlankStartingDays();
+        this.availabilities = this.viewedSitter.availabilities;
+        this.setBlankDays();
+        // console.log(this.availabilities);
     }
 
     // a template-en az *ngFor-ban használja, eszerint kapja meg, milyen színű legyen
     getMyClass(day: Day): string {
-        if (day.availability === 'FREE') {
-            return 'free';
-        } else if (day.availability === 'LIMITED') {
-            return 'limited';
-        } else if (day.availability === 'BUSY') {
-            return 'busy';
-        } else {
-            return 'blank';
+        switch (day.availability) {
+            case 'FREE':
+                return 'free';
+            case 'LIMITED':
+                return 'limited';
+            case 'BUSY':
+                return 'busy';
+            default:
+                return 'blank';
         }
     }
 
     // a listában megadott napok előtti és utáni napokat tölti ki, hogy a naptrában "eltolja" őket
     // a megfelelő kezdőnapra
-    setBlankStartingDays(): void {
+    private setBlankDays(): void {
         // megnézi, milyen napra esik az első nap a listában
         const firstDayInList: number = new Date(this.availabilities[0].date).getDay();
         // Day objektum a szürke töltelék napoknak
@@ -106,18 +72,53 @@ export class SitterCalendarComponent implements OnInit {
         }
     }
 
-    // ez történik majd kattintásra, itt kéne megváltoztatni az "availability"-t
-    changeMe(day: Day): void {
-        // csak akkor csináljon bármit, ha nem "szürke töltelék" napra kattintott
-        if (!this.isReadOnly && day.availability !== 'BLANK') {
-            console.log(day);
-            // TODO
-        }
-
+    // kiszedi a BLANK napokat, hogy szerkesztés után anélkül küldhessük vissza a szerverre
+    private removeBlankDays(): Day[] {
+        const availabilities: Day[] = this.availabilities.filter((day) => {
+            return day.availability !== 'BLANK';
+        });
+        return availabilities;
     }
 
-    // FONTOS lesz majd, mielőtt elküldjük a változtatást a szerverre, hogy
-    // kiszedjük a "BLANK" napokat a listából!
+    clickMe(day: Day): void {
+        // csak akkor csináljon bármit, ha nem "szürke töltelék" napra kattintott
+        if (day.availability !== 'BLANK') {
+            // ha a sitter-profile oldalon vagyunk épp, és a felhasználó be van jelentkezve:
+            if (this.isComingFromSitterProfile && this.auth.currentUser) {
+                // üzenet küldése a Sitternek
+                this.data.sendMessageToSitterWithDay(day, this.viewedSitter.id, this.auth.currentUser.userId)
+                .then((response) => {
+                    // üzenet elküldve!
+                })
+                .catch((error) => {
+                    // hiba történt
+                });
 
+            // ha a profilszerkesztő oldalon vagyunk épp:
+            } else if (!this.isComingFromSitterProfile && this.auth.currentUser) {
+                // az adott nap szerkesztése a naptárban
+                this.setAvailability(day);
+                // kiszedi a BLANK napokat, hogy szerkesztés után anélkül küldhessük vissza a szerverre
+                const newAvailabilities = this.removeBlankDays();
+                // console.log(newAvailabilities);
+            }
+        }
+    }
+
+    private setAvailability(day: Day): void {
+        switch (day.availability) {
+            case 'FREE':
+                day.availability = 'LIMITED';
+                break;
+            case 'LIMITED':
+                day.availability = 'BUSY';
+                break;
+            case 'BUSY':
+                day.availability = 'FREE';
+                break;
+            default:
+                return;
+        }
+    }
 
 }
