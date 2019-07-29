@@ -58,20 +58,7 @@
             </div>
           </div>
 
-          <div *ngIf="showOwnerData()">
-            <h3>Kisállataid</h3>
-            <div class="form-group">
-                <div class="col-lg-8">
-                    <div *ngIf=user.ownerData.pets.length>
-                      <ul>
-                        <li *ngFor="let pet of user.ownerData.pets">
-                          <b>{{ pet.petName }}</b> : {{ pet.petType }}
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-              </div>
-
+          <div>
             <button class="btn btn-warning btn-sm" (click)="addPetOpen = !addPetOpen">Kisállat hozzáadása<i class="fa fa-caret-down"></i></button>
             <div *ngIf="addPetOpen" [@dropdownForm] class="dropdown-form">
                 <div class="form-group">
@@ -91,6 +78,21 @@
                   </div>
                 </div>
             </div>
+          </div>
+
+          <div *ngIf="showOwnerData()">
+            <h3>Kisállataid</h3>
+            <div class="form-group">
+                <div class="col-lg-8">
+                    <div *ngIf=user.ownerData.pets.length>
+                      <ul>
+                        <li *ngFor="let pet of user.ownerData.pets">
+                          <b>{{ pet.petName }}</b> : {{ pet.petType }}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+              </div>
           </div>
 
 
@@ -125,11 +127,11 @@
           </div>
           <hr>
           <div class="form-group">
-            <h3>Vállalt szolgáltatások:</h3>
+            <h3>Vállalt szolgáltatások</h3>
             <div *ngIf= user.sitterData.services.length>
               <ul>
                   <li *ngFor="let service of user.sitterData.services">
-                      <b>{{ service.placeOfService }}</b> : {{ service.petType }}, {{ service.pricePerHour }} Ft /óra
+                      <b>{{ service.place }}</b> : {{ service.petType }}, {{ service.pricePerHour }} Ft /óra
                   </li>
               </ul>
             </div>

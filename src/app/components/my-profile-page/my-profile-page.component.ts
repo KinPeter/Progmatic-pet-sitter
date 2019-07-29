@@ -104,8 +104,8 @@ export class MyProfilePageComponent implements OnInit {
             pets: [{
               petName: 'Cirmi',
               petType: PetType.CAT
-          }]
-}
+            }]
+          }
           sitterData: {
             address: 'Csemete utca 10.',
             postCode: '1036',
@@ -128,6 +128,11 @@ export class MyProfilePageComponent implements OnInit {
       this.currentServicePetType = "NONE";
 
       this.user = this.auth.currentUser;
+      for (let i = 0; i < this.user.sitterData.services.length; i++) {
+          this.user.sitterData.services[i].place = PlaceOfService[this.user.sitterData.services[0].place];
+          this.user.sitterData.services[i].petType = PetType[this.user.sitterData.services[0].petType];
+      }
+
     console.log(this.user);
     }
 
@@ -166,6 +171,11 @@ export class MyProfilePageComponent implements OnInit {
 
     addToMyPets(): void {
         this.currentPetType = PetType[this.currentPetType];
+        if (!this.user.ownerData) {
+          this.user.ownerData = {
+            pets: []
+          }
+        }
         this.user.ownerData.pets.push({petName: this.currentPetName, petType: this.currentPetType});
         this.currentPetName = '';
         this.currentPetType = "NONE";
@@ -173,15 +183,15 @@ export class MyProfilePageComponent implements OnInit {
     }
 
     addToMyServices(): void {
-      this.currentPetType = PetType[this.currentPetType];
+      this.currentServicePetType = PetType[this.currentServicePetType];
       this.currentPlaceOfService = PlaceOfService[this.currentPlaceOfService];
         this.user.sitterData.services.push({
-            placeOfService: this.currentPlaceOfService,
+            place: this.currentPlaceOfService,
             petType: this.currentServicePetType,
             pricePerHour: this.currentWage
         });
-        this.currentPlaceOfService = null;
-        this.currentServicePetType = null;
+        this.currentPlaceOfService = "NONE";
+        this.currentServicePetType = "NONE";
         this.currentWage = 0;
         console.log(this.user.sitterData.services);
     }
