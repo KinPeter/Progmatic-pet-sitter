@@ -94,30 +94,31 @@ export class MyProfilePageComponent implements OnInit {
 
     //  this.petType = this.pettypeService.getPetTypeArray();
     //  this.sercivePlaceType = this.servicePlaceService.getServicePlaceTypeArray();
-/*
-      this.user = {
+
+  /*    this.user = {
           userId: 1,
           name: 'Gina',
           email: 'abc@gmai.com',
-          ownerData: null,
+        //  ownerData: null,
           ownerData: {
             pets: [{
               petName: 'Cirmi',
               petType: PetType.CAT
             }]
-          }
+          },
+          sitterData: null,
           sitterData: {
             address: 'Csemete utca 10.',
             postCode: '1036',
             city: 'Budapest',
             intro: 'string',
             services: [{
-              placeOfService: PlaceOfService.OWNERS_HOME,
+              place: PlaceOfService.OWNERS_HOME,
               petType: PetType.DOG,
               pricePerHour: 5000,
             }]
           }
-      }; */
+      };*/
 
       this.petTypes = this.pettypeService.getPetTypeArray();
       this.servicePlaces = this.servicePlaceService.getServicePlaceTypeArray();
@@ -127,11 +128,13 @@ export class MyProfilePageComponent implements OnInit {
       this.currentPlaceOfService = "NONE";
       this.currentServicePetType = "NONE";
 
+
       this.user = this.auth.currentUser;
       for (let i = 0; i < this.user.sitterData.services.length; i++) {
           this.user.sitterData.services[i].place = PlaceOfService[this.user.sitterData.services[0].place];
           this.user.sitterData.services[i].petType = PetType[this.user.sitterData.services[0].petType];
       }
+      
 
     console.log(this.user);
     }
