@@ -10,7 +10,7 @@ import { SearchedSitter } from '../interfaces/searchedSitter';
 export class SearchDataTransferService {
 
   public searchData: SearchData;
-  private readonly URL = 'http://192.168.1.210:8080/sitter/search';
+  private readonly URL = 'http://192.168.1.209:8080/search/sitters';
   public sitters: SearchedSitter[];
   public sitter: SearchedSitter;
 
