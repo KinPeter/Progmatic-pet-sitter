@@ -1,4 +1,5 @@
 import { PlaceOfService, PetType } from './search-data';
+import { Day } from './user';
 
 export interface SearchedSitter {
     id: number;
@@ -13,11 +14,7 @@ export interface SearchedSitter {
       petType: PetType;
       pricePerHour: number;
       pricePerDay: number;
-    }
-    availabilities: {
-      id: number;
-      availability: string;
-      date: Date;
-    }
+    };
+    availabilities: Day[];
 
 }

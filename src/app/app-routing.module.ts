@@ -16,7 +16,7 @@ import { SitterCalendarComponent } from './components/sitter-calendar/sitter-cal
 const routes: Routes = [
     // **** Légyszi a meglévő route path-okat már ne változtassuk, ha lehet!! ****
     { path: '', component: FrontPageComponent, pathMatch: 'full' },
-    { path: 'search/sitters', component: SearchPageComponent},
+    { path: 'sitter/search', component: SearchPageComponent},
     { path: 'registration-page', component: RegistrationPageComponent},
     { path: 'my-profile-page', component: MyProfilePageComponent, canActivate: [AuthGuardService]},
     { path: 'wannabe-sitter-page', component: WannabeSitterPageComponent},

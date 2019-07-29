@@ -18,6 +18,7 @@
                         [ngClass]="getMyClass(day)"
                         (click)="changeMe(day)">
                         <div>{{ day.availability !== 'BLANK' ? (day.date | calendarDate) : null }}</div>
+
                     </div>
                 </div>
             </div>
