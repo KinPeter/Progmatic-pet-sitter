@@ -7,15 +7,15 @@
         flex-wrap: wrap;
         .day {
             flex-basis: calc(100% / 7);
+            position: relative;
             box-sizing: border-box;
             border: 2px solid white;
-            border-radius: 7px;
+            border-radius: 5px;
             height: 40px;
-            background: blue;
-            box-shadow: inset -3px -3px 5px rgba(0, 0, 0, 0.4);
+            box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.2);
             &.blank {
                 background: lightgray;
-                box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.4);
+                box-shadow: inset 0 -3px 0 rgba(255, 255, 255, 0.4);
             }
             &.free {
                 background: $kiviGreen;
@@ -34,7 +34,7 @@
             }
             color: white;
             font-size: 1rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
             justify-content: center;
             font-weight: bold;
             display: flex;
@@ -42,13 +42,29 @@
             @media (min-width: 500px) {
                 font-size: inherit;
             }
+            &:after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.1);
+                opacity: 0;
+                transition: all .2s;
+            }
+            &:hover:not(.blank) {
+                &:after {
+                    opacity: 1;
+                }
+            }
         }
     }
 
     .hr {
         margin: 3px auto;
         border-bottom: 1px solid $kiviDarkGrey;
-        box-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
     }
 
     @media (min-width: 500px) {

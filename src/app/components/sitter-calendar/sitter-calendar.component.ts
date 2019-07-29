@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Day } from '../../interfaces/user';
+import { SearchedSitter } from 'src/app/interfaces/searchedSitter';
 
 @Component({
     selector: 'app-sitter-calendar',
@@ -8,6 +9,13 @@ import { Day } from '../../interfaces/user';
     styleUrls: ['./sitter-calendar.component.scss']
 })
 export class SitterCalendarComponent implements OnInit {
+
+    // ha TRUE, az azt jelenti, hogy pl a sitter-profile megjelenítő oldalon van, ott nem működnek a kattintós metódusok
+    // ha FALSE akkor módosítható lesz az adat, pl amikor a sitter a saját profiloldalán szerkeszti
+    @Input() isReadOnly = false;
+
+    // ha a keresésről kerülünk a sitter profile oldalra, akkor attól a komponenstől kéne megkapja a megjelenítendő adatokat
+    @Input() searchedSitter: SearchedSitter = null;
 
     // DUMMY lista olyan formátumban, ahogy majd a szerverről jön
     private availabilities: Day[] = [
@@ -45,10 +53,14 @@ export class SitterCalendarComponent implements OnInit {
 
 
     constructor(private auth: AuthenticationService) {
-        // ha majd összeáll a rendszer, innen szedi le a listát:
-        // if (auth.currentUser.sitterData) {
-        //     this.availabilities = auth.currentUser.sitterData.availabilities;
-        // }
+        if (this.isReadOnly) {
+            // this.availabilities = this.searchedSitter.availabilities;
+        } else {
+            // ha a profilszerkesztő oldalon vagyunk, akkor a jelenleg bejelentkezett user adata kell
+            // if (auth.currentUser.sitterData) {
+            //     this.availabilities = auth.currentUser.sitterData.availabilities;
+            // }
+        }
     }
 
     ngOnInit() {
@@ -97,7 +109,7 @@ export class SitterCalendarComponent implements OnInit {
     // ez történik majd kattintásra, itt kéne megváltoztatni az "availability"-t
     changeMe(day: Day): void {
         // csak akkor csináljon bármit, ha nem "szürke töltelék" napra kattintott
-        if (day.availability !== 'BLANK') {
+        if (!this.isReadOnly && day.availability !== 'BLANK') {
             console.log(day);
             // TODO
         }
