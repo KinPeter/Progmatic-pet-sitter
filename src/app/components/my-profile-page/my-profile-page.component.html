@@ -70,7 +70,7 @@
                             <ul>
                               <li *ngFor="let pet of user.ownerData.pets">
                                 <b>{{ pet.petName }}</b> : {{ pet.petType }}
-                                <button class="btn btn-warning btn-sm" (click)="deletePet()" >Kisállat törlése</button>
+                                <button class="btn btn-primary btn-xs" (click)="deletePet()" >Kisállat törlése</button>
                               </li>
                             </ul>
                           </div>
@@ -140,7 +140,7 @@
                       <ul>
                         <li *ngFor="let service of user.sitterData.services">
                             <b>{{ service.place }}</b> : {{ service.petType }}, {{ service.pricePerHour }} Ft /óra
-                            <button class="btn btn-warning btn-sm" (click)="deleteService()" >Szolgáltatás törlése</button>
+                            <button class="btn btn-primary btn-xs" (click)="deleteService()" >Szolgáltatás törlése</button>
                         </li>
                       </ul>
                     </div>
