@@ -1,6 +1,5 @@
 <a routerLink="/sitter/{{sitter.id}}">
-  <!-- <img src="assets/images/defaultAvatar.png" alt="KiVi'sPic" class="company_logo"> -->
-  <img src="http://192.168.1.209:8080/user/{{sitter.id}}/image" alt="KiVi'sPic" class="company_logo">
+  <img src="http://192.168.1.209:8080/user/{{sitter.id}}/image" (error)="onError()" alt="KiVi'sPic" class="company_logo">
   <div class="position">
     <h2>{{sitter.userName}}</h2>
     <div class="company">
