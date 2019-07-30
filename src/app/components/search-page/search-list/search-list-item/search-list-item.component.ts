@@ -11,16 +11,14 @@ export class SearchListItemComponent implements OnInit {
 
   @Input()
   sitter: SearchedSitter;
-
-  private defaultPic = '/assets/images/defaultAvatar.png';
-  private imgUrl = 'http://192.168.1.209:8080/user/{{sitter.id}}/image';
+  private imgUrl: string;
 
   constructor(private searchDataService: SearchDataTransferService) { }
 
   ngOnInit() {
+      if(this.imgUrl === ''){
+          this.imgUrl = 'assets/images/defaultAvatar.png';
+      }
   }
 
-  onError(): void{
-      this.imgUrl = this.defaultPic;
-  }
 }

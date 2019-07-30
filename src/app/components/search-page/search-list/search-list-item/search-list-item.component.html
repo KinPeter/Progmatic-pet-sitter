@@ -1,24 +1,30 @@
-<a routerLink="/sitter/{{sitter.id}}">
-  <img src="http://192.168.1.209:8080/user/{{sitter.id}}/image" (error)="onError()" alt="KiVi'sPic" class="company_logo">
-  <div class="position">
-    <h2>{{sitter.userName}}</h2>
-    <div class="company">
-      <span><i>{{sitter.intro}}</i></span>
+<div class="container">
+  <div class="row">
+
+    <!-- <img src="https://petsitter-backend.herokuapp.com/user/{{sitter.id}}/image" alt="KiVi'sPic" class="company_logo"> -->
+    <div class="col-lg-2">
+      <img src="assets/images/defaultAvatar.png" width="100" height="100" alt="KiVi'sPic" class="company_logo">
+    </div>
+    <div class="position col-lg-6">
+      <a routerLink="/sitter/{{sitter.id}}"><h2>{{sitter.userName}}</h2></a>
+      <div class="company">
+        <span><i>{{sitter.intro}}</i></span>
+      </div>
+    </div>
+    <div class="location col-lg-2">
+      <i class="fa fa-map-marker"></i>
+      <span>{{sitter.postalCode}}, {{sitter.city}}</span>
+    </div>
+    <div class="meta col-lg-2">
+      <div class="rating">
+        Értékelés
+        <br>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+      </div>
     </div>
   </div>
-  <div class="location">
-    <i class="fa fa-map-marker"></i>
-    <span>{{sitter.postalCode}}, {{sitter.city}}</span>
-  </div>
-  <ul class="meta">
-    <li class="date">
-      Értékelés
-      <br>
-      <span class="fa fa-star-o"></span>
-      <span class="fa fa-star-o"></span>
-      <span class="fa fa-star-o"></span>
-      <span class="fa fa-star-o"></span>
-      <span class="fa fa-star-o"></span>
-    </li>
-  </ul>
-</a>
+</div>

@@ -12,7 +12,7 @@ import { User, Day } from '../interfaces/user';
 export class SearchDataTransferService {
 
     public searchData: SearchData;
-    private readonly URL = 'http://192.168.1.209:8080';
+    private readonly URL = 'https://petsitter-backend.herokuapp.com';
     public sitters: SearchedSitter[];
     public sitter: SearchedSitter;
 
@@ -28,7 +28,7 @@ export class SearchDataTransferService {
             httpParams = httpParams.append(key, sd[key]);
         });
 
-        return this.http.get<SearchedSitter[]>(this.URL + '/search/sitters', { params: httpParams, withCredentials: true })
+        return this.http.get<SearchedSitter[]>(this.URL + '/sitters/search', { params: httpParams, withCredentials: true })
             .toPromise();
     }
 
