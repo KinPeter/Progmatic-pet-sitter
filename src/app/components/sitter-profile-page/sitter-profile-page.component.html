@@ -5,7 +5,7 @@
 				<div class="row sitter-card">
 					<div class="col-md-5">
 						<figure class="alignnone">
-							<img src="/assets/images/defaultAvatar.png" class="avatar img-circle img-thumbnail" alt="avatar" alt="">
+							<img src="{{ profilePicUrl }}" class="avatar img-circle img-thumbnail" alt="avatar" alt="">
 						</figure>
 					</div>
 					<div class="col-md-7">
@@ -51,7 +51,8 @@
 				</div>
 				<hr>
 				<h4>Mikor érek rá?</h4>
-				<p>Alább láthatod, hogy a következő 30 napban mikor tudnék foglalkozni kedvenceddel.</p>
+				<p>Alább láthatod, hogy a következő 30 napban mikor tudnék foglalkozni kedvenceddel.<br>
+				Foglalási igény küldéséhez <span *ngIf="!isUserLoggedIn">jelentkezz be, és </span>kattints a kívánt napra.</p>
 				<app-sitter-calendar 
 					*ngIf="!isLoading" 
 					[isComingFromSitterProfile]=true 
