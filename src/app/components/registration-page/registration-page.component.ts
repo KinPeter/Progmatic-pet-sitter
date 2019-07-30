@@ -42,7 +42,7 @@ export class RegistrationPageComponent implements OnInit {
     private ownerDataOpen = false;
     private ownerData: Owner;
     private currentPetName = '';
-    private currentPetType = null;
+    private currentPetType: any = null;
 
     // SITTER DATA fields
     private sitterDataOpen = false;
@@ -94,7 +94,8 @@ export class RegistrationPageComponent implements OnInit {
 
     addToMyPets(): void {
         if (this.currentPetType != null && this.currentPetName != '') {
-        this.ownerData.pets.push({petName: this.currentPetName, petType: this.currentPetType});
+            this.currentPetType = PetType[this.currentPetType];
+            this.ownerData.pets.push({petName: this.currentPetName, petType: this.currentPetType});
         }
         this.currentPetName = '';
         this.currentPetType = null;
@@ -202,6 +203,13 @@ export class RegistrationPageComponent implements OnInit {
         if (this.ownerDataOpen) {
             this.user.ownerData = this.ownerData;
         }
+        if (this.user.ownerData) {
+            if (this.user.ownerData.pets) {
+                for (let i = 0; i < this.user.ownerData.pets.length; i++) {
+                    this.user.ownerData.pets[i].petType;
+                }
+            }
+        }
 
 
         // ha le van nyitva - ergo kitöltötte a SITTER adatokat, adja hozzá a user-hez
@@ -220,6 +228,7 @@ export class RegistrationPageComponent implements OnInit {
             console.log(error);
         });
     }
+
 
     ngOnInit() {
     }

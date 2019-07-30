@@ -70,7 +70,7 @@
         <button class="btn btn-warning btn-sm" (click)="ownerDataOpen = !ownerDataOpen">Kisállat tulaj vagyok <i class="fa fa-caret-down"></i></button>
         <div *ngIf="ownerDataOpen" [@dropdownForm] class="dropdown-form">
             <label for="myPetType"><b>Kérlek válaszd ki, milyen állatod van:</b></label>
-            <select id="myPetType" [(ngModel)]="currentPetType" name="myPetType" [ngClass]="{'is-invalid': errors.petType}" class="form-control">
+            <select id="myPetType" [(ngModel)]="currentPetType" name="myPetType" [ngClass]="{'is-invalid': errors.petType}" class="form-control">dddewf
                 <option value="DOG">Kutya</option>
                 <option value="CAT">Macska</option>
                 <option value="BIRD">Madár</option>
@@ -94,7 +94,7 @@
                 <h3>Állataid:</h3>
                 <ul>
                     <li *ngFor="let pet of ownerData.pets">
-                        <b>{{ pet.petName }}</b> : {{ pet.petType }}
+                        <b>{{ pet.petName }}</b> : {{ PetType[pet.petType] }}
                     </li>
                 </ul>
                 <hr>
