@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { SearchedSitter } from '../interfaces/searchedSitter';
 import { SitterView } from '../interfaces/sitterView';
 import { User, Day } from '../interfaces/user';
+import { herokuURL } from '../app-settings';
 // import { SearchError } from '../errors/search-error';
 
 @Injectable({
@@ -12,7 +13,7 @@ import { User, Day } from '../interfaces/user';
 export class SearchDataTransferService {
 
     public searchData: SearchData;
-    private readonly URL = 'http://192.168.1.209:8080';
+    private readonly URL = herokuURL;
     public sitters: SearchedSitter[];
     public sitter: SearchedSitter;
 
@@ -33,8 +34,8 @@ export class SearchDataTransferService {
     }
 
     getSitterProfile(userId: number): Promise<SitterView> {
-        // return this.http.get<SitterView>(this.URL + `/sitter/${userId}`, { withCredentials: true }).toPromise();
-        return this.http.get<SitterView>('../../../assets/sitterview.json', { withCredentials: true }).toPromise();
+        return this.http.get<SitterView>(this.URL + `/sitter/${userId}`, { withCredentials: true }).toPromise();
+        // return this.http.get<SitterView>('../../../assets/sitterview.json', { withCredentials: true }).toPromise();
     }
 
     sendMessageToSitterWithDay(day: Day): Promise<any> {

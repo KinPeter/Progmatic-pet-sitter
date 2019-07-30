@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../interfaces/user';
 import { UserDTO } from '../interfaces/user-dto';
 import { UserError } from '../errors/user-error';
+import { herokuURL } from '../app-settings';
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +12,7 @@ export class UserService {
 
     // private readonly URL = '/my-profile-page';
 
-    private URL = 'https://petsitter-backend.herokuapp.com';
+    private URL = herokuURL;
 
     constructor(private http: HttpClient) { }
 
