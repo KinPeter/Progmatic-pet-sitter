@@ -27,6 +27,26 @@
 							<span class="fa fa-star-half-o"></span>
 							<span class="fa fa-star-o"></span>
 						</div>
+						<div class="call-to-action" *ngIf="isUserLoggedIn">
+							<div>
+								<span class="fa fa-star"></span>
+							</div>
+							<div class="cta-txt">
+								<p>Értékelés küldése</p>
+							</div>
+							<div class="select-rate">
+								<select class="form-control">
+									<option>1</option>
+									<option>2</option>
+									<option>3</option>
+									<option>4</option>
+									<option selected>5</option>
+								</select>
+							</div>
+							<div class="cta-btn">
+								<button class="btn btn-success btn-sm">Mehet</button>
+							</div>
+						</div>
 					</div>
 				</div>
 				<hr>

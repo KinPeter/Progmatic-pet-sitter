@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SearchDataTransferService } from 'src/app/services/search-data-transfer.service';
 import { SitterView } from 'src/app/interfaces/sitterView';
 import { PlaceOfService } from 'src/app/interfaces/search-data';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
     selector: 'app-sitter-profile-page',
@@ -11,9 +12,13 @@ import { PlaceOfService } from 'src/app/interfaces/search-data';
 })
 export class SitterProfilePageComponent implements OnInit {
     private isLoading = true;
+    private isUserLoggedIn = true;
     private sitter: SitterView;
 
-    constructor( private searchData: SearchDataTransferService, private route: ActivatedRoute ) {}
+    constructor(
+        private searchData: SearchDataTransferService,
+        private route: ActivatedRoute,
+        private auth: AuthenticationService ) {}
 
     getPlaceOfService(place: string): string {
         switch (place) {
@@ -43,14 +48,16 @@ export class SitterProfilePageComponent implements OnInit {
     }
 
     ngOnInit() {
-        const userId = this.route.snapshot.params.sitter_id;
-        // console.log(userId);
-        this.searchData.getSitterProfile(userId)
+        const sitterId = this.route.snapshot.params.sitter_id;
+        this.searchData.getSitterProfile(sitterId)
         .then((response) => {
             this.sitter = response;
             this.isLoading = false;
             console.log(this.sitter);
         });
+        // this.auth.isUserLoggedIn.subscribe(value => {
+        //     this.isUserLoggedIn = value;
+        // });
     }
 
 }
