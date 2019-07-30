@@ -8,7 +8,7 @@
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="text-center" id="img-photo">
       <!--   <img src="http://lorempixel.com/200/200/people/9/" class="avatar img-circle img-thumbnail" alt="avatar"> -->
-          <img src="https://petsitter-backend.herokuapp.com/{{user.userId}}/image" class="avatar img-circle img-thumbnail" alt="avatar">
+          <img src="https://petsitter-backend.herokuapp.com/user/{{user.userId}}/image" class="avatar img-circle img-thumbnail" alt="avatar">
           <h6>Új profilkép feltöltése</h6>
           <input type="file" (change)="onFileSelected($event)" class="text-center center-block well well-sm" class="form-control" #fileInput>
         <!--  <input class="btn btn-success" (click)="fileInput.click()" value="Válassz képet"> -->
@@ -45,16 +45,18 @@
             <label class="col-lg-3 control-label"><b>Új jelszó megadása:</b></label>
             <div class="col-lg-8">
               <input type="password" name="pass" placeholder="Új jelszó megadása" id="psw" [(ngModel)]="user.password"
-              [ngClass]="{'is-invalid': !isPasswordValid}" class="form-control" required>
-            </div>
-            <div class="invalid-feedback" *ngIf="!isPasswordValid">
-                Kérlek, add meg a jelszavad!
+              class="form-control" required>
+
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label"><b>Új jelszó megerősítése:</b></label>
             <div class="col-lg-8">
-              <input type="password" name="pass-again" placeholder="Új jelszó megerősítése" id="psw-repeat" class="form-control" required>
+              <input type="password" name="pass-again" placeholder="Új jelszó megerősítése" id="psw-repeat" [(ngModel)]="passwordConfirm"
+               [ngClass]="{'is-invalid': validatePassword(isPasswordValid, passwordConfirm)}" class="form-control" required>
+               <div class="invalid-feedback"
+                   *ngIf="validatePassword(isPasswordValid, passwordConfirm)">Nem egyeznek a megadott jelszavak!
+               </div>
             </div>
           </div>
 
@@ -101,7 +103,7 @@
 
           <section>
             <h3>KiVi adataim</h3>
-              <button class="btn btn-warning btn-sm" (click)="addServiceOpen = !addServiceOpen">KiVi adataim<i class="fa fa-caret-down"></i></button>
+              <button class="btn btn-warning btn-sm" (click)="addServiceOpen = !addServiceOpen" id="kivi-data">KiVi adataim<i class="fa fa-caret-down"></i></button>
               <div *ngIf="addServiceOpen" [@dropdownForm] class="dropdown-form">
 
                 <div class="form-group">

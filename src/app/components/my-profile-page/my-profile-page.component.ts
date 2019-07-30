@@ -44,7 +44,7 @@ export class MyProfilePageComponent implements OnInit {
     user: User;
     sitter: Sitter;
     owner: Owner;
-    passwordConfirm: '';
+  //  passwordConfirm: '';
 
     // OWNER DATA fieldsb
     currentPetName = '';
@@ -55,9 +55,9 @@ export class MyProfilePageComponent implements OnInit {
     currentServicePetType : any;
     currentWage = 0;
 
-    errors: string[];
+    errors: any;
     showNetworkAlert: boolean;
-    isPasswordValid: boolean;
+    //isPasswordValid: boolean;
 
 
     petTypes: KeyValue[];
@@ -67,6 +67,7 @@ export class MyProfilePageComponent implements OnInit {
     addPetOpen = false;
     addServiceOpen = false;
 
+    passwordConfirm = '';
 
 
 
@@ -76,7 +77,7 @@ export class MyProfilePageComponent implements OnInit {
       private http: HttpClient) {
       this.errors = [];
       this.showNetworkAlert = false;
-      this.isPasswordValid = true;
+    //  this.isPasswordValid = true;
       this.petTypes = [];
       for(let type in PetType) {
         this.petTypes.push({"key": type, "value": PetType[type]});
@@ -134,19 +135,22 @@ export class MyProfilePageComponent implements OnInit {
         }
       }
       console.log(this.user);
+
+
+
     }
 
     ngOnInit() {
     }
 
     onFileSelected(event){
-      this.selectedFile = <File>event.target.file[0];
+      this.selectedFile = <File>event.target.files[0];
     }
 
     onUpload() {
       const fd = new FormData();
       fd.append('image', this.selectedFile, this.selectedFile.name);
-      this.http.post('', fd, {
+      this.http.post('https://petsitter-backend.herokuapp.com/user/{{user.userId}}/image', fd, {
         reportProgress: true,
         observe: 'events'
       })
@@ -159,6 +163,15 @@ export class MyProfilePageComponent implements OnInit {
 
       })
     }
+
+
+    validatePassword(isPasswordSame: boolean): boolean{
+      if (this.user.password != null && this.passwordConfirm !== this.user.password) {
+          return !isPasswordSame
+      }
+    }
+
+
 
     save(): void {
       this.showNetworkAlert = false;
@@ -180,7 +193,6 @@ export class MyProfilePageComponent implements OnInit {
       this.userService.modifyUser(u).catch(() => {
         showNetworkAlert: true;
       });
-
     }
 
 
