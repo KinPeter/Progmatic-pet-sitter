@@ -1,4 +1,11 @@
-<div class="container" *ngIf="!isLoading">
+<div class="spinner-wrapper" *ngIf="isLoading">
+	<div class="spinner-box">
+		<p>Kis türelmet...</p>
+		<app-spinner></app-spinner>
+	</div>
+</div>
+
+<div class="container" *ngIf="!isLoading && !sitterNotFound">
 	<div class="row">
 		<div class="content col-md-7">
 			<div class="job-profile-info">
@@ -108,6 +115,17 @@
 		</div>
 	</div>
 
+</div>
+
+<div class="container" *ngIf="!isLoading && sitterNotFound">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2 text-center">
+			<h2 class="error-title">404</h2>
+			<h3>Elnézést, a keresett KiVi nem található.</h3>
+			<p class="error-desc">Kérlek próbálkozz egy új kereséssel.</p>
+			<button class="btn btn-primary" routerLink="/sitter/search">Kivit Keresek</button>
+		</div>
+	</div>
 </div>
 
 

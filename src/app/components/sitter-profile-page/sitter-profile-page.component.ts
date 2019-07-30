@@ -14,6 +14,7 @@ export class SitterProfilePageComponent implements OnInit {
     private isLoading = true;
     private isUserLoggedIn = false;
     private sitter: SitterView;
+    private sitterNotFound = false;
     private ratingToSend = 5;
     private showRatingSuccess = false;
     private showRatingError = false;
@@ -82,14 +83,20 @@ export class SitterProfilePageComponent implements OnInit {
         this.searchData.getSitterProfile(sitterId)
         .then((response) => {
             this.sitter = response;
-            this.isLoading = false;
             console.log(this.sitter);
             this.setRatingStars();
             this.setProfilePicUrl();
+        })
+        .catch((error) => {
+            this.sitter = null;
+            this.sitterNotFound = true;
+        })
+        .finally(() => {
+            this.isLoading = false;
         });
-        // this.auth.isUserLoggedIn.subscribe(value => {
-        //     this.isUserLoggedIn = value;
-        // });
+        this.auth.isUserLoggedIn.subscribe(value => {
+            this.isUserLoggedIn = value;
+        });
     }
 
 }
