@@ -86,7 +86,7 @@ export class SitterCalendarComponent implements OnInit {
             // ha a sitter-profile oldalon vagyunk épp, és a felhasználó be van jelentkezve:
             if (this.isComingFromSitterProfile && this.auth.currentUser) {
                 // üzenet küldése a Sitternek
-                this.data.sendMessageToSitterWithDay(day, this.viewedSitter.id, this.auth.currentUser.userId)
+                this.data.sendMessageToSitterWithDay(day)
                 .then((response) => {
                     // üzenet elküldve!
                 })

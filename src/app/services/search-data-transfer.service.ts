@@ -37,7 +37,11 @@ export class SearchDataTransferService {
         return this.http.get<SitterView>('../../../assets/sitterview.json', { withCredentials: true }).toPromise();
     }
 
-    sendMessageToSitterWithDay(day: Day, sitterId: number, userId: number): Promise<any> {
-        return this.http.post(this.URL + '', { day, sitterId, userId }, { withCredentials: true }).toPromise();
+    sendMessageToSitterWithDay(day: Day): Promise<any> {
+        return this.http.post(this.URL + '/requestsitting', { id: day.id }, { withCredentials: true }).toPromise();
+    }
+
+    sendSitterRating(sitterId: number, rating: number): Promise<any> {
+        return this.http.post(this.URL + '/', {userId: sitterId, newRating: rating}).toPromise();
     }
 }
