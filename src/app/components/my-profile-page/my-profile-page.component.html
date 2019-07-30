@@ -8,11 +8,11 @@
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="text-center" id="img-photo">
       <!--   <img src="http://lorempixel.com/200/200/people/9/" class="avatar img-circle img-thumbnail" alt="avatar"> -->
-          <img src="http://192.168.1.209:8080/user/{{user.userId}}/image" class="avatar img-circle img-thumbnail" alt="avatar">
+          <img src="https://petsitter-backend.herokuapp.com/{{user.userId}}/image" class="avatar img-circle img-thumbnail" alt="avatar">
           <h6>Új profilkép feltöltése</h6>
           <input type="file" (change)="onFileSelected($event)" class="text-center center-block well well-sm" class="form-control" #fileInput>
         <!--  <input class="btn btn-success" (click)="fileInput.click()" value="Válassz képet"> -->
-          <button class="btn btn-success"  type="button" (click)="onUpload()">Kiválasztott kép feltöltése</button>
+          <button class="btn btn-primary"  type="button" (click)="onUpload()">Kiválasztott kép feltöltése</button>
         </div>
       </div>
 
@@ -29,13 +29,13 @@
           <div class="form-group">
             <label class="col-lg-3 control-label"><b>Név:</b></label>
             <div class="col-lg-8">
-              <input type="text" placeholder="Név" name="username" [(ngModel)]="user.name" [ngClass]="{'is-invalid': validator.validateName(user.name)}" class="form-control" required>
+              <input type="text" placeholder="Név" name="username" [(ngModel)]="user.username" [ngClass]="{'is-invalid': validator.validateName(user.username)}" class="form-control" required>
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label"><b>E-mail cím:</b></label>
             <div class="col-lg-8">
-              <input type="text" placeholder="Emailcím" name="email" id="email" [(ngModel)]="user.email" [ngClass]="{'is-invalid': validator.validateEmailInComponent(isEmailValid, user.email)}" class="form-control" required>
+              <input disabled type="text" placeholder="Emailcím" name="email" id="email" [(ngModel)]="user.email" [ngClass]="{'is-invalid': validator.validateEmailInComponent(isEmailValid, user.email)}" class="form-control" required>
               <div class="invalid-feedback"
                   *ngIf="validator.validateEmailInComponent(isEmailValid, user.email)">Kérlek, valós e-mail címet adj meg!
               </div>
@@ -59,11 +59,11 @@
           </div>
 
           <section>
-            <h3>Kisállattulajdonos vagy?</h3>
-            <button class="btn btn-warning btn-sm" (click)="addPetOpen = !addPetOpen">Kisállatom adatai<i class="fa fa-caret-down"></i></button>
+          <h3>Kisállatom adatai</h3>
+            <button class="btn btn-warning btn-sm" id="pet-data-button"(click)="addPetOpen = !addPetOpen">Kisállatom adatai<i class="fa fa-caret-down"></i></button>
             <div *ngIf="addPetOpen" [@dropdownForm] class="dropdown-form">
               <div *ngIf="showOwnerData()">
-                  <h3>Kisállataid</h3>
+                  <!--<h3>Kisállataid</h3> -->
                   <div class="form-group">
                       <div class="col-lg-8">
                           <div *ngIf=user.ownerData.pets.length>
@@ -89,7 +89,7 @@
                 <div class="form-group">
                   <label for="petsname" class="col-lg-3 control-label"><b>Kisállatod neve:</b></label>
                   <div class="col-lg-8">
-                    <input type="text" [(ngModel)]="currentPetName" placeholder="Kisállatom nevének megadása" name="petsname"
+                    <input type="text" [(ngModel)]="currentPetName" placeholder="Kisállat neve" name="petsname"
                       class="form-control">
                       <input class="btn btn-success" (click)="addToMyPets()" value="Kisállat hozzáadása">
                   </div>
@@ -100,7 +100,7 @@
           <hr>
 
           <section>
-            <h3>KiVi vagy?</h3>
+            <h3>KiVi adataim</h3>
               <button class="btn btn-warning btn-sm" (click)="addServiceOpen = !addServiceOpen">KiVi adataim<i class="fa fa-caret-down"></i></button>
               <div *ngIf="addServiceOpen" [@dropdownForm] class="dropdown-form">
 

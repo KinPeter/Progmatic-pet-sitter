@@ -92,7 +92,7 @@ export class MyProfilePageComponent implements OnInit {
     //  this.petType = this.pettypeService.getPetTypeArray();
     //  this.sercivePlaceType = this.servicePlaceService.getServicePlaceTypeArray();
 
-  /*    this.user = {
+/*      this.user = {
           userId: 1,
           name: 'Gina',
           email: 'abc@gmai.com',
@@ -103,7 +103,7 @@ export class MyProfilePageComponent implements OnInit {
               petType: PetType.CAT
             }]
           },
-          sitterData: null,
+      //    sitterData: null,
           sitterData: {
             address: 'Csemete utca 10.',
             postalCode: '1036',
@@ -115,25 +115,25 @@ export class MyProfilePageComponent implements OnInit {
               pricePerHour: 5000,
             }]
           }
-      };*/
+      }; */
 
       this.petTypes = this.pettypeService.getPetTypeArray();
       this.servicePlaces = this.servicePlaceService.getServicePlaceTypeArray();
       this.servicePlaces.unshift( {key: "NONE", value: "Helyszín típusa"} );
-      this.petTypes.unshift( {key: "NONE", value: "Kedvenced típusa"} );
+      this.petTypes.unshift( {key: "NONE", value: "Kisállat típusa"} );
       this.currentPetType = "NONE";
       this.currentPlaceOfService = "NONE";
       this.currentServicePetType = "NONE";
 
 
       this.user = this.auth.currentUser;
-      for (let i = 0; i < this.user.sitterData.services.length; i++) {
-          this.user.sitterData.services[i].place = PlaceOfService[this.user.sitterData.services[0].place];
-          this.user.sitterData.services[i].petType = PetType[this.user.sitterData.services[0].petType];
+      if (this.user.sitterData) {
+        for (let i = 0; i < this.user.sitterData.services.length; i++) {
+            this.user.sitterData.services[i].place = PlaceOfService[this.user.sitterData.services[i].place];
+            this.user.sitterData.services[i].petType = PetType[this.user.sitterData.services[i].petType];
+        }
       }
-
-
-    console.log(this.user);
+      console.log(this.user);
     }
 
     ngOnInit() {
@@ -161,13 +161,29 @@ export class MyProfilePageComponent implements OnInit {
     }
 
     save(): void {
-    this.showNetworkAlert = false;
-    this.userService.modifyUser(this.user).catch(() => {
-      showNetworkAlert: true;
+      this.showNetworkAlert = false;
+      let u = JSON.parse(JSON.stringify(this.user));
+      if (u.ownerData) {
+        for (let i = 0; i < u.ownerData.pets.length; i++) {
+            u.ownerData.pets[i].petType = this.userService.getEnumKey( PetType, u.ownerData.pets[i].petType );
+        }
+      }
+      if (u.sitterData) {
+        for (let i = 0; i < u.sitterData.services.length; i++) {
+            u.sitterData.services[i].petType = this.userService.getEnumKey( PetType, u.sitterData.services[i].petType );
+            u.sitterData.services[i].place = this.userService.getEnumKey( PlaceOfService, u.sitterData.services[i].place );
+            u.sitterData.services[i].pricePerHour = parseInt(u.sitterData.services[i].pricePerHour);
+            u.sitterData.services[i].pricePerDay = parseInt(u.sitterData.services[i].pricePerHour) * 8;
+        }
+      }
 
-    });
+      this.userService.modifyUser(u).catch(() => {
+        showNetworkAlert: true;
+      });
 
     }
+
+
 
     addToMyPets(): void {
         this.currentPetType = PetType[this.currentPetType];
@@ -215,6 +231,8 @@ export class MyProfilePageComponent implements OnInit {
         return true;
       }
     }
+
+
 
 
 }

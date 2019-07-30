@@ -4,15 +4,15 @@
             <button type="button" class="navbar-toggle">
                 <i class="fa fa-bars"></i>
             </button>
-            
+
             <div class="header-flex">
                 <div class="logo">
                     <a routerLink="/"><img src="/assets/images/kivi-logo.svg" alt="Kivi Logo"></a>
                 </div>
-    
+
                 <div class="my-head-info text-right">
                     <a class="btn btn-success btn-sm"
-                        *ngIf="!userLoggedIn" 
+                        *ngIf="!userLoggedIn"
                         (click)="openLoginModal()">
                         <i class="fa fa-sign-in"></i> Bejelentkezés
                     </a>
@@ -27,12 +27,12 @@
                         <i class="fa fa-user"></i> Profilom
                     </a>
                     <a class="btn btn-warning btn-sm"
-                        *ngIf="userLoggedIn" 
+                        *ngIf="userLoggedIn"
                         (click)="logMeOut()">
                         <i class="fa fa-sign-out"></i> Kijelentkezés
                     </a>
                     <h4 *ngIf="auth.currentUser" class="userLoginName">
-                        Szia <span>{{ auth.currentUser.name }} </span> 
+                        Szia <span>{{ auth.currentUser.username }} </span> 
                         <i class="fa fa-smile-o"></i>
                     </h4>
                 </div>
