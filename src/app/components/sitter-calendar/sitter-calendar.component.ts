@@ -20,10 +20,16 @@ export class SitterCalendarComponent implements OnInit {
     @Input() viewedSitter: SitterView;
 
     private availabilities: Day[];
+    private showConfirmDialog = false;
+    private showConfirmDialogSpinner = false;
+    private chosenDay: Day;
+    private showBookingSuccessAlert = false;
+    private showBookingErrorAlert = false;
+    private showNotLoggedInAlert = false;
 
     constructor(
         private auth: AuthenticationService,
-        private data: SearchDataTransferService
+        private dataService: SearchDataTransferService
     ) {}
 
     ngOnInit() {
@@ -86,13 +92,13 @@ export class SitterCalendarComponent implements OnInit {
             // ha a sitter-profile oldalon vagyunk épp, és a felhasználó be van jelentkezve:
             if (this.isComingFromSitterProfile && this.auth.currentUser) {
                 // üzenet küldése a Sitternek
-                this.data.sendMessageToSitterWithDay(day, this.viewedSitter.id, this.auth.currentUser.userId)
-                .then((response) => {
-                    // üzenet elküldve!
-                })
-                .catch((error) => {
-                    // hiba történt
-                });
+                this.chosenDay = day;
+                this.showConfirmSendingDialog(day);
+
+            // ha a sitter-profile oldalon vagyunk épp, de a felhasználó nincs bejelentkezve:
+            } else if (this.isComingFromSitterProfile && !this.auth.currentUser) {
+                this.showNotLoggedInAlert = true;
+                setTimeout(() => { this.showNotLoggedInAlert = false; }, 3000);
 
             // ha a profilszerkesztő oldalon vagyunk épp:
             } else if (!this.isComingFromSitterProfile && this.auth.currentUser) {
@@ -103,6 +109,33 @@ export class SitterCalendarComponent implements OnInit {
                 // console.log(newAvailabilities);
             }
         }
+    }
+
+    private showConfirmSendingDialog(day: Day): void {
+        this.showConfirmDialog = true;
+        this.chosenDay = day;
+    }
+
+    cancelSendingCloseDialog(): void {
+        this.showConfirmDialog = false;
+        this.chosenDay = null;
+    }
+
+    confirmSendBooking(): void {
+        this.showConfirmDialogSpinner = true;
+        this.dataService.sendMessageToSitterWithDay(this.chosenDay)
+        .then((response) => {
+            this.showBookingSuccessAlert = true;
+            setTimeout(() => { this.showBookingSuccessAlert = false; }, 3000);
+        })
+        .catch((error) => {
+            this.showBookingErrorAlert = true;
+            setTimeout(() => { this.showBookingErrorAlert = false; }, 3000);
+        })
+        .finally(() => {
+            this.showConfirmDialogSpinner = false;
+            this.showConfirmDialog = false;
+        });
     }
 
     private setAvailability(day: Day): void {
