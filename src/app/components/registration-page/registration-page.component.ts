@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FieldValidatorService } from 'src/app/services/field-validator.service';
-import { PetType, PlaceOfService } from '../../interfaces/search-data';
+import { PetType, PlaceOfService, KeyValue } from '../../interfaces/search-data';
 import { UserService } from 'src/app/services/user.service';
 import { User, Owner, Sitter } from '../../interfaces/user';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { PettypeService } from 'src/app/services/pettype.service';
+import { ServicePlaceService } from 'src/app/services/service-place.service';
 
 
 @Component({
@@ -42,20 +44,26 @@ export class RegistrationPageComponent implements OnInit {
     private ownerDataOpen = false;
     private ownerData: Owner;
     private currentPetName = '';
-    private currentPetType: any = null;
+    private currentPetType: any;
 
     // SITTER DATA fields
     private sitterDataOpen = false;
     private sitterData: Sitter;
-    private currentPlaceOfService = PlaceOfService.OWNERS_HOME;
-    private currentServicePetType = PetType.DOG;
+    private currentPlaceOfService : any;
+    private currentServicePetType : any;
     private currentWage = 0;
     private errors: any;
+
+    private petTypes: KeyValue[];
+    private servicePlaces: KeyValue[];
 
     constructor(
         private router: Router,
         private userService: UserService,
-        private validator: FieldValidatorService
+        private validator: FieldValidatorService,
+        private pettypeService: PettypeService,
+        private servicePlaceService: ServicePlaceService
+
     ) {
         this.user = {
             name: '',
@@ -90,15 +98,22 @@ export class RegistrationPageComponent implements OnInit {
             currentWage: false
 
         };
+        this.petTypes = this.pettypeService.getPetTypeArray();
+        this.servicePlaces = this.servicePlaceService.getServicePlaceTypeArray();
+        this.servicePlaces.unshift( {key: "NONE", value: "Helyszín típusa"} );
+        this.petTypes.unshift( {key: "NONE", value: "Kisállat típusa"} );
+        this.currentPetType = "NONE";
+        this.currentPlaceOfService = "NONE";
+        this.currentServicePetType = "NONE";
     }
 
     addToMyPets(): void {
-        if (this.currentPetType != null && this.currentPetName != '') {
+        if (this.currentPetType != "NONE" && this.currentPetName != '') {
             this.currentPetType = PetType[this.currentPetType];
             this.ownerData.pets.push({petName: this.currentPetName, petType: this.currentPetType});
         }
         this.currentPetName = '';
-        this.currentPetType = null;
+        this.currentPetType = "NONE";
         console.log(this.ownerData.pets);
     };
 
@@ -133,7 +148,6 @@ export class RegistrationPageComponent implements OnInit {
             servicePlace: false,
             servicePetType: false,
             currentWage: false
-
         };
         // név validáládsa
         this.errors.name = this.validator.validateName(this.user.name);
@@ -203,11 +217,10 @@ export class RegistrationPageComponent implements OnInit {
         if (this.ownerDataOpen) {
             this.user.ownerData = this.ownerData;
         }
-        if (this.user.ownerData) {
-            if (this.user.ownerData.pets) {
-                for (let i = 0; i < this.user.ownerData.pets.length; i++) {
-                    this.user.ownerData.pets[i].petType;
-                }
+        let u = JSON.parse(JSON.stringify(this.user));
+        if (u.ownerData) {
+            for (let i = 0; i < u.ownerData.pets.length; i++) {
+                u.ownerData.pets[i].petType = this.userService.getEnumKey( PetType, u.ownerData.pets[i].petType );
             }
         }
 
@@ -216,11 +229,26 @@ export class RegistrationPageComponent implements OnInit {
         if (this.sitterDataOpen) {
             this.user.sitterData = this.sitterData;
         }
+        if (u.sitterData) {
+          for (let i = 0; i < u.sitterData.services.length; i++) {
+              u.sitterData.services[i].petType = this.userService.getEnumKey( PetType, u.sitterData.services[i].petType );
+              u.sitterData.services[i].place = this.userService.getEnumKey( PlaceOfService, u.sitterData.services[i].place );
+              u.sitterData.services[i].pricePerHour = parseInt(u.sitterData.services[i].pricePerHour);
+              u.sitterData.services[i].pricePerDay = parseInt(u.sitterData.services[i].pricePerHour) * 8;
+          }
+        }
 
-
+        var s = Object.values(this.errors).find((e) => {
+            if (Object.values(e).length) {
+                Object.values(e).find(elem => {return elem === true});
+            } else {
+                return e === true;
+            }
+        });
+        console.log(s);
         // végül:
-        console.log(this.user);
-        this.userService.registerUser(this.user)
+        console.log(u);
+        this.userService.registerUser(u)
         .then((result) => {
             console.log(result);
         })

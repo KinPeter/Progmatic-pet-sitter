@@ -70,12 +70,15 @@
         <button class="btn btn-warning btn-sm" (click)="ownerDataOpen = !ownerDataOpen">Kisállat tulaj vagyok <i class="fa fa-caret-down"></i></button>
         <div *ngIf="ownerDataOpen" [@dropdownForm] class="dropdown-form">
             <label for="myPetType"><b>Kérlek válaszd ki, milyen állatod van:</b></label>
-            <select id="myPetType" [(ngModel)]="currentPetType" name="myPetType" [ngClass]="{'is-invalid': errors.petType}" class="form-control">dddewf
+            <!--select id="myPetType" [(ngModel)]="currentPetType" name="myPetType" [ngClass]="{'is-invalid': errors.petType, 'placeholder': currentPetType.value }"  class="form-control">
                 <option value="DOG">Kutya</option>
                 <option value="CAT">Macska</option>
                 <option value="BIRD">Madár</option>
                 <option value="RODENT">Rágcsáló</option>
                 <option value="REPTILE">Hüllő</option>
+            </select-->
+            <select id="myPetType" [(ngModel)]="currentPetType" name="myPetType" [ngClass]="{'is-invalid': errors.petType}" class="form-control">
+                <option *ngFor="let type of petTypes" [value]="type.key">{{type.value}}</option>
             </select>
             <div class="invalid-feedback"
                 *ngIf="errors.petType">
@@ -94,7 +97,7 @@
                 <h3>Állataid:</h3>
                 <ul>
                     <li *ngFor="let pet of ownerData.pets">
-                        <b>{{ pet.petName }}</b> : {{ PetType[pet.petType] }}
+                        <b>{{ pet.petName }}</b> : {{ pet.petType }}
                     </li>
                 </ul>
                 <hr>
@@ -142,21 +145,27 @@
             <hr>
             <h3>Szolgáltatásaid:</h3>
             <label for="servicePlace"><b>Szolgáltatás nyújtásának helye:</b></label>
-            <select [(ngModel)]="currentPlaceOfService" name="servicePlace" [ngClass]="{'is-invalid': errors.servicePlace}" class="form-control">
+            <!--select [(ngModel)]="currentPlaceOfService" name="servicePlace" [ngClass]="{'is-invalid': errors.servicePlace}" class="form-control">
                 <option value="OWNERS_HOME">Házhoz megyek</option>
                 <option value="SITTERS_HOME">Saját otthonomban fogadom</option>
+            </select-->
+            <select [(ngModel)]="currentPlaceOfService" name="servicePlace" [ngClass]="{'is-invalid': errors.servicePlace}" class="form-control">
+              <option *ngFor="let place of servicePlaces" [value]="place.key">{{place.value}}</option>
             </select>
             <div class="invalid-feedback"
                 *ngIf="errors.servicePlace">
                 Kérlek válaszd ki, hol szeretnél vigyázni a kisállatra!
             </div>
             <label for="servicePetType"><b>Milyen állattal vállalod ezt a szolgáltatást:</b></label>
-            <select [(ngModel)]="currentServicePetType" name="servicePetType" [ngClass]="{'is-invalid': errors.servicePetType}" class="form-control">
+            <!--select [(ngModel)]="currentServicePetType" name="servicePetType" [ngClass]="{'is-invalid': errors.servicePetType}" class="form-control">
                 <option value="DOG">Kutya</option>
                 <option value="CAT">Macska</option>
                 <option value="BIRD">Madár</option>
                 <option value="RODENT">Rágcsáló</option>
                 <option value="REPTILE">Hüllő</option>
+            </select-->
+            <select id="servicePetType" [(ngModel)]="currentServicePetType" name="servicePetType" [ngClass]="{'is-invalid': errors.servicePetType}" class="form-control">
+              <option *ngFor="let type of petTypes" [value]="type.key">{{type.value}}</option>
             </select>
             <div class="invalid-feedback"
                 *ngIf="errors.servicePetType">
