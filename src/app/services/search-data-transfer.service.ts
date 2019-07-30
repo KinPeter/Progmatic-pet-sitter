@@ -1,32 +1,43 @@
 import { Injectable } from '@angular/core';
-import {SearchData, PlaceOfService, PetType} from '../interfaces/search-data';
+import { SearchData, PlaceOfService, PetType } from '../interfaces/search-data';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { SearchedSitter } from '../interfaces/searchedSitter';
-//import { SearchError } from '../errors/search-error';
+import { SitterView } from '../interfaces/sitterView';
+import { User, Day } from '../interfaces/user';
+// import { SearchError } from '../errors/search-error';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class SearchDataTransferService {
 
-  public searchData: SearchData;
-  private readonly URL = 'http://192.168.1.209:8080/search/sitters';
-  public sitters: SearchedSitter[];
-  public sitter: SearchedSitter;
+    public searchData: SearchData;
+    private readonly URL = 'http://192.168.1.209:8080';
+    public sitters: SearchedSitter[];
+    public sitter: SearchedSitter;
 
-  constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) { }
 
-  searchSitter(searchData: SearchData): Promise<SearchedSitter[]> {
-      let sd = JSON.parse(JSON.stringify(searchData));
-      let httpParams = new HttpParams();
-      Object.keys(sd).forEach(function (key) {
-        if(sd[key] == 'NONE'){
-          sd[key] = '';
-        }
-        httpParams = httpParams.append(key, sd[key]);
-      });
+    searchSitter(searchData: SearchData): Promise<SearchedSitter[]> {
+        const sd = JSON.parse(JSON.stringify(searchData));
+        let httpParams = new HttpParams();
+        Object.keys(sd).forEach((key) => {
+            if (sd[key] === 'NONE') {
+                sd[key] = '';
+            }
+            httpParams = httpParams.append(key, sd[key]);
+        });
 
-      return this.http.get<SearchedSitter[]>(this.URL, {params: httpParams, withCredentials: true})
-        .toPromise();
-  }
+        return this.http.get<SearchedSitter[]>(this.URL + '/search/sitters', { params: httpParams, withCredentials: true })
+            .toPromise();
+    }
+
+    getSitterProfile(userId: number): Promise<SitterView> {
+        // return this.http.get<SitterView>(this.URL + `/sitter/${userId}`, { withCredentials: true }).toPromise();
+        return this.http.get<SitterView>('../../../assets/sitterview.json', { withCredentials: true }).toPromise();
+    }
+
+    sendMessageToSitterWithDay(day: Day, sitterId: number, userId: number): Promise<any> {
+        return this.http.post(this.URL + '', { day, sitterId, userId }, { withCredentials: true }).toPromise();
+    }
 }
