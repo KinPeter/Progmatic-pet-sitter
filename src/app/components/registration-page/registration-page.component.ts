@@ -42,7 +42,7 @@ export class RegistrationPageComponent implements OnInit {
     private ownerDataOpen = false;
     private ownerData: Owner;
     private currentPetName = '';
-    private currentPetType = null;
+    private currentPetType: any = null;
 
     // SITTER DATA fields
     private sitterDataOpen = false;
@@ -69,7 +69,7 @@ export class RegistrationPageComponent implements OnInit {
         };
         this.sitterData = {
             address: '',
-            postCode: '',
+            postalCode: '',
             city: '',
             intro: '',
             services: []
@@ -82,8 +82,9 @@ export class RegistrationPageComponent implements OnInit {
             petType: false,
             petsname: false,
             address: false,
-            postCode: {'empty': false, 'not_valid': false},
+            postalCode: {'empty': false, 'not_valid': false},
             city: false,
+            intro: false,
             servicePlace: false,
             servicePetType: false,
             currentWage: false
@@ -92,18 +93,24 @@ export class RegistrationPageComponent implements OnInit {
     }
 
     addToMyPets(): void {
-        this.ownerData.pets.push({petName: this.currentPetName, petType: this.currentPetType});
+        if (this.currentPetType != null && this.currentPetName != '') {
+            this.currentPetType = PetType[this.currentPetType];
+            this.ownerData.pets.push({petName: this.currentPetName, petType: this.currentPetType});
+        }
         this.currentPetName = '';
         this.currentPetType = null;
         console.log(this.ownerData.pets);
-    }
+    };
 
     addToMyServices(): void {
+        if (this.currentPlaceOfService != null && this.currentServicePetType != null && this.currentWage != 0) {
+
         this.sitterData.services.push({
-            placeOfService: this.currentPlaceOfService,
+            place: this.currentPlaceOfService,
             petType: this.currentServicePetType,
             pricePerHour: this.currentWage
-        });
+
+        })};
         this.currentPlaceOfService = null;
         this.currentServicePetType = null;
         this.currentWage = 0;
@@ -120,8 +127,9 @@ export class RegistrationPageComponent implements OnInit {
             petType: false,
             petsname: false,
             address: false,
-            postCode: {'empty': false, 'not_valid': false},
+            postalCode: {'empty': false, 'not_valid': false},
             city: false,
+            intro: false,
             servicePlace: false,
             servicePetType: false,
             currentWage: false
@@ -166,8 +174,10 @@ export class RegistrationPageComponent implements OnInit {
 
         this.errors.address = this.validator.validateName(this.sitterData.address);
 
-        this.errors.postCode.empty = this.validator.validateName(this.sitterData.postCode);
-        this.errors.postCode.not_valid = !this.validator.validatePostcode(this.sitterData.postCode);
+        this.errors.intro = this.validator.validateName(this.sitterData.intro);
+
+        this.errors.postalCode.empty = this.validator.validateName(this.sitterData.postalCode);
+        this.errors.postalCode.not_valid = !this.validator.validatePostcode(this.sitterData.postalCode);
 
         if (this.errors.email.empty) {
             this.errors.email.empty = true;
@@ -182,21 +192,23 @@ export class RegistrationPageComponent implements OnInit {
             this.errors.email.not_valid = false;
         }
 
-        this.errors.currentWage = this.validator.validateName(this.sitterData.postCode);
+        this.errors.currentWage = this.validator.validateName(this.sitterData.postalCode);
 
         this.errors.servicePlace = this.validator.validateName(this.user.name);
 
         this.errors.servicePetType = this.validator.validateName(this.user.name);
 
 
-
-
-
-
-
         // ha le van nyitva - ergo kitöltötte az OWNER adatokat, adja hozzá a user-hez
         if (this.ownerDataOpen) {
             this.user.ownerData = this.ownerData;
+        }
+        if (this.user.ownerData) {
+            if (this.user.ownerData.pets) {
+                for (let i = 0; i < this.user.ownerData.pets.length; i++) {
+                    this.user.ownerData.pets[i].petType;
+                }
+            }
         }
 
 
@@ -216,6 +228,7 @@ export class RegistrationPageComponent implements OnInit {
             console.log(error);
         });
     }
+
 
     ngOnInit() {
     }

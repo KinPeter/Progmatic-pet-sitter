@@ -70,7 +70,7 @@
         <button class="btn btn-warning btn-sm" (click)="ownerDataOpen = !ownerDataOpen">Kisállat tulaj vagyok <i class="fa fa-caret-down"></i></button>
         <div *ngIf="ownerDataOpen" [@dropdownForm] class="dropdown-form">
             <label for="myPetType"><b>Kérlek válaszd ki, milyen állatod van:</b></label>
-            <select id="myPetType" [(ngModel)]="currentPetType" name="myPetType" [ngClass]="{'is-invalid': errors.petType}" class="form-control">
+            <select id="myPetType" [(ngModel)]="currentPetType" name="myPetType" [ngClass]="{'is-invalid': errors.petType}" class="form-control">dddewf
                 <option value="DOG">Kutya</option>
                 <option value="CAT">Macska</option>
                 <option value="BIRD">Madár</option>
@@ -94,7 +94,7 @@
                 <h3>Állataid:</h3>
                 <ul>
                     <li *ngFor="let pet of ownerData.pets">
-                        <b>{{ pet.petName }}</b> : {{ pet.petType }}
+                        <b>{{ pet.petName }}</b> : {{ PetType[pet.petType] }}
                     </li>
                 </ul>
                 <hr>
@@ -123,18 +123,22 @@
             </div>
 
             <label for="postalCode"><b>Irányítószám</b></label>
-            <input type="text" [(ngModel)]="sitterData.postCode" placeholder="Irányítószám megadása" name="postalCode" [ngClass]="{'is-invalid': errors.postCode.empty || errors.passwordConfirm.not_valid}" class="form-control">
+            <input type="text" [(ngModel)]="sitterData.postalCode" placeholder="Irányítószám megadása" name="postalCode" [ngClass]="{'is-invalid': errors.postalCode.empty || errors.postalCode.not_valid}" class="form-control">
             <div class="invalid-feedback"
-                *ngIf="errors.postCode.empty">
+                *ngIf="errors.postalCode.empty">
                 Kérlek, ne üres mezőt, hanem az irányítószámodat add meg!
             </div>
             <div class="invalid-feedback"
-                *ngIf="errors.postCode.not_valid">
+                *ngIf="errors.postalCode.not_valid">
                 Kérlek, egy létező irányítószámot adj meg!
             </div>
 
             <label for="intro"><b>Bemutatkozó szöveg:</b></label>
-            <textarea type="text" [(ngModel)]="sitterData.intro" placeholder="Bemutatkozó szöveg megadása" name="intro" class="form-control"></textarea>
+            <textarea type="text" [(ngModel)]="sitterData.intro" placeholder="Bemutatkozó szöveg megadása" name="intro" [ngClass]="{'is-invalid': errors.intro}" class="form-control"></textarea>
+            <div class="invalid-feedback"
+                *ngIf="errors.intro">
+                Kérlek, írj egy pár szót magadról!
+            </div>
             <hr>
             <h3>Szolgáltatásaid:</h3>
             <label for="servicePlace"><b>Szolgáltatás nyújtásának helye:</b></label>

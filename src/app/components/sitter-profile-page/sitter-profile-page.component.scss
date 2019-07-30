@@ -15,6 +15,33 @@
             text-shadow: 1px 1px 1px #fff;
         }
     }
+    .call-to-action {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem;
+        margin-top: 2rem;
+        max-width: 340px;
+        span {
+            font-size: 2.5rem;
+            color: #A6CE39;
+            margin-right: 0.5rem;
+        }
+        p {
+            color: black;
+        }
+        select {
+            height: 34px;
+            width: 60px;
+            padding: 0;
+        }
+        .cta-txt {
+            margin-bottom: 0;
+        }
+        .cta-btn {
+            padding: 0;
+        }
+    }
     blockquote {
         position: relative;
         font-style: normal;
@@ -25,7 +52,6 @@
         span {
             font-weight: bold;
             color: #454545;
-            // text-shadow: 1px 1px 0 #ffffffef;
         }
         i.entypo {
             color: #A6CE39;
