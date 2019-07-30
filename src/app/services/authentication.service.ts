@@ -9,7 +9,7 @@ import { LoginData, ForgotPasswordData } from '../interfaces/login-data';
     providedIn: 'root'
 })
 export class AuthenticationService {
-    private URL = 'http://192.168.1.209:8080';
+    private URL = 'https://petsitter-backend.herokuapp.com';
     public currentUser: User;
     public isUserLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
