@@ -4,12 +4,13 @@ import { BehaviorSubject } from 'rxjs';
 
 import { User } from '../interfaces/user';
 import { LoginData, ForgotPasswordData } from '../interfaces/login-data';
+import { herokuURL } from '../app-settings';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthenticationService {
-    private URL = 'http://192.168.1.209:8080';
+    private URL = herokuURL;
     public currentUser: User;
     public isUserLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 

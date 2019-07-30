@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../interfaces/user';
 import { UserDTO } from '../interfaces/user-dto';
 import { UserError } from '../errors/user-error';
+import { herokuURL } from '../app-settings';
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +12,7 @@ export class UserService {
 
     // private readonly URL = '/my-profile-page';
 
-    private URL = 'http://192.168.1.237:8080';
+    private URL = herokuURL;
 
     constructor(private http: HttpClient) { }
 
@@ -37,8 +38,17 @@ export class UserService {
     // }
 
     modifyUser(user: User): Promise<User[]> {
-        return this.http.put(this.URL + '?id=' + user.userId, { user }, { withCredentials: true })
-            .toPromise().then(this.transformUserDTO);
+        return this.http.post<User[]>(this.URL + '/modifyprofile', user, { withCredentials: true }).toPromise();
+    }
+
+    getEnumKey(en: any, enumValue: string): string {
+      let values = Object.values(en);
+      let keys = Object.keys(en);
+      for (let i = 0; i < values.length; i++) {
+          if (values[i] == enumValue) {
+            return keys[i];
+          }
+      }
     }
 
 }

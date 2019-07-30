@@ -10,5 +10,5 @@ export interface SitterView {
     intro: string;
     services: SitterService[];
     availabilities: Day[];
-
+    averageRating: number;
 }
