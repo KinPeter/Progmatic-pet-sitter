@@ -69,7 +69,7 @@ export class RegistrationPageComponent implements OnInit {
         };
         this.sitterData = {
             address: '',
-            postCode: '',
+            postalCode: '',
             city: '',
             intro: '',
             services: []
@@ -82,7 +82,7 @@ export class RegistrationPageComponent implements OnInit {
             petType: false,
             petsname: false,
             address: false,
-            postCode: {'empty': false, 'not_valid': false},
+            postalCode: {'empty': false, 'not_valid': false},
             city: false,
             intro: false,
             servicePlace: false,
@@ -127,7 +127,7 @@ export class RegistrationPageComponent implements OnInit {
             petType: false,
             petsname: false,
             address: false,
-            postCode: {'empty': false, 'not_valid': false},
+            postalCode: {'empty': false, 'not_valid': false},
             city: false,
             intro: false,
             servicePlace: false,
@@ -176,8 +176,8 @@ export class RegistrationPageComponent implements OnInit {
 
         this.errors.intro = this.validator.validateName(this.sitterData.intro);
 
-        this.errors.postCode.empty = this.validator.validateName(this.sitterData.postCode);
-        this.errors.postCode.not_valid = !this.validator.validatePostcode(this.sitterData.postCode);
+        this.errors.postalCode.empty = this.validator.validateName(this.sitterData.postalCode);
+        this.errors.postalCode.not_valid = !this.validator.validatePostcode(this.sitterData.postalCode);
 
         if (this.errors.email.empty) {
             this.errors.email.empty = true;
@@ -192,7 +192,7 @@ export class RegistrationPageComponent implements OnInit {
             this.errors.email.not_valid = false;
         }
 
-        this.errors.currentWage = this.validator.validateName(this.sitterData.postCode);
+        this.errors.currentWage = this.validator.validateName(this.sitterData.postalCode);
 
         this.errors.servicePlace = this.validator.validateName(this.user.name);
 

@@ -123,13 +123,13 @@
             </div>
 
             <label for="postalCode"><b>Irányítószám</b></label>
-            <input type="text" [(ngModel)]="sitterData.postCode" placeholder="Irányítószám megadása" name="postalCode" [ngClass]="{'is-invalid': errors.postCode.empty || errors.passwordConfirm.not_valid}" class="form-control">
+            <input type="text" [(ngModel)]="sitterData.postalCode" placeholder="Irányítószám megadása" name="postalCode" [ngClass]="{'is-invalid': errors.postalCode.empty || errors.postalCode.not_valid}" class="form-control">
             <div class="invalid-feedback"
-                *ngIf="errors.postCode.empty">
+                *ngIf="errors.postalCode.empty">
                 Kérlek, ne üres mezőt, hanem az irányítószámodat add meg!
             </div>
             <div class="invalid-feedback"
-                *ngIf="errors.postCode.not_valid">
+                *ngIf="errors.postalCode.not_valid">
                 Kérlek, egy létező irányítószámot adj meg!
             </div>
 
