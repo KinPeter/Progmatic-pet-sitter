@@ -25,6 +25,7 @@ import { SearchListItemComponent } from './components/search-page/search-list/se
 import { SpinnerComponent } from './components/ui/spinner/spinner.component';
 import { SitterCalendarComponent } from './components/sitter-calendar/sitter-calendar.component';
 import { CalendarDatePipe } from './pipes/calendar-date.pipe';
+import { SearchSitterByNamePipe } from './pipes/search-sitter-by-name.pipe';
 
 @NgModule({
     declarations: [
@@ -47,6 +48,7 @@ import { CalendarDatePipe } from './pipes/calendar-date.pipe';
         SpinnerComponent,
         SitterCalendarComponent,
         CalendarDatePipe,
+        SearchSitterByNamePipe,
     ],
     imports: [
         BrowserModule,
