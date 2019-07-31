@@ -16,14 +16,13 @@
 						</figure>
 					</div>
 					<div class="col-md-7">
-						<h1 class="name">{{ sitter.userName }}</h1>
+						<h1 class="name">{{ sitter.userName || sitter.username }}</h1>
 						<i class="tagline"></i>
 						<ul class="info">
 							<li>
 								<i class="fa fa-map-marker"></i>
 								{{ sitter.postalCode }}
-								{{ sitter.city }}
-								{{ sitter.address }},
+								{{ sitter.city }}{{ isUserLoggedIn ? ', ' + sitter.address : '' }}
 							</li>
 						</ul>
 						<div class="ratings">
@@ -31,6 +30,8 @@
 							<span *ngFor="let star of ratingFullStars" class="fa fa-star"></span>
 							<span *ngFor="let star of ratingHalfStars" class="fa fa-star-half-o"></span>
 							<span *ngFor="let star of ratingEmptyStars" class="fa fa-star-o"></span>
+							<br>
+							<span class="number-of-ratings">({{ sitter.numberOfRatings }} értékelés alapján)</span>
 						</div>
 						<div class="call-to-action" *ngIf="isUserLoggedIn">
 							<div>
