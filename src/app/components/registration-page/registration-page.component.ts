@@ -49,9 +49,9 @@ export class RegistrationPageComponent implements OnInit {
     // SITTER DATA fields
     private sitterDataOpen = false;
     private sitterData: Sitter;
-    private currentPlaceOfService : any;
-    private currentServicePetType : any;
-    private currentWage = 0;
+    private currentPlaceOfService: any;
+    private currentServicePetType: any;
+    private currentWage: number;
     private errors: any;
 
     private petTypes: KeyValue[];
@@ -89,6 +89,7 @@ export class RegistrationPageComponent implements OnInit {
             passwordConfirm: {'empty': false, 'not_same': false},
             petType: false,
             petsname: false,
+
             address: false,
             postalCode: {'empty': false, 'not_valid': false},
             city: false,
@@ -110,37 +111,73 @@ export class RegistrationPageComponent implements OnInit {
     addToMyPets(): void {
         if (this.currentPetType != "NONE" && this.currentPetName != '') {
             this.currentPetType = PetType[this.currentPetType];
-            this.ownerData.pets.push({petName: this.currentPetName, petType: this.currentPetType});
+            this.ownerData.pets.push({name: this.currentPetName, petType: this.currentPetType});
+            this.errors.petType = false,
+            this.errors.petsname = false
+            this.currentPetName = '';
+            this.currentPetType = "NONE";
+        } else if (this.currentPetType == "NONE" && this.currentPetName != ''){
+            this.errors.petType = this.validator.validateName(this.user.name);
+            this.errors.petsname = false;
+        } else if (this.currentPetType != "NONE" && this.currentPetName == ''){
+            this.errors.petsname = this.validator.validateName(this.user.name);
+            this.errors.petType = false;
+
+        } else {
+            this.currentPetType == "NONE" && this.currentPetName == ''
+            this.errors.petsname = this.validator.validateName(this.user.name);
+            this.errors.petType = this.validator.validateName(this.user.name);
+
         }
-        this.errors.petType = this.validator.validateName(this.user.name);
-        this.errors.petsname = this.validator.validateName(this.user.name);
-        this.currentPetName = '';
-        this.currentPetType = "NONE";
         console.log(this.ownerData.pets);
     };
 
     addToMyServices(): void {
-        if (this.currentPlaceOfService != null && this.currentServicePetType != null && this.currentWage != 0) {
+        if (this.currentPlaceOfService == "NONE" && this.currentServicePetType != "NONE" && this.currentWage > 0) {
+            this.errors.servicePetType = false,
+            this.errors.currentWage = false
+        }
+        if (this.currentPlaceOfService != "NONE" && this.currentServicePetType == "NONE" && this.currentWage > 0) {
+            this.errors.servicePlace = false,
+            this.errors.currentWage = false
+        }
+        if (this.currentPlaceOfService != "NONE" && this.currentServicePetType != "NONE" && this.currentWage !> 0) {
+            this.errors.servicePlace = false,
+            this.errors.servicePetType = false
+        }
+        if (this.currentPlaceOfService != "NONE" && this.currentServicePetType != "NONE" && this.currentWage > 0 &&
+            this.sitterData.city != '' && this.sitterData.address != '' && this.sitterData.postalCode != '' &&
+            this.sitterData.intro != '') {
+                this.sitterData.services.push({
+                    place: this.currentPlaceOfService,
+                    petType: this.currentServicePetType,
+                    pricePerHour: this.currentWage,
+                })
+                this.errors.servicePlace = false,
+                this.errors.servicePetType = false,
+                this.errors.currentWage = false
+                this.currentPetType = "NONE";
+                this.currentPlaceOfService = "NONE";
+                this.currentServicePetType = "NONE";
 
-        this.sitterData.services.push({
-            place: this.currentPlaceOfService,
-            petType: this.currentServicePetType,
-            pricePerHour: this.currentWage
+        } else {
+            // this.currentPlaceOfService == null && this.currentServicePetType == null && this.currentWage == 0
 
-        })};
-        this.errors.city = this.validator.validateName(this.sitterData.city);
-        this.errors.address = this.validator.validateName(this.sitterData.address);
-        this.errors.postalCode.empty = this.validator.validateName(this.sitterData.postalCode);
-        this.errors.postalCode.not_valid = !this.validator.validatePostcode(this.sitterData.postalCode);
-        this.errors.intro = this.validator.validateName(this.sitterData.intro);
-        this.errors.servicePlace = this.validator.validateName(this.sitterData.services.length[0]);
-        this.errors.servicePetType = this.validator.validateName(this.sitterData.services.length[1]);
-        this.errors.currentWage = this.validator.validateName(this.sitterData.postalCode);
-        this.currentPlaceOfService = null;
-        this.currentServicePetType = null;
-        this.currentWage = 0;
+
+            this.errors.city = this.validator.validateName(this.sitterData.city);
+            this.errors.address = this.validator.validateName(this.sitterData.address);
+            this.errors.postalCode.empty = this.validator.validateName(this.sitterData.postalCode);
+            this.errors.postalCode.not_valid = !this.validator.validatePostcode(this.sitterData.postalCode);
+            this.errors.intro = this.validator.validateName(this.sitterData.intro);
+            this.errors.servicePlace = this.validator.validateName(this.user.name);
+            this.errors.servicePetType = this.validator.validateName(this.user.name);
+            this.errors.currentWage = this.validator.validateName(this.sitterData.postalCode);
+            }
+        // this.currentPlaceOfService = null;
+        // this.currentServicePetType = null;
+        // this.currentWage = 0;
         console.log(this.sitterData.services);
-    }
+        }
 
 
     submitRegistration() {

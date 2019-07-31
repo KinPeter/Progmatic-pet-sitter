@@ -97,7 +97,7 @@
                 <h3>Állataid:</h3>
                 <ul>
                     <li *ngFor="let pet of ownerData.pets">
-                        <b>{{ pet.petName }}</b> : {{ pet.petType }}
+                        <b>{{ pet.name }}</b> : {{ pet.petType }}
                     </li>
                 </ul>
                 <hr>
@@ -172,7 +172,7 @@
                 Kérlek válaszd ki, milyen állatokra szeretnél vigyázni!
             </div>
             <label for="pricePerHour"><b>Órabér:</b></label>
-            <input type="text" [(ngModel)]="currentWage" placeholder="Órabér megadása" name="pricePerHour" [ngClass]="{'is-invalid': errors.currentWage}" class="form-control">
+            <input type="number" [(ngModel)]="currentWage" placeholder="Órabér megadása" name="pricePerHour" min="1" max="100000" [ngClass]="{'is-invalid': errors.currentWage}" class="form-control">
             <div class="invalid-feedback"
                 *ngIf="errors.currentWage">
                 Kérlek az általad elvárt órabért add meg!
