@@ -112,6 +112,8 @@ export class RegistrationPageComponent implements OnInit {
             this.currentPetType = PetType[this.currentPetType];
             this.ownerData.pets.push({petName: this.currentPetName, petType: this.currentPetType});
         }
+        this.errors.petType = this.validator.validateName(this.user.name);
+        this.errors.petsname = this.validator.validateName(this.user.name);
         this.currentPetName = '';
         this.currentPetType = "NONE";
         console.log(this.ownerData.pets);
@@ -126,6 +128,14 @@ export class RegistrationPageComponent implements OnInit {
             pricePerHour: this.currentWage
 
         })};
+        this.errors.city = this.validator.validateName(this.sitterData.city);
+        this.errors.address = this.validator.validateName(this.sitterData.address);
+        this.errors.postalCode.empty = this.validator.validateName(this.sitterData.postalCode);
+        this.errors.postalCode.not_valid = !this.validator.validatePostcode(this.sitterData.postalCode);
+        this.errors.intro = this.validator.validateName(this.sitterData.intro);
+        this.errors.servicePlace = this.validator.validateName(this.sitterData.services.length[0]);
+        this.errors.servicePetType = this.validator.validateName(this.sitterData.services.length[1]);
+        this.errors.currentWage = this.validator.validateName(this.sitterData.postalCode);
         this.currentPlaceOfService = null;
         this.currentServicePetType = null;
         this.currentWage = 0;
@@ -180,37 +190,9 @@ export class RegistrationPageComponent implements OnInit {
             this.errors.passwordConfirm.not_same = true;
         }
 
-        this.errors.petType = this.validator.validateName(this.user.name);
 
-        this.errors.petsname = this.validator.validateName(this.user.name);
 
-        this.errors.city = this.validator.validateName(this.sitterData.city);
 
-        this.errors.address = this.validator.validateName(this.sitterData.address);
-
-        this.errors.intro = this.validator.validateName(this.sitterData.intro);
-
-        this.errors.postalCode.empty = this.validator.validateName(this.sitterData.postalCode);
-        this.errors.postalCode.not_valid = !this.validator.validatePostcode(this.sitterData.postalCode);
-
-        if (this.errors.email.empty) {
-            this.errors.email.empty = true;
-            this.errors.email.not_valid = true;
-        }
-        if (!this.errors.email.empty && !this.validator.validateEmail(this.user.email)) {
-            this.errors.email.empty = false;
-            this.errors.email.not_valid = true;
-        }
-        if (this.validator.validateEmail(this.user.email)) {
-            this.errors.email.empty = false;
-            this.errors.email.not_valid = false;
-        }
-
-        this.errors.currentWage = this.validator.validateName(this.sitterData.postalCode);
-
-        this.errors.servicePlace = this.validator.validateName(this.user.name);
-
-        this.errors.servicePetType = this.validator.validateName(this.user.name);
 
 
         // ha le van nyitva - ergo kitöltötte az OWNER adatokat, adja hozzá a user-hez
