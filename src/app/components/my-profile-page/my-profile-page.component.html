@@ -14,6 +14,7 @@
         <!--  <input class="btn btn-success" (click)="fileInput.click()" value="Válassz képet"> -->
           <button class="btn btn-primary"  id="profile-img-upload" type="button" (click)="onUpload()">Kiválasztott kép feltöltése</button>
         </div>
+
       </div>
 
       <div class="modal-body">
@@ -29,7 +30,7 @@
           <div class="form-group">
             <label class="col-lg-3 control-label"><b>Név:</b></label>
             <div class="col-lg-8">
-              <input type="text" placeholder="Név" name="username" [(ngModel)]="user.username" [ngClass]="{'is-invalid': validator.validateName(user.username)}" class="form-control" required>
+              <input type="text" placeholder="Név" name="username" [(ngModel)]="user.userName" [ngClass]="{'is-invalid': validator.validateName(user.userName)}" class="form-control" required>
             </div>
           </div>
           <div class="form-group">
@@ -108,11 +109,12 @@
                   <label class="col-lg-3 control-label"><b>Irányítószám:</b></label>
                   <div class="col-lg-8">
                     <input type="text" name="zipcode" placeholder="Irányítószám megadása" id="postalCode" [(ngModel)]="user.sitterData.postalCode" [ngClass]="{'is-invalid': validator.validatePostcodeInComponent(isPostcodeValid, user.sitterData.postalCode)}" class="form-control">
+                    <div class="invalid-feedback"
+                        *ngIf="validator.validatePostcodeInComponent(isPostcodeValid, user.sitterData.postalCode)">
+                        Kérlek, valós irányítószámot adj meg!
+                    </div>
                   </div>
-                  <div class="invalid-feedback"
-                      *ngIf="validator.validatePostcodeInComponent(isPostcodeValid, user.sitterData.postalCode)">
-                      Kérlek, valós irányítószámot adj meg!
-                  </div>
+
                 </div>
                 <div class="form-group">
                   <label class="col-lg-3 control-label"><b>Város:</b></label>
@@ -147,7 +149,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="servicePlace" class="col-lg-3 control-label"><b>Szolgáltatás nyújtásának helye:</b></label>
+                  <label for="servicePlace" class="col-lg-3 control-label"><b>Szolgáltatás helyszíne:</b></label>
                   <div class="col-lg-8">
                     <select [(ngModel)]="currentPlaceOfService" name="servicePlace" class="form-control">
                       <option *ngFor="let place of servicePlaces" [value]="place.key">{{place.value}}</option>
@@ -155,7 +157,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label  for="servicePetType" class="col-lg-3 control-label"><b>Milyen állattal vállalod ezt a szolgáltatást:</b></label>
+                  <label  for="servicePetType" class="col-lg-3 control-label"><b>Kisállat típusa:</b></label>
                   <div class="col-lg-8">
                     <select id="myPetType" [(ngModel)]="currentServicePetType" name="myPetType" class="form-control">
                       <option *ngFor="let type of petTypes" [value]="type.key">{{type.value}}</option>
@@ -169,6 +171,22 @@
                     <input class="btn btn-success" id="add-service" type="button" (click)="addToMyServices()" value="Szolgáltatás hozzáadása">
                   </div>
                 </div>
+                <div *ngIf="showSitterData()">
+                  <hr>
+                  <h4>Naptár</h4>
+                  <p>Elfoglaltságaid a következő 30 napban.</p>
+                  <app-sitter-calendar
+                    *ngIf="!isLoading"
+                    [isComingFromSitterProfile]=false
+                    [viewedSitter]="user.sitterData"
+                    (updateAvailabilities)="updateAvailabilities($event)">
+                  </app-sitter-calendar>
+                  <div class="map-legend">
+                    <div><span class="legend-green"></span> Egész nap ráérek</div>
+                    <div><span class="legend-orange"></span> Talán ráérek</div>
+                    <div><span class="legend-red"></span> Elfoglalt vagyok</div>
+                  </div>
+                </div
             </div>
           </section>
         </div>

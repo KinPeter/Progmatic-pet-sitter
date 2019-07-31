@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {User, Sitter, Owner} from '../../interfaces/user';
+import {User, Sitter, Owner, Day} from '../../interfaces/user';
 import {UserService} from '../../services/user.service';
 import { PettypeService } from '../../services/pettype.service';
 import { ServicePlaceService } from '../../services/service-place.service';
@@ -9,6 +9,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { HttpClient, HttpEventType} from '@angular/common/http';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import {herokuURL} from 'src/app/app-settings';
+import { SitterView } from 'src/app/interfaces/sitterView';
 
 @Component({
     selector: 'app-my-profile-page',
@@ -39,6 +40,8 @@ import {herokuURL} from 'src/app/app-settings';
 export class MyProfilePageComponent implements OnInit {
 
     selectedFile: File = null;
+
+    private sitterView: SitterView;
 
 
 
@@ -234,7 +237,10 @@ export class MyProfilePageComponent implements OnInit {
       }
     }
 
-
+    updateAvailabilities(days: Day[]): void {
+      this.user.sitterData.availabilities = days;
+      //console.log(days);
+    }
 
 
 }
