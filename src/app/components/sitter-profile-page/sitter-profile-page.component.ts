@@ -4,6 +4,7 @@ import { SearchDataTransferService } from 'src/app/services/search-data-transfer
 import { SitterView } from 'src/app/interfaces/sitterView';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { herokuURL } from 'src/app/app-settings';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
     selector: 'app-sitter-profile-page',
@@ -26,7 +27,8 @@ export class SitterProfilePageComponent implements OnInit {
     constructor(
         private searchData: SearchDataTransferService,
         private route: ActivatedRoute,
-        private auth: AuthenticationService ) {}
+        private auth: AuthenticationService,
+        private userService: UserService ) {}
 
     getPlaceOfService(place: string): string {
         switch (place) {
@@ -56,7 +58,13 @@ export class SitterProfilePageComponent implements OnInit {
     }
 
     setProfilePicUrl(): void {
-        this.profilePicUrl = herokuURL + '/user/' + this.sitter.id + '/image';
+        this.userService.checkPictureEndpoint(this.sitter.id)
+        .then((response) => {
+            if (response) { this.profilePicUrl = herokuURL + '/user/' + this.sitter.id + '/image'; }
+        })
+        .catch((error) => {
+            this.profilePicUrl = '/assets/images/defaultAvatar.png';
+        });
     }
 
     setRatingStars() {

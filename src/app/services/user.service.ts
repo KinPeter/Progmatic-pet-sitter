@@ -42,13 +42,16 @@ export class UserService {
     }
 
     getEnumKey(en: any, enumValue: string): string {
-      let values = Object.values(en);
-      let keys = Object.keys(en);
-      for (let i = 0; i < values.length; i++) {
-          if (values[i] == enumValue) {
-            return keys[i];
-          }
-      }
+        const values = Object.values(en);
+        const keys = Object.keys(en);
+        for (let i = 0; i < values.length; i++) {
+            if (values[i] === enumValue) {
+                return keys[i];
+            }
+        }
     }
 
+    checkPictureEndpoint(id: number): Promise<any> {
+        return this.http.get(this.URL + '/user/' + id + '/image').toPromise();
+    }
 }
