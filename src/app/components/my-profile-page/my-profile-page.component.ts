@@ -128,6 +128,12 @@ export class MyProfilePageComponent implements OnInit {
 
 
       this.user = this.auth.currentUser;
+      if (this.user.ownerData) {
+        for (let i = 0; i < this.user.ownerData.pets.length; i++) {
+            this.user.ownerData.pets[i].petType = PetType[this.user.ownerData.pets[i].petType];
+        }
+      }
+
       if (this.user.sitterData) {
         for (let i = 0; i < this.user.sitterData.services.length; i++) {
             this.user.sitterData.services[i].place = PlaceOfService[this.user.sitterData.services[i].place];
@@ -150,17 +156,18 @@ export class MyProfilePageComponent implements OnInit {
     onUpload() {
       const fd = new FormData();
       fd.append('image', this.selectedFile, this.selectedFile.name);
-      this.http.post('https://petsitter-backend.herokuapp.com/user/{{user.userId}}/image', fd, {
+      this.http.post(`https://petsitter-backend.herokuapp.com/user/${this.user.userId}/image`, fd, {
         reportProgress: true,
-        observe: 'events'
+        observe: 'events',
+        withCredentials: true
       })
       .subscribe(event =>{
         if (event.type === HttpEventType.UploadProgress){
-          console.log('Uplouad progress: ' + Math.round(event.loaded / event.total) * 100 + '%')
+          console.log('Uplouad progress: ' + Math.round(event.loaded / event.total) * 100 + '%');
         } else if(event.type === HttpEventType.Response){
-          console.log(event)
-        }
+          // console.log(event);
 
+        }
       })
     }
 
