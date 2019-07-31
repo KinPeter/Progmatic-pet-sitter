@@ -116,7 +116,7 @@ export class MyProfilePageComponent implements OnInit {
         }
       }
       console.log(this.user);
-  //    this.setProfilePicUrl();
+      this.setProfilePicUrl();
 
 
     }
@@ -146,7 +146,7 @@ export class MyProfilePageComponent implements OnInit {
       })
     }
 
-/*
+
     setProfilePicUrl(): void {
         this.userService.checkPictureEndpoint(this.user.userId)
         .then((response) => {
@@ -155,7 +155,7 @@ export class MyProfilePageComponent implements OnInit {
         .catch((error) => {
             this.profilePicUrl = '/assets/images/defaultAvatar.png';
         });
-    }*/
+    }
 
 
     validatePassword(isPasswordSame: boolean): boolean{

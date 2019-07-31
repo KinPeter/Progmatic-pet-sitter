@@ -8,7 +8,7 @@
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="text-center" id="img-photo">
       <!--   <img src="http://lorempixel.com/200/200/people/9/" class="avatar img-circle img-thumbnail" alt="avatar"> -->
-          <img src="https://petsitter-backend.herokuapp.com/user/{{user.userId}}/image" class="avatar img-circle img-thumbnail" alt="avatar">
+          <img src="{{profilePicUrl}}" class="avatar img-circle img-thumbnail" alt="avatar">
           <h6>Új profilkép feltöltése</h6>
           <input type="file" (change)="onFileSelected($event)" class="text-center center-block well well-sm" class="form-control" #fileInput>
         <!--  <input class="btn btn-success" (click)="fileInput.click()" value="Válassz képet"> -->
@@ -23,7 +23,7 @@
         </div>
       </div>
       <!-- edit form column -->
-      <div class="col-md-8 col-md-offset-1 col-sm-6 col-xs-12 personal-info">
+      <div class="col-md-8 col-md-offset-1 col-sm-6 col-xs-12" id="personal-info">
 
         <div class="form-horizontal" role="form">
           <h3>Személyes adataid</h3>
@@ -187,7 +187,6 @@
                     <div><span class="legend-red"></span> Elfoglalt vagyok</div>
                   </div>
                 </div>
-
             </div>
           </section>
         </div>
