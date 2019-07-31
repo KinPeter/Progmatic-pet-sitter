@@ -34,8 +34,8 @@ export class SearchDataTransferService {
     }
 
     getSitterProfile(userId: number): Promise<SitterView> {
+        // return this.http.get<SitterView>('../../assets/sitterview.json', { withCredentials: true }).toPromise();
         return this.http.get<SitterView>(this.URL + `/sitter/${userId}`, { withCredentials: true }).toPromise();
-        // return this.http.get<SitterView>('../../../assets/sitterview.json', { withCredentials: true }).toPromise();
     }
 
     sendMessageToSitterWithDay(day: Day): Promise<any> {
@@ -43,6 +43,6 @@ export class SearchDataTransferService {
     }
 
     sendSitterRating(sitterId: number, rating: number): Promise<any> {
-        return this.http.post(this.URL + '/', {userId: sitterId, newRating: rating}).toPromise();
+        return this.http.post(this.URL + '/sitter/rating', {userId: sitterId, newRating: rating}).toPromise();
     }
 }

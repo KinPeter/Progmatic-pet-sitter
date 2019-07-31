@@ -1,11 +1,18 @@
-<div class="container" *ngIf="!isLoading">
+<div class="spinner-wrapper" *ngIf="isLoading">
+	<div class="spinner-box">
+		<p>Kis türelmet...</p>
+		<app-spinner></app-spinner>
+	</div>
+</div>
+
+<div class="container" *ngIf="!isLoading && !sitterNotFound">
 	<div class="row">
 		<div class="content col-md-7">
 			<div class="job-profile-info">
 				<div class="row sitter-card">
 					<div class="col-md-5">
 						<figure class="alignnone">
-							<img src="/assets/images/defaultAvatar.png" class="avatar img-circle img-thumbnail" alt="avatar" alt="">
+							<img src="{{ profilePicUrl }}" class="avatar img-circle img-thumbnail" alt="avatar" alt="">
 						</figure>
 					</div>
 					<div class="col-md-7">
@@ -51,7 +58,8 @@
 				</div>
 				<hr>
 				<h4>Mikor érek rá?</h4>
-				<p>Alább láthatod, hogy a következő 30 napban mikor tudnék foglalkozni kedvenceddel.</p>
+				<p>Alább láthatod, hogy a következő 30 napban mikor tudnék foglalkozni kedvenceddel.<br>
+				Foglalási igény küldéséhez <span *ngIf="!isUserLoggedIn">jelentkezz be, és </span>kattints a kívánt napra.</p>
 				<app-sitter-calendar 
 					*ngIf="!isLoading" 
 					[isComingFromSitterProfile]=true 
@@ -107,6 +115,17 @@
 		</div>
 	</div>
 
+</div>
+
+<div class="container" *ngIf="!isLoading && sitterNotFound">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2 text-center">
+			<h2 class="error-title">404</h2>
+			<h3>Elnézést, a keresett KiVi nem található.</h3>
+			<p class="error-desc">Kérlek próbálkozz egy új kereséssel.</p>
+			<button class="btn btn-primary" routerLink="/sitter/search">Kivit Keresek</button>
+		</div>
+	</div>
 </div>
 
 

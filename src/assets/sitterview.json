@@ -3,7 +3,7 @@
     "city": "Pocsajd",
     "address": "Beton út 1.",
     "postalCode": 5555,
-    "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "intro": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro commodi, accusantium labore totam illum maxime error optio, nihil dicta sint recusandae cum magnam mollitia voluptas. Atque, nobis! Quaerat nemo omnis, minima at illum ipsum dolorem aliquam. Facere pariatur enim odit.",
     "services": [
         {
             "place": "OWNERS_HOME",
@@ -16,8 +16,16 @@
             "petType": "CAT",
             "pricePerHour": 1500,
             "pricePerDay": 6000
+        },
+        {
+            "place": "SITTERS_HOME",
+            "petType": "BIRD",
+            "pricePerHour": 1500,
+            "pricePerDay": 6000
         }
     ],
+    "averageRating": 3.65,
+    "numberOfRatings": 34,
     "availabilities": [
         {
             "id": 2,
