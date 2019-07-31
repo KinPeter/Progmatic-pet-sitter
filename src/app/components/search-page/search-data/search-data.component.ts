@@ -16,6 +16,8 @@ export class SearchDataComponent implements OnInit {
 
   @Output()
   eventSearched: EventEmitter<SearchedSitter[]> = new EventEmitter();
+  @Output()
+  searchPending: EventEmitter<boolean> = new EventEmitter();
 
   petTypes: KeyValue[];
   placeTypes: KeyValue[];
@@ -64,10 +66,11 @@ export class SearchDataComponent implements OnInit {
       this.search();
   }
   search(): void {
-    //spinner
-
+    this.searchPending.emit(true);
     this.dataTrService.searchSitter(this.searchDataFromMainPage).then(values => {
       this.eventSearched.emit(values);
+      this.searchPending.emit(false);
+
     });
   }
 

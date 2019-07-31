@@ -12,17 +12,19 @@ export class SearchListItemComponent implements OnInit {
 
   @Input()
   sitter: SearchedSitter;
-  private imgUrl: any;
+  private imgUrl: any = null;
 
   constructor(private searchDataService: SearchDataTransferService) {
-    this.imgUrl = herokuURL + "/user/" + this.sitter.id + "/image";
   }
 
   ngOnInit() {
-    console.log(this.imgUrl);
-      if(this.imgUrl === ''){
+    this.imgUrl = herokuURL + "/user/" + this.sitter.id + "/image";
+
+      if(!this.imgUrl){
           this.imgUrl = 'assets/images/defaultAvatar.png';
       }
+
+
   }
 
 }

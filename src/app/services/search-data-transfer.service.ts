@@ -16,6 +16,7 @@ export class SearchDataTransferService {
     private readonly URL = herokuURL;
     public sitters: SearchedSitter[];
     public sitter: SearchedSitter;
+    public isLoading = false;
 
     constructor(private http: HttpClient) { }
 
@@ -28,9 +29,12 @@ export class SearchDataTransferService {
             }
             httpParams = httpParams.append(key, sd[key]);
         });
+        this.isLoading = true;
 
         return this.http.get<SearchedSitter[]>(this.URL + '/sitters/search', { params: httpParams, withCredentials: true })
             .toPromise();
+        // return this.http.get<SearchedSitter[]>('../../assets/search.json')
+        //     .toPromise();
     }
 
     getSitterProfile(userId: number): Promise<SitterView> {
