@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { SearchDataTransferService } from 'src/app/services/search-data-transfer.service';
 import { Day } from '../../interfaces/user';
 import { SitterView } from 'src/app/interfaces/sitterView';
+import {Sitter} from 'src/app/interfaces/user';
 
 @Component({
     selector: 'app-sitter-calendar',
@@ -17,7 +18,9 @@ export class SitterCalendarComponent implements OnInit {
     // FALSE: ha a Sitter a saját profilját -> naptárját szerkeszti épp
     @Input() isComingFromSitterProfile = false;
 
-    @Input() viewedSitter: SitterView;
+    @Input() viewedSitter: SitterView | Sitter;
+
+    @Output() updateAvailabilities = new EventEmitter<Day[]>();
 
     private availabilities: Day[];
     private showConfirmDialog = false;
@@ -106,7 +109,8 @@ export class SitterCalendarComponent implements OnInit {
                 this.setAvailability(day);
                 // kiszedi a BLANK napokat, hogy szerkesztés után anélkül küldhessük vissza a szerverre
                 const newAvailabilities = this.removeBlankDays();
-                // console.log(newAvailabilities);
+              // console.log(newAvailabilities);
+              this.updateAvailabilities.emit(newAvailabilities);
             }
         }
     }

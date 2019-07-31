@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {User, Sitter, Owner} from '../../interfaces/user';
+import {User, Sitter, Owner, Day} from '../../interfaces/user';
 import {UserService} from '../../services/user.service';
 import { PettypeService } from '../../services/pettype.service';
 import { ServicePlaceService } from '../../services/service-place.service';
@@ -8,6 +8,8 @@ import { FieldValidatorService } from 'src/app/services/field-validator.service'
 import { AuthenticationService } from '../../services/authentication.service';
 import { HttpClient, HttpEventType} from '@angular/common/http';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import {herokuURL} from 'src/app/app-settings';
+import { SitterView } from 'src/app/interfaces/sitterView';
 
 @Component({
     selector: 'app-my-profile-page',
@@ -39,14 +41,15 @@ export class MyProfilePageComponent implements OnInit {
 
     selectedFile: File = null;
 
+    private sitterView: SitterView;
+
 
 
     user: User;
     sitter: Sitter;
     owner: Owner;
-  //  passwordConfirm: '';
 
-    // OWNER DATA fieldsb
+    // OWNER DATA fields
     currentPetName = '';
     currentPetType : any;
 
@@ -57,7 +60,6 @@ export class MyProfilePageComponent implements OnInit {
 
     errors: any;
     showNetworkAlert: boolean;
-    //isPasswordValid: boolean;
 
 
     petTypes: KeyValue[];
@@ -68,6 +70,8 @@ export class MyProfilePageComponent implements OnInit {
     addServiceOpen = false;
 
     passwordConfirm = '';
+
+    profilePicUrl: string;
 
 
 
@@ -89,35 +93,6 @@ export class MyProfilePageComponent implements OnInit {
       }
 
 
-
-    //  this.petType = this.pettypeService.getPetTypeArray();
-    //  this.sercivePlaceType = this.servicePlaceService.getServicePlaceTypeArray();
-
-/*      this.user = {
-          userId: 1,
-          name: 'Gina',
-          email: 'abc@gmai.com',
-        //  ownerData: null,
-          ownerData: {
-            pets: [{
-              petName: 'Cirmi',
-              petType: PetType.CAT
-            }]
-          },
-      //    sitterData: null,
-          sitterData: {
-            address: 'Csemete utca 10.',
-            postalCode: '1036',
-            city: 'Budapest',
-            intro: 'string',
-            services: [{
-              place: PlaceOfService.OWNERS_HOME,
-              petType: PetType.DOG,
-              pricePerHour: 5000,
-            }]
-          }
-      }; */
-
       this.petTypes = this.pettypeService.getPetTypeArray();
       this.servicePlaces = this.servicePlaceService.getServicePlaceTypeArray();
       this.servicePlaces.unshift( {key: "NONE", value: "Helyszín típusa"} );
@@ -128,6 +103,12 @@ export class MyProfilePageComponent implements OnInit {
 
 
       this.user = this.auth.currentUser;
+      if (this.user.ownerData) {
+        for (let i = 0; i < this.user.ownerData.pets.length; i++) {
+            this.user.ownerData.pets[i].petType = PetType[this.user.ownerData.pets[i].petType];
+        }
+      }
+
       if (this.user.sitterData) {
         for (let i = 0; i < this.user.sitterData.services.length; i++) {
             this.user.sitterData.services[i].place = PlaceOfService[this.user.sitterData.services[i].place];
@@ -135,7 +116,7 @@ export class MyProfilePageComponent implements OnInit {
         }
       }
       console.log(this.user);
-
+      this.setProfilePicUrl();
 
 
     }
@@ -150,18 +131,30 @@ export class MyProfilePageComponent implements OnInit {
     onUpload() {
       const fd = new FormData();
       fd.append('image', this.selectedFile, this.selectedFile.name);
-      this.http.post('https://petsitter-backend.herokuapp.com/user/{{user.userId}}/image', fd, {
+      this.http.post(`https://petsitter-backend.herokuapp.com/user/${this.user.userId}/image`, fd, {
         reportProgress: true,
-        observe: 'events'
+        observe: 'events',
+        withCredentials: true
       })
       .subscribe(event =>{
         if (event.type === HttpEventType.UploadProgress){
-          console.log('Uplouad progress: ' + Math.round(event.loaded / event.total) * 100 + '%')
+          console.log('Uplouad progress: ' + Math.round(event.loaded / event.total) * 100 + '%');
         } else if(event.type === HttpEventType.Response){
-          console.log(event)
-        }
+          // console.log(event);
 
+        }
       })
+    }
+
+
+    setProfilePicUrl(): void {
+        this.userService.checkPictureEndpoint(this.user.userId)
+        .then((response) => {
+            if (response) { this.profilePicUrl = herokuURL + '/user/' + this.user.userId+ '/image'; }
+        })
+        .catch((error) => {
+            this.profilePicUrl = '/assets/images/defaultAvatar.png';
+        });
     }
 
 
@@ -204,7 +197,7 @@ export class MyProfilePageComponent implements OnInit {
             pets: []
           }
         }
-        this.user.ownerData.pets.push({petName: this.currentPetName, petType: this.currentPetType});
+        this.user.ownerData.pets.push({name: this.currentPetName, petType: this.currentPetType});
         this.currentPetName = '';
         this.currentPetType = "NONE";
         console.log(this.user.ownerData.pets);
@@ -244,7 +237,10 @@ export class MyProfilePageComponent implements OnInit {
       }
     }
 
-
+    updateAvailabilities(days: Day[]): void {
+      this.user.sitterData.availabilities = days;
+      //console.log(days);
+    }
 
 
 }

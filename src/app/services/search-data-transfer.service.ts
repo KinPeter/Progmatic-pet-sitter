@@ -29,7 +29,7 @@ export class SearchDataTransferService {
             httpParams = httpParams.append(key, sd[key]);
         });
 
-        return this.http.get<SearchedSitter[]>(this.URL + '/search/sitters', { params: httpParams, withCredentials: true })
+        return this.http.get<SearchedSitter[]>(this.URL + '/sitters/search', { params: httpParams, withCredentials: true })
             .toPromise();
     }
 
