@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../interfaces/user';
 import { UserDTO } from '../interfaces/user-dto';
 import { UserError } from '../errors/user-error';
@@ -52,6 +52,6 @@ export class UserService {
     }
 
     checkPictureEndpoint(id: number): Promise<any> {
-        return this.http.get(this.URL + '/user/' + id + '/image').toPromise();
+        return this.http.get(this.URL + '/user/' + id + '/image', {responseType: 'blob', withCredentials: true } ).toPromise();
     }
 }
