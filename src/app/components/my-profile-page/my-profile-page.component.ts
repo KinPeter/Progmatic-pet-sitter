@@ -8,6 +8,7 @@ import { FieldValidatorService } from 'src/app/services/field-validator.service'
 import { AuthenticationService } from '../../services/authentication.service';
 import { HttpClient, HttpEventType} from '@angular/common/http';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import {herokuURL} from 'src/app/app-settings';
 
 @Component({
     selector: 'app-my-profile-page',
@@ -44,9 +45,8 @@ export class MyProfilePageComponent implements OnInit {
     user: User;
     sitter: Sitter;
     owner: Owner;
-  //  passwordConfirm: '';
 
-    // OWNER DATA fieldsb
+    // OWNER DATA fields
     currentPetName = '';
     currentPetType : any;
 
@@ -57,7 +57,6 @@ export class MyProfilePageComponent implements OnInit {
 
     errors: any;
     showNetworkAlert: boolean;
-    //isPasswordValid: boolean;
 
 
     petTypes: KeyValue[];
@@ -68,6 +67,8 @@ export class MyProfilePageComponent implements OnInit {
     addServiceOpen = false;
 
     passwordConfirm = '';
+
+    profilePicUrl: string;
 
 
 
@@ -88,35 +89,6 @@ export class MyProfilePageComponent implements OnInit {
         this.servicePlaces.push({"key": place, "value": PlaceOfService[place]});
       }
 
-
-
-    //  this.petType = this.pettypeService.getPetTypeArray();
-    //  this.sercivePlaceType = this.servicePlaceService.getServicePlaceTypeArray();
-
-/*      this.user = {
-          userId: 1,
-          name: 'Gina',
-          email: 'abc@gmai.com',
-        //  ownerData: null,
-          ownerData: {
-            pets: [{
-              petName: 'Cirmi',
-              petType: PetType.CAT
-            }]
-          },
-      //    sitterData: null,
-          sitterData: {
-            address: 'Csemete utca 10.',
-            postalCode: '1036',
-            city: 'Budapest',
-            intro: 'string',
-            services: [{
-              place: PlaceOfService.OWNERS_HOME,
-              petType: PetType.DOG,
-              pricePerHour: 5000,
-            }]
-          }
-      }; */
 
       this.petTypes = this.pettypeService.getPetTypeArray();
       this.servicePlaces = this.servicePlaceService.getServicePlaceTypeArray();
@@ -141,7 +113,7 @@ export class MyProfilePageComponent implements OnInit {
         }
       }
       console.log(this.user);
-
+  //    this.setProfilePicUrl();
 
 
     }
@@ -170,6 +142,17 @@ export class MyProfilePageComponent implements OnInit {
         }
       })
     }
+
+/*
+    setProfilePicUrl(): void {
+        this.userService.checkPictureEndpoint(this.user.userId)
+        .then((response) => {
+            if (response) { this.profilePicUrl = herokuURL + '/user/' + this.user.userId+ '/image'; }
+        })
+        .catch((error) => {
+            this.profilePicUrl = '/assets/images/defaultAvatar.png';
+        });
+    }*/
 
 
     validatePassword(isPasswordSame: boolean): boolean{
@@ -211,7 +194,7 @@ export class MyProfilePageComponent implements OnInit {
             pets: []
           }
         }
-        this.user.ownerData.pets.push({petName: this.currentPetName, petType: this.currentPetType});
+        this.user.ownerData.pets.push({name: this.currentPetName, petType: this.currentPetType});
         this.currentPetName = '';
         this.currentPetType = "NONE";
         console.log(this.user.ownerData.pets);

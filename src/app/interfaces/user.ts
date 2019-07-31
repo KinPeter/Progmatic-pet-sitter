@@ -11,7 +11,7 @@ export interface User {
 }
 
 export interface OwnersPet {
-    petName: string;
+    name: string;
     petType: PetType;
 }
 

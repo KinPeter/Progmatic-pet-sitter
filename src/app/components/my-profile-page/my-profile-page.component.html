@@ -12,7 +12,7 @@
           <h6>Új profilkép feltöltése</h6>
           <input type="file" (change)="onFileSelected($event)" class="text-center center-block well well-sm" class="form-control" #fileInput>
         <!--  <input class="btn btn-success" (click)="fileInput.click()" value="Válassz képet"> -->
-          <button class="btn btn-primary"  type="button" (click)="onUpload()">Kiválasztott kép feltöltése</button>
+          <button class="btn btn-primary"  id="profile-img-upload" type="button" (click)="onUpload()">Kiválasztott kép feltöltése</button>
         </div>
       </div>
 
@@ -70,7 +70,7 @@
                             <ul>
                               <li *ngFor="let pet of user.ownerData.pets">
                                 <b>{{ pet.name }}</b> : {{ pet.petType }}
-                                <button class="btn btn-primary btn-xs" (click)="deletePet()" >Kisállat törlése</button>
+                                <button class="btn btn-primary btn-xs" (click)="deletePet()">Kisállat törlése</button>
                               </li>
                             </ul>
                           </div>
@@ -91,7 +91,7 @@
                   <div class="col-lg-8">
                     <input type="text" [(ngModel)]="currentPetName" placeholder="Kisállat neve" name="petsname"
                       class="form-control">
-                      <input class="btn btn-success" (click)="addToMyPets()" value="Kisállat hozzáadása">
+                      <input class="btn btn-success" id="add-pet" (click)="addToMyPets()" value="Kisállat hozzáadása">
                   </div>
                 </div>
             </div>
@@ -166,7 +166,7 @@
                   <label class="col-lg-3 control-label"><b>Órabér:</b></label>
                   <div class="col-lg-8">
                     <input type="text" [(ngModel)]="currentWage" placeholder="Órabér megadása" name="pricePerHour" class="form-control">
-                    <input class="btn btn-success"  type="button" (click)="addToMyServices()" value="Szolgáltatás hozzáadása">
+                    <input class="btn btn-success" id="add-service" type="button" (click)="addToMyServices()" value="Szolgáltatás hozzáadása">
                   </div>
                 </div>
             </div>
