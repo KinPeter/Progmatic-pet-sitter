@@ -13,7 +13,7 @@ export enum PlaceOfService {
 
 export interface SearchData {
   name: string;
-  postcode: string;
+  postalCode: string;
   place: PlaceOfService;
   petType: PetType;
 }

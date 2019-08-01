@@ -35,7 +35,7 @@ export class SearchDataComponent implements OnInit {
 
       this.searchDataFromMainPage = {
         name: '',
-        postcode: '',
+        postalCode: '',
         place: null,
         petType: null,
       }
@@ -58,7 +58,7 @@ export class SearchDataComponent implements OnInit {
       if(this.searchDataFromMainPage === undefined){
           this.searchDataFromMainPage = {
             name: '',
-            postcode: '',
+            postalCode: '',
             place: this.selectedPlaceType,
             petType: this.selectedPetType,
           }
