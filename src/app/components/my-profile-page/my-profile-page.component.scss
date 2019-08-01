@@ -80,8 +80,13 @@ button:hover {
 
 
 
-div#img-photo.text-center {
-  margin-top: 30px
+div#img.text-center {
+  margin-top: 30px;
+  margin-left: 50px;
+}
+
+h6 {
+  margin-top: 20px;
 }
 
 h3{
@@ -141,4 +146,12 @@ input#add-pet, input#add-service{
     span.legend-red {
         background-color: #DC2A0A;
     }
+}
+
+button#delete-button {
+  margin-left: 8px
+}
+
+button#save-button {
+  margin-bottom: 70px
 }
