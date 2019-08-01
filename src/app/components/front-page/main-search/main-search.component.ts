@@ -21,7 +21,7 @@ export class MainSearchComponent implements OnInit {
   selectedPetType: any;
   selectedPlace: any;
 
-  constructor(private router: Router, private searchDataTransferService: SearchDataTransferService, private pettypeService: PettypeService, private servicePlaceService: ServicePlaceService, private validator: FieldValidatorService) {
+  constructor(public router: Router, public searchDataTransferService: SearchDataTransferService, public pettypeService: PettypeService, public servicePlaceService: ServicePlaceService, public validator: FieldValidatorService) {
     this.currentSlide = 0;
 
     this.searchData = {

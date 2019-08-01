@@ -192,7 +192,10 @@ export class MyProfilePageComponent implements OnInit {
         }
       }
 
-      this.userService.modifyUser(u).catch(() => {
+      this.userService.modifyUser(u).then(() =>{
+        this.isSaveSuccessful = true;
+        setTimeout( ()=>{ this.isSaveSuccessful = false}, 3000)
+      }).catch(() => {
         showNetworkAlert: true;
       })
 
