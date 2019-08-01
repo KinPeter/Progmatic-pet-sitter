@@ -12,10 +12,10 @@ import { PlaceOfService, PetType, SearchData } from 'src/app/interfaces/search-d
 export class SearchListComponent implements OnInit {
 
   @Input()
-  sitters: SearchedSitter[];
-  numberOfSittersToShow = 10;
+  public sitters: SearchedSitter[];
+  public numberOfSittersToShow = 10;
   @Input()
-  isLoading: boolean;
+  public isLoading: boolean;
 
   constructor(private searchDataService: SearchDataTransferService) {}
 

@@ -13,7 +13,7 @@
       [(ngModel)]="searchDataFromMainPage.postalCode"
       [ngClass]="{'is-invalid': fieldValidator.validatePostcodeInComponent(isPostcodeValid, searchDataFromMainPage.postalCode)}"/>
       <span class="invalid-feedback"
-          *ngIf="fieldValidator.validatePostcodeInComponent(isPostcodeValid, searchDataFromMainPage.postcode)">
+          *ngIf="fieldValidator.validatePostcodeInComponent(isPostcodeValid, searchDataFromMainPage.postalCode)">
           Kérlek, valós irányítószámot adj meg!
       </span>
     </div>

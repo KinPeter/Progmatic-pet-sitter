@@ -23,10 +23,10 @@
 								<div class="form-group">
                   <input type="text"
                       [(ngModel)]="searchData.postalCode"
-                      [ngClass]="{'is-invalid': validator.validatePostcodeInComponent(isPostcodeValid, searchData.postcode)}"
+                      [ngClass]="{'is-invalid': validator.validatePostcodeInComponent(isPostcodeValid, searchData.postalCode)}"
                       class="form-control" placeholder="Irányítószam">
                   <div class="invalid-feedback"
-                      *ngIf="validator.validatePostcodeInComponent(isPostcodeValid, searchData.postcode)">
+                      *ngIf="validator.validatePostcodeInComponent(isPostcodeValid, searchData.postalCode)">
                       Kérlek, valós irányítószámot adj meg!
                   </div>
 								</div>

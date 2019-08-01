@@ -15,16 +15,16 @@ import { SearchedSitter } from 'src/app/interfaces/searchedSitter';
 export class SearchDataComponent implements OnInit {
 
   @Output()
-  eventSearched: EventEmitter<SearchedSitter[]> = new EventEmitter();
+  public eventSearched: EventEmitter<SearchedSitter[]> = new EventEmitter();
   @Output()
-  searchPending: EventEmitter<boolean> = new EventEmitter();
+  public searchPending: EventEmitter<boolean> = new EventEmitter();
 
-  petTypes: KeyValue[];
-  placeTypes: KeyValue[];
-  searchDataFromMainPage: SearchData;
-  isPostcodeValid: boolean;
-  selectedPetType: any;
-  selectedPlaceType: any;
+  public petTypes: KeyValue[];
+  public placeTypes: KeyValue[];
+  public searchDataFromMainPage: SearchData;
+  public isPostcodeValid: boolean;
+  public selectedPetType: any;
+  public selectedPlaceType: any;
 
   constructor(public dataTrService: SearchDataTransferService,
               public petTypeService: PettypeService,
