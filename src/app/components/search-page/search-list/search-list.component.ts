@@ -26,7 +26,7 @@ export class SearchListComponent implements OnInit {
       this.numberOfSittersToShow += 10;
   }
 
-  hasMoreSitters(): void {
-    this.sitters.length - this.numberOfSittersToShow > 0
+  hasMoreSitters(): boolean {
+    return this.sitters.length - this.numberOfSittersToShow > 0
   }
 }
