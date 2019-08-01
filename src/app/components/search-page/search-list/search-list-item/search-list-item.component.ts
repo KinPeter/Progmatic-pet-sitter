@@ -12,11 +12,11 @@ import { UserService } from 'src/app/services/user.service';
 export class SearchListItemComponent implements OnInit {
 
   @Input()
-  sitter: SearchedSitter;
-  private imgUrl: string;
-  private ratingFullStars: any[] = new Array(0); // üres helyek lesznek benne, csak *ngFor-hoz kell, hogy legyen hossza
-  private ratingHalfStars: any[] = new Array(0);
-  private ratingEmptyStars: any[] = new Array(5);
+  public sitter: SearchedSitter;
+  public imgUrl: string;
+  public ratingFullStars: any[] = new Array(0); // üres helyek lesznek benne, csak *ngFor-hoz kell, hogy legyen hossza
+  public ratingHalfStars: any[] = new Array(0);
+  public ratingEmptyStars: any[] = new Array(5);
 
   constructor(
     private searchDataService: SearchDataTransferService,
