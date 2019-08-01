@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User, Day } from '../interfaces/user';
+import { Userreg } from '../interfaces/user-reg';
 import { UserDTO } from '../interfaces/user-dto';
 import { UserError } from '../errors/user-error';
 import { herokuURL } from '../app-settings';
@@ -23,7 +24,7 @@ export class UserService {
         return serverData.users;
     }
 
-    registerUser(user: User) {
+    registerUser(user: Userreg) {
         return this.http.post(this.URL + '/newregistration', user, { withCredentials: true }).toPromise()
             .then((result) => {
                 console.log(result);
