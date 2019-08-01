@@ -3,7 +3,8 @@ import {PetType} from './search-data';
 
 export interface User {
     userId?: number;
-    name: string;
+    name?: string;
+    userName?: string;
     email: string;
     password?: string;
     ownerData: Owner | null;

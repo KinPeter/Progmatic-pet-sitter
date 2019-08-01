@@ -10,7 +10,7 @@ export class NavbarComponent implements OnInit {
 
     scrolled: boolean;
 
-    constructor(private router: Router) { }
+    constructor(public router: Router) { }
 
     toHomeTop(): void {
         if (this.router.url === '/') {

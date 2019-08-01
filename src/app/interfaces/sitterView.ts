@@ -2,7 +2,8 @@ import { Day, SitterService } from './user';
 
 export interface SitterView {
     id: number;
-    userName: string;
+    username?: string;
+    userName?: string;
     profilePhoto: null;
     city: string;
     address: string;
