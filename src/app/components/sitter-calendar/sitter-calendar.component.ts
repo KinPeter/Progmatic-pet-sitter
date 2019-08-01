@@ -5,6 +5,7 @@ import { SearchDataTransferService } from 'src/app/services/search-data-transfer
 import { Day } from '../../interfaces/user';
 import { SitterView } from 'src/app/interfaces/sitterView';
 import {Sitter} from 'src/app/interfaces/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
     selector: 'app-sitter-calendar',
@@ -32,7 +33,8 @@ export class SitterCalendarComponent implements OnInit {
 
     constructor(
         private auth: AuthenticationService,
-        private dataService: SearchDataTransferService
+        private dataService: SearchDataTransferService,
+        private userService: UserService
     ) {}
 
     ngOnInit() {
@@ -81,14 +83,6 @@ export class SitterCalendarComponent implements OnInit {
         }
     }
 
-    // kiszedi a BLANK napokat, hogy szerkesztés után anélkül küldhessük vissza a szerverre
-    private removeBlankDays(): Day[] {
-        const availabilities: Day[] = this.availabilities.filter((day) => {
-            return day.availability !== 'BLANK';
-        });
-        return availabilities;
-    }
-
     clickMe(day: Day): void {
         // csak akkor csináljon bármit, ha nem "szürke töltelék" napra kattintott
         if (day.availability !== 'BLANK') {
@@ -108,9 +102,9 @@ export class SitterCalendarComponent implements OnInit {
                 // az adott nap szerkesztése a naptárban
                 this.setAvailability(day);
                 // kiszedi a BLANK napokat, hogy szerkesztés után anélkül küldhessük vissza a szerverre
-                const newAvailabilities = this.removeBlankDays();
-              // console.log(newAvailabilities);
-              this.updateAvailabilities.emit(newAvailabilities);
+                const newAvailabilities = this.userService.removeBlankDays(this.availabilities);
+                // console.log(newAvailabilities);
+                this.updateAvailabilities.emit(newAvailabilities);
             }
         }
     }
@@ -130,10 +124,12 @@ export class SitterCalendarComponent implements OnInit {
         this.dataService.sendMessageToSitterWithDay(this.chosenDay)
         .then((response) => {
             this.showBookingSuccessAlert = true;
+            console.log('%cConfirmSendBooking .THEN()', 'color:green;font-weight:bold;');
             setTimeout(() => { this.showBookingSuccessAlert = false; }, 3000);
         })
         .catch((error) => {
             this.showBookingErrorAlert = true;
+            console.log('%cConfirmSendBooking .CATCH()', 'color:green;font-weight:bold;');
             setTimeout(() => { this.showBookingErrorAlert = false; }, 3000);
         })
         .finally(() => {

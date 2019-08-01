@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User } from '../interfaces/user';
+import { User, Day } from '../interfaces/user';
 import { UserDTO } from '../interfaces/user-dto';
 import { UserError } from '../errors/user-error';
 import { herokuURL } from '../app-settings';
@@ -54,4 +54,13 @@ export class UserService {
     checkPictureEndpoint(id: number): Promise<any> {
         return this.http.get(this.URL + '/user/' + id + '/image', {responseType: 'blob', withCredentials: true } ).toPromise();
     }
+
+    // kiszedi a BLANK napokat, hogy szerkesztés után anélkül küldhessük vissza a szerverre
+    removeBlankDays(days: Day[]): Day[] {
+        const availabilities: Day[] = days.filter((day) => {
+            return day.availability !== 'BLANK';
+        });
+        return availabilities;
+    }
+
 }
