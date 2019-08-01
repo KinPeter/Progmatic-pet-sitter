@@ -26,7 +26,7 @@ export class MainSearchComponent implements OnInit {
 
     this.searchData = {
       name: '',
-      postalCode: null,
+      postalCode: '',
       place: null,
       petType: null,
     }
