@@ -7,7 +7,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
     styleUrls: ['./wannabe-sitter-page.component.scss']
 })
 export class WannabeSitterPageComponent implements OnInit {
-    private userLoggedIn: boolean;
+    public userLoggedIn: boolean;
 
     constructor( private auth: AuthenticationService ) {
         this.auth.isUserLoggedIn.subscribe(value => {
