@@ -6,7 +6,7 @@
     <div class="position col-lg-5">
       <h3><a routerLink="/sitter/{{sitter.id}}">{{sitter.userName}}</a></h3>
       <div class="details">
-        {{ sitter.intro | slice : 0 : 140 }}
+        {{ (sitter.intro.length > 100) ? (sitter.intro | slice : 0 : 100) + '...' : (sitter.intro) }}
       </div>
     </div>
     <div class="location col-lg-3">
