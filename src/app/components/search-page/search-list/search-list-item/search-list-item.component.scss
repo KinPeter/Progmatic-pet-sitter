@@ -1,6 +1,9 @@
 .row {
   padding: 15px 0;
 }
+.open {
+  cursor: pointer;
+}
 img {
   border-radius: 50%;
   width: 80px;
@@ -26,16 +29,6 @@ img {
 .position h3 {
   margin-top: 0.2em;
   margin-bottom: 0.2em;
-
-  a {
-    padding: 0;
-    line-height: normal;
-    min-height: 0;
-
-    &:hover {
-      background-color: transparent;
-    }
-  }
 }
 .deatils {
   line-height: 1.2;
