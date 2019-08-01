@@ -13,13 +13,20 @@ export class SearchListComponent implements OnInit {
 
   @Input()
   sitters: SearchedSitter[];
-
+  numberOfSittersToShow = 10;
+  @Input()
   isLoading: boolean;
 
   constructor(private searchDataService: SearchDataTransferService) {}
 
   ngOnInit() {
-      
   }
 
+  showMoreSitters(): void {
+      this.numberOfSittersToShow += 10;
+  }
+
+  hasMoreSitters(): void {
+    this.sitters.length - this.numberOfSittersToShow > 0
+  }
 }

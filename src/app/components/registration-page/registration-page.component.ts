@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FieldValidatorService } from 'src/app/services/field-validator.service';
-import { PetType, PlaceOfService } from '../../interfaces/search-data';
+import { PetType, PlaceOfService, KeyValue } from '../../interfaces/search-data';
 import { UserService } from 'src/app/services/user.service';
 import { User, Owner, Sitter } from '../../interfaces/user';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { PettypeService } from 'src/app/services/pettype.service';
+import { ServicePlaceService } from 'src/app/services/service-place.service';
 
 
 @Component({
@@ -42,20 +44,26 @@ export class RegistrationPageComponent implements OnInit {
     private ownerDataOpen = false;
     private ownerData: Owner;
     private currentPetName = '';
-    private currentPetType: any = null;
+    private currentPetType: any;
 
     // SITTER DATA fields
     private sitterDataOpen = false;
     private sitterData: Sitter;
-    private currentPlaceOfService = PlaceOfService.OWNERS_HOME;
-    private currentServicePetType = PetType.DOG;
-    private currentWage = 0;
+    private currentPlaceOfService: any;
+    private currentServicePetType: any;
+    private currentWage: number;
     private errors: any;
+
+    private petTypes: KeyValue[];
+    private servicePlaces: KeyValue[];
 
     constructor(
         private router: Router,
         private userService: UserService,
-        private validator: FieldValidatorService
+        private validator: FieldValidatorService,
+        private pettypeService: PettypeService,
+        private servicePlaceService: ServicePlaceService
+
     ) {
         this.user = {
             name: '',
@@ -81,6 +89,7 @@ export class RegistrationPageComponent implements OnInit {
             passwordConfirm: {'empty': false, 'not_same': false},
             petType: false,
             petsname: false,
+
             address: false,
             postalCode: {'empty': false, 'not_valid': false},
             city: false,
@@ -90,32 +99,85 @@ export class RegistrationPageComponent implements OnInit {
             currentWage: false
 
         };
+        this.petTypes = this.pettypeService.getPetTypeArray();
+        this.servicePlaces = this.servicePlaceService.getServicePlaceTypeArray();
+        this.servicePlaces.unshift( {key: "NONE", value: "Helyszín típusa"} );
+        this.petTypes.unshift( {key: "NONE", value: "Kisállat típusa"} );
+        this.currentPetType = "NONE";
+        this.currentPlaceOfService = "NONE";
+        this.currentServicePetType = "NONE";
     }
 
     addToMyPets(): void {
-        if (this.currentPetType != null && this.currentPetName != '') {
+        if (this.currentPetType != "NONE" && this.currentPetName != '') {
             this.currentPetType = PetType[this.currentPetType];
-            this.ownerData.pets.push({petName: this.currentPetName, petType: this.currentPetType});
+            this.ownerData.pets.push({name: this.currentPetName, petType: this.currentPetType});
+            this.errors.petType = false,
+            this.errors.petsname = false
+            this.currentPetName = '';
+            this.currentPetType = "NONE";
+        } else if (this.currentPetType == "NONE" && this.currentPetName != ''){
+            this.errors.petType = this.validator.validateName(this.user.name);
+            this.errors.petsname = false;
+        } else if (this.currentPetType != "NONE" && this.currentPetName == ''){
+            this.errors.petsname = this.validator.validateName(this.user.name);
+            this.errors.petType = false;
+
+        } else {
+            this.currentPetType == "NONE" && this.currentPetName == ''
+            this.errors.petsname = this.validator.validateName(this.user.name);
+            this.errors.petType = this.validator.validateName(this.user.name);
+
         }
-        this.currentPetName = '';
-        this.currentPetType = null;
         console.log(this.ownerData.pets);
     };
 
     addToMyServices(): void {
-        if (this.currentPlaceOfService != null && this.currentServicePetType != null && this.currentWage != 0) {
+        if (this.currentPlaceOfService == "NONE" && this.currentServicePetType != "NONE" && this.currentWage > 0) {
+            this.errors.servicePetType = false,
+            this.errors.currentWage = false
+        }
+        if (this.currentPlaceOfService != "NONE" && this.currentServicePetType == "NONE" && this.currentWage > 0) {
+            this.errors.servicePlace = false,
+            this.errors.currentWage = false
+        }
+        if (this.currentPlaceOfService != "NONE" && this.currentServicePetType != "NONE" && this.currentWage !> 0) {
+            this.errors.servicePlace = false,
+            this.errors.servicePetType = false
+        }
+        if (this.currentPlaceOfService != "NONE" && this.currentServicePetType != "NONE" && this.currentWage > 0 &&
+            this.sitterData.city != '' && this.sitterData.address != '' && this.sitterData.postalCode != '' &&
+            this.sitterData.intro != '') {
+                this.sitterData.services.push({
+                    place: this.currentPlaceOfService,
+                    petType: this.currentServicePetType,
+                    pricePerHour: this.currentWage,
+                })
+                this.errors.servicePlace = false,
+                this.errors.servicePetType = false,
+                this.errors.currentWage = false
+                this.currentPetType = "NONE";
+                this.currentPlaceOfService = "NONE";
+                this.currentServicePetType = "NONE";
 
-        this.sitterData.services.push({
-            place: this.currentPlaceOfService,
-            petType: this.currentServicePetType,
-            pricePerHour: this.currentWage
+        } else {
+            // this.currentPlaceOfService == null && this.currentServicePetType == null && this.currentWage == 0
 
-        })};
-        this.currentPlaceOfService = null;
-        this.currentServicePetType = null;
-        this.currentWage = 0;
+
+            this.errors.city = this.validator.validateName(this.sitterData.city);
+            this.errors.address = this.validator.validateName(this.sitterData.address);
+            this.errors.postalCode.empty = this.validator.validateName(this.sitterData.postalCode);
+            this.errors.postalCode.not_valid = !this.validator.validatePostcode(this.sitterData.postalCode);
+            this.errors.intro = this.validator.validateName(this.sitterData.intro);
+            this.errors.servicePlace = this.validator.validateName(this.user.name);
+            this.errors.servicePetType = this.validator.validateName(this.user.name);
+            this.errors.currentWage = this.validator.validateName(this.sitterData.postalCode);
+            }
+        // this.currentPlaceOfService = null;
+        // this.currentServicePetType = null;
+        // this.currentWage = 0;
         console.log(this.sitterData.services);
-    }
+        }
 
 
     submitRegistration() {
@@ -133,7 +195,6 @@ export class RegistrationPageComponent implements OnInit {
             servicePlace: false,
             servicePetType: false,
             currentWage: false
-
         };
         // név validáládsa
         this.errors.name = this.validator.validateName(this.user.name);
@@ -166,48 +227,19 @@ export class RegistrationPageComponent implements OnInit {
             this.errors.passwordConfirm.not_same = true;
         }
 
-        this.errors.petType = this.validator.validateName(this.user.name);
 
-        this.errors.petsname = this.validator.validateName(this.user.name);
 
-        this.errors.city = this.validator.validateName(this.sitterData.city);
 
-        this.errors.address = this.validator.validateName(this.sitterData.address);
-
-        this.errors.intro = this.validator.validateName(this.sitterData.intro);
-
-        this.errors.postalCode.empty = this.validator.validateName(this.sitterData.postalCode);
-        this.errors.postalCode.not_valid = !this.validator.validatePostcode(this.sitterData.postalCode);
-
-        if (this.errors.email.empty) {
-            this.errors.email.empty = true;
-            this.errors.email.not_valid = true;
-        }
-        if (!this.errors.email.empty && !this.validator.validateEmail(this.user.email)) {
-            this.errors.email.empty = false;
-            this.errors.email.not_valid = true;
-        }
-        if (this.validator.validateEmail(this.user.email)) {
-            this.errors.email.empty = false;
-            this.errors.email.not_valid = false;
-        }
-
-        this.errors.currentWage = this.validator.validateName(this.sitterData.postalCode);
-
-        this.errors.servicePlace = this.validator.validateName(this.user.name);
-
-        this.errors.servicePetType = this.validator.validateName(this.user.name);
 
 
         // ha le van nyitva - ergo kitöltötte az OWNER adatokat, adja hozzá a user-hez
         if (this.ownerDataOpen) {
             this.user.ownerData = this.ownerData;
         }
-        if (this.user.ownerData) {
-            if (this.user.ownerData.pets) {
-                for (let i = 0; i < this.user.ownerData.pets.length; i++) {
-                    this.user.ownerData.pets[i].petType;
-                }
+        let u = JSON.parse(JSON.stringify(this.user));
+        if (u.ownerData) {
+            for (let i = 0; i < u.ownerData.pets.length; i++) {
+                u.ownerData.pets[i].petType = this.userService.getEnumKey( PetType, u.ownerData.pets[i].petType );
             }
         }
 
@@ -216,11 +248,26 @@ export class RegistrationPageComponent implements OnInit {
         if (this.sitterDataOpen) {
             this.user.sitterData = this.sitterData;
         }
+        if (u.sitterData) {
+          for (let i = 0; i < u.sitterData.services.length; i++) {
+              u.sitterData.services[i].petType = this.userService.getEnumKey( PetType, u.sitterData.services[i].petType );
+              u.sitterData.services[i].place = this.userService.getEnumKey( PlaceOfService, u.sitterData.services[i].place );
+              u.sitterData.services[i].pricePerHour = parseInt(u.sitterData.services[i].pricePerHour);
+              u.sitterData.services[i].pricePerDay = parseInt(u.sitterData.services[i].pricePerHour) * 8;
+          }
+        }
 
-
+        var s = Object.values(this.errors).find((e) => {
+            if (Object.values(e).length) {
+                Object.values(e).find(elem => {return elem === true});
+            } else {
+                return e === true;
+            }
+        });
+        console.log(s);
         // végül:
-        console.log(this.user);
-        this.userService.registerUser(this.user)
+        console.log(u);
+        this.userService.registerUser(u)
         .then((result) => {
             console.log(result);
         })

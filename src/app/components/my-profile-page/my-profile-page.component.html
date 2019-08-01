@@ -160,7 +160,7 @@
                 <div class="form-group">
                   <label  for="servicePetType" class="col-lg-3 control-label"><b>Kisállat típusa:</b></label>
                   <div class="col-lg-8">
-                    <select id="myPetType" [(ngModel)]="currentServicePetType" name="myPetType" class="form-control">
+                    <select id="servicePetType" [(ngModel)]="currentServicePetType" name="servicePetType" class="form-control">
                       <option *ngFor="let type of petTypes" [value]="type.key">{{type.value}}</option>
                     </select>
                   </div>
