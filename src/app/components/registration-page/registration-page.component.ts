@@ -37,32 +37,32 @@ import { ServicePlaceService } from 'src/app/services/service-place.service';
 })
 export class RegistrationPageComponent implements OnInit {
 
-    private user: User;
-    private passwordConfirm = '';
+    public user: User;
+    public passwordConfirm = '';
 
     // OWNER DATA fields
-    private ownerDataOpen = false;
-    private ownerData: Owner;
-    private currentPetName = '';
-    private currentPetType: any;
+    public ownerDataOpen = false;
+    public ownerData: Owner;
+    public currentPetName = '';
+    public currentPetType: any;
 
     // SITTER DATA fields
-    private sitterDataOpen = false;
-    private sitterData: Sitter;
-    private currentPlaceOfService: any;
-    private currentServicePetType: any;
-    private currentWage: number;
-    private errors: any;
+    public sitterDataOpen = false;
+    public sitterData: Sitter;
+    public currentPlaceOfService: any;
+    public currentServicePetType: any;
+    public currentWage: number;
+    public errors: any;
 
-    private petTypes: KeyValue[];
-    private servicePlaces: KeyValue[];
+    public petTypes: KeyValue[];
+    public servicePlaces: KeyValue[];
 
     constructor(
-        private router: Router,
-        private userService: UserService,
-        private validator: FieldValidatorService,
-        private pettypeService: PettypeService,
-        private servicePlaceService: ServicePlaceService
+        public router: Router,
+        public userService: UserService,
+        public validator: FieldValidatorService,
+        public pettypeService: PettypeService,
+        public servicePlaceService: ServicePlaceService
 
     ) {
         this.user = {
