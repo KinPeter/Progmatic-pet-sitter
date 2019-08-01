@@ -61,14 +61,14 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class LoginModalComponent implements OnInit {
 
     @Output() closeThis = new EventEmitter();
-    private loginData: LoginData;
-    private isEmailValid = true;
-    private isPasswordValid = true;
-    private isLoading = false;
-    private isLoginSuccessful = false;
-    private isLoginError = -1;
-    private isForgotPasswordSuccessful = false;
-    private isForgotPasswordError = false;
+    public loginData: LoginData;
+    public isEmailValid = true;
+    public isPasswordValid = true;
+    public isLoading = false;
+    public isLoginSuccessful = false;
+    public isLoginError = -1;
+    public isForgotPasswordSuccessful = false;
+    public isForgotPasswordError = false;
 
     constructor(
         private validator: FieldValidatorService,

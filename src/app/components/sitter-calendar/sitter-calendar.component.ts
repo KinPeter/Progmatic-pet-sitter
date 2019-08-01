@@ -23,18 +23,18 @@ export class SitterCalendarComponent implements OnInit {
 
     @Output() updateAvailabilities = new EventEmitter<Day[]>();
 
-    private availabilities: Day[];
-    private showConfirmDialog = false;
-    private showConfirmDialogSpinner = false;
-    private chosenDay: Day;
-    private showBookingSuccessAlert = false;
-    private showBookingErrorAlert = false;
-    private showNotLoggedInAlert = false;
+    public availabilities: Day[];
+    public showConfirmDialog = false;
+    public showConfirmDialogSpinner = false;
+    public chosenDay: Day;
+    public showBookingSuccessAlert = false;
+    public showBookingErrorAlert = false;
+    public showNotLoggedInAlert = false;
 
     constructor(
-        private auth: AuthenticationService,
-        private dataService: SearchDataTransferService,
-        private userService: UserService
+        public auth: AuthenticationService,
+        public dataService: SearchDataTransferService,
+        public userService: UserService
     ) {}
 
     ngOnInit() {

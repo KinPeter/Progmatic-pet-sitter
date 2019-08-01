@@ -8,11 +8,11 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class HeaderComponent implements OnInit {
 
-    private scrolled: boolean;
-    private loginModalNeeded: boolean;
-    private userLoggedIn: boolean;
+    public scrolled: boolean;
+    public loginModalNeeded: boolean;
+    public userLoggedIn: boolean;
 
-    constructor( private auth: AuthenticationService ) {
+    constructor( public auth: AuthenticationService ) {
         // this.userLoggedIn = !!auth.currentUser;
         this.auth.isUserLoggedIn.subscribe(value => {
             this.userLoggedIn = value;

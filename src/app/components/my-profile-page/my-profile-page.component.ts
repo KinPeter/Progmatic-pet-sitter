@@ -41,7 +41,8 @@ export class MyProfilePageComponent implements OnInit {
 
     selectedFile: File = null;
 
-    private sitterView: SitterView;
+    sitterView: SitterView;
+
 
 
     user: User;
@@ -58,7 +59,7 @@ export class MyProfilePageComponent implements OnInit {
     currentWage = 0;
 
     errors: any;
-    showNetworkAlert: boolean;
+
 
 
     petTypes: KeyValue[];
@@ -72,12 +73,18 @@ export class MyProfilePageComponent implements OnInit {
 
     profilePicUrl: string;
 
+    isSaveSuccessful = false;
+    showNetworkAlert = false;
+    isLoading = false;
+
+    isEmailValid: true;
+    isPasswordValid: true;
+    isPostcodeValid: true;
 
 
-
-    constructor(private pettypeService: PettypeService, private servicePlaceService: ServicePlaceService,
-      private userService: UserService, private validator: FieldValidatorService, private auth: AuthenticationService,
-      private http: HttpClient) {
+    constructor(public pettypeService: PettypeService, public servicePlaceService: ServicePlaceService,
+      public userService: UserService, public validator: FieldValidatorService, public auth: AuthenticationService,
+      public http: HttpClient) {
       this.errors = [];
       this.showNetworkAlert = false;
     //  this.isPasswordValid = true;
@@ -153,7 +160,7 @@ export class MyProfilePageComponent implements OnInit {
         })
         .catch((error) => {
             this.profilePicUrl = '/assets/images/defaultAvatar.png';
-        });
+        })
     }
 
 
@@ -167,6 +174,8 @@ export class MyProfilePageComponent implements OnInit {
 
     save(): void {
       this.showNetworkAlert = false;
+      this.isSaveSuccessful = true;
+      this.isLoading = true;
       let u = JSON.parse(JSON.stringify(this.user));
       if (u.ownerData) {
         for (let i = 0; i < u.ownerData.pets.length; i++) {
@@ -179,13 +188,22 @@ export class MyProfilePageComponent implements OnInit {
             u.sitterData.services[i].place = this.userService.getEnumKey( PlaceOfService, u.sitterData.services[i].place );
             u.sitterData.services[i].pricePerHour = parseInt(u.sitterData.services[i].pricePerHour);
             u.sitterData.services[i].pricePerDay = parseInt(u.sitterData.services[i].pricePerHour) * 8;
+            u.sitterData.availabilities = this.userService.removeBlankDays(u.sitterData.availabilities);
         }
       }
 
-      this.userService.modifyUser(u).catch(() => {
+      this.userService.modifyUser(u).then(() =>{
+        this.isSaveSuccessful = true;
+        setTimeout( ()=>{ this.isSaveSuccessful = false}, 3000)
+      }).catch(() => {
         showNetworkAlert: true;
+      })
+
+      .finally(() => {
+          this.isLoading = false;
       });
     }
+
 
 
 

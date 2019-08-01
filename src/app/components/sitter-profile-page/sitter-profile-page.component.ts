@@ -12,23 +12,23 @@ import { UserService } from 'src/app/services/user.service';
     styleUrls: ['./sitter-profile-page.component.scss']
 })
 export class SitterProfilePageComponent implements OnInit {
-    private isLoading = true;
-    private isUserLoggedIn = false;
-    private sitter: SitterView;
-    private sitterNotFound = false;
-    private ratingToSend = 5;
-    private showRatingSuccess = false;
-    private showRatingError = false;
-    private ratingFullStars: any[] = new Array(0); // üres helyek lesznek benne, csak *ngFor-hoz kell, hogy legyen hossza
-    private ratingHalfStars: any[] = new Array(0);
-    private ratingEmptyStars: any[] = new Array(5);
-    private profilePicUrl: string;
+    public isLoading = true;
+    public isUserLoggedIn = false;
+    public sitter: SitterView;
+    public sitterNotFound = false;
+    public ratingToSend = 5;
+    public showRatingSuccess = false;
+    public showRatingError = false;
+    public ratingFullStars: any[] = new Array(0); // üres helyek lesznek benne, csak *ngFor-hoz kell, hogy legyen hossza
+    public ratingHalfStars: any[] = new Array(0);
+    public ratingEmptyStars: any[] = new Array(5);
+    public profilePicUrl: string;
 
     constructor(
-        private searchData: SearchDataTransferService,
-        private route: ActivatedRoute,
-        private auth: AuthenticationService,
-        private userService: UserService ) {}
+        public searchData: SearchDataTransferService,
+        public route: ActivatedRoute,
+        public auth: AuthenticationService,
+        public userService: UserService ) {}
 
     ngOnInit() {
         const sitterId = this.route.snapshot.params.sitter_id;

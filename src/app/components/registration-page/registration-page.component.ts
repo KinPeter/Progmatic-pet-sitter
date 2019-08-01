@@ -38,7 +38,6 @@ import { ServicePlaceService } from 'src/app/services/service-place.service';
 export class RegistrationPageComponent implements OnInit {
 
     public user: Userreg;
-    public passwordConfirm = '';
 
     // OWNER DATA fields
     public ownerDataOpen = false;
