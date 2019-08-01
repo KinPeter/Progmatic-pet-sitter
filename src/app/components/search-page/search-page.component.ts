@@ -9,6 +9,7 @@ import { SearchedSitter } from 'src/app/interfaces/searchedSitter';
 export class SearchPageComponent implements OnInit {
 
     public searchedSitters: SearchedSitter[];
+    public searchPending: boolean;
 
     constructor() { }
 
@@ -17,6 +18,10 @@ export class SearchPageComponent implements OnInit {
 
     eventSearchedData(event: SearchedSitter[]){
         this.searchedSitters = event;
+    }
+
+    eventSearchPending(event: boolean){
+        this.searchPending = event;
     }
 
 }
