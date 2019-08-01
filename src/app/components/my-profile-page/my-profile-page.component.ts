@@ -44,7 +44,6 @@ export class MyProfilePageComponent implements OnInit {
     private sitterView: SitterView;
 
 
-
     user: User;
     sitter: Sitter;
     owner: Owner;

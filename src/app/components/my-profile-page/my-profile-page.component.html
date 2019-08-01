@@ -6,9 +6,9 @@
     <div class="row">
       <!-- left column -->
       <div class="col-md-3 col-sm-6 col-xs-12">
-        <div class="text-center" id="img-photo">
+        <div class="text-center" id="img">
       <!--   <img src="http://lorempixel.com/200/200/people/9/" class="avatar img-circle img-thumbnail" alt="avatar"> -->
-          <img src="{{profilePicUrl}}" class="avatar img-circle img-thumbnail" alt="avatar">
+          <img src="{{profilePicUrl}}" class="avatar img-circle img-thumbnail" alt="avatar" id="img-photo">
           <h6>Új profilkép feltöltése</h6>
           <input type="file" (change)="onFileSelected($event)" class="text-center center-block well well-sm" class="form-control" #fileInput>
         <!--  <input class="btn btn-success" (click)="fileInput.click()" value="Válassz képet"> -->
@@ -23,7 +23,7 @@
         </div>
       </div>
       <!-- edit form column -->
-      <div class="col-md-8 col-md-offset-1 col-sm-6 col-xs-12" id="personal-info">
+      <div class="col-md-7 col-md-offset-2 col-sm-8 col-xs-12" id="personal-info">
 
         <div class="form-horizontal" role="form">
           <h3>Személyes adataid</h3>
@@ -71,7 +71,7 @@
                             <ul>
                               <li *ngFor="let pet of user.ownerData.pets">
                                 <b>{{ pet.name }}</b> : {{ pet.petType }}
-                                <button class="btn btn-primary btn-xs" (click)="deletePet()">Kisállat törlése</button>
+                                <button class="btn btn-primary btn-xs" (click)="deletePet()" id="delete-button">Kisállat törlése</button>
                               </li>
                             </ul>
                           </div>
@@ -131,7 +131,8 @@
                 <div  class="form-group">
                   <label class="col-lg-3 control-label"><b>Bemutatkozó szöveg:</b></label>
                   <div class="col-lg-8">
-                    <input type="text" name="intro" placeholder="Bemutatkozó szöveg megadása" id="intro" [(ngModel)]="user.sitterData.intro"  class="form-control" required>
+                  <!--  <input type="text" name="intro" placeholder="Bemutatkozó szöveg megadása" id="intro" [(ngModel)]="user.sitterData.intro"  class="form-control" required> -->
+                    <textarea class="form-control" required [(ngModel)]="user.sitterData.intro">Bemutatkozó szöveg megadása</textarea>
                   </div>
                 </div>
                 <hr>
@@ -142,7 +143,7 @@
                       <ul>
                         <li *ngFor="let service of user.sitterData.services">
                             <b>{{ service.place }}</b> : {{ service.petType }}, {{ service.pricePerHour }} Ft /óra
-                            <button class="btn btn-primary btn-xs" (click)="deleteService()" >Szolgáltatás törlése</button>
+                            <button class="btn btn-primary btn-xs" (click)="deleteService()" id="delete-button" >Szolgáltatás törlése</button>
                         </li>
                       </ul>
                     </div>
@@ -190,11 +191,11 @@
             </div>
           </section>
         </div>
-
+        <hr>
           <div class="form-group">
             <label class="col-lg-3 control-label"></label>
             <div class="col-lg-8 final-button-box">
-                <button class="btn btn-primary" (click)="save()"type="button" name="button">Változtatások mentése</button>
+                <button class="btn btn-primary" (click)="save()"type="button" id="save-button" name="button">Változtatások mentése</button>
             </div>
           </div>
         </div>
