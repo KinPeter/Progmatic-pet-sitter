@@ -148,10 +148,31 @@ input#add-pet, input#add-service{
     }
 }
 
+.dropdown-form {
+  transform-origin: top center;
+}
+
 button#delete-button {
   margin-left: 8px
 }
 
 button#save-button {
-  margin-bottom: 70px
+  margin-bottom: 30px
+}
+
+.spinner-wrapper {
+    width: 100%;
+    min-height: 500px;
+    padding: 5rem;
+    .spinner-box {
+        margin: 0 auto;
+        width: 280px;
+        padding: 2rem;
+        text-align: center;
+        background-color: #fff;
+        box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        p {
+            font-size: 1.8rem;
+        }
+    }
 }
