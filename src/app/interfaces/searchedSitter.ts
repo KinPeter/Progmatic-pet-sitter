@@ -16,5 +16,6 @@ export interface SearchedSitter {
       pricePerDay: number;
     };
     availabilities: Day[];
-
+    averageRating?: number;
+    numberOfRatings?: number;
 }
