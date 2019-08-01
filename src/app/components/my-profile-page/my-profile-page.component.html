@@ -1,6 +1,7 @@
 <!--
 <div action="action_page.php" style="border:1px solid #ccc">
 -->
+
   <div class="container">
     <h1 class="page-header">Profil adatok</h1>
     <div class="row">
@@ -22,6 +23,8 @@
           A változtatások mentése nem sikerült, próbáld újra!
         </div>
       </div>
+
+
       <!-- edit form column -->
       <div class="col-md-7 col-md-offset-2 col-sm-8 col-xs-12" id="personal-info">
 
@@ -52,9 +55,9 @@
             <label class="col-lg-3 control-label"><b>Új jelszó megerősítése:</b></label>
             <div class="col-lg-8">
               <input type="password" name="pass-again" placeholder="Új jelszó megerősítése" id="psw-repeat" [(ngModel)]="passwordConfirm"
-               [ngClass]="{'is-invalid': validatePassword(isPasswordValid, passwordConfirm)}" class="form-control" required>
+               [ngClass]="{'is-invalid': validatePassword(isPasswordValid)}" class="form-control" required>
                <div class="invalid-feedback"
-                   *ngIf="validatePassword(isPasswordValid, passwordConfirm)">Nem egyeznek a megadott jelszavak!
+                   *ngIf="validatePassword(isPasswordValid)">Nem egyeznek a megadott jelszavak!
                </div>
             </div>
           </div>
@@ -71,7 +74,7 @@
                             <ul>
                               <li *ngFor="let pet of user.ownerData.pets">
                                 <b>{{ pet.name }}</b> : {{ pet.petType }}
-                                <button class="btn btn-primary btn-xs" (click)="deletePet()" id="delete-button">Kisállat törlése</button>
+                                <button class="btn btn-primary btn-xs" (click)="deletePet(pet)" id="delete-button">Kisállat törlése</button>
                               </li>
                             </ul>
                           </div>
@@ -143,7 +146,7 @@
                       <ul>
                         <li *ngFor="let service of user.sitterData.services">
                             <b>{{ service.place }}</b> : {{ service.petType }}, {{ service.pricePerHour }} Ft /óra
-                            <button class="btn btn-primary btn-xs" (click)="deleteService()" id="delete-button" >Szolgáltatás törlése</button>
+                            <button class="btn btn-primary btn-xs" (click)="deleteService(service)" id="delete-button" >Szolgáltatás törlése</button>
                         </li>
                       </ul>
                     </div>
@@ -192,10 +195,19 @@
           </section>
         </div>
         <hr>
+
           <div class="form-group">
             <label class="col-lg-3 control-label"></label>
             <div class="col-lg-8 final-button-box">
                 <button class="btn btn-primary" (click)="save()"type="button" id="save-button" name="button">Változtatások mentése</button>
+                <div class="spinner-wrapper" *ngIf="isLoading">
+              	   <div class="spinner-box">
+              		    <p>Kis türelmet...</p>
+              		      <app-spinner></app-spinner>
+              	     </div>
+                </div>
+                <div class="alert alert-success" *ngIf="isSaveSuccessful"><i class="fa fa-check-circle"></i> A változtatások sikeresen mentésre kerültek.</div>
+                <div class="alert alert-danger" *ngIf="showNetworkAlert"><i class="fa fa-exclamation-circle"></i> A változtatások mentése nem sikerült, kérlek, próbáld újra.</div>
             </div>
           </div>
         </div>
