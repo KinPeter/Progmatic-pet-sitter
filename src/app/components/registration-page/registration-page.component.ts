@@ -272,7 +272,7 @@ export class RegistrationPageComponent implements OnInit {
         console.log(u);
         if (haveError) {
             //TODO görgessünk fel a hibához
-            let el = document.querySelector("#"+ element);
+            let el = document.querySelector("#"+ element).querySelector('.scroll-target');
             el.scrollIntoView({behavior:"smooth", block:"start", inline:"start"});
         } else {
             this.userService.registerUser(u)
