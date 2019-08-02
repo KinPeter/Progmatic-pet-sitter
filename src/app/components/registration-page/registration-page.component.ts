@@ -228,10 +228,10 @@ export class RegistrationPageComponent implements OnInit {
             this.errors.password.not_same = true;
             this.errors.passwordConfirm.not_same = true;
         }
-        // ha le van nyitva - ergo kitöltötte az OWNER adatokat, adja hozzá a user-hez
-        if (this.ownerDataOpen) {
-            this.user.ownerData = this.ownerData;
-        }
+
+        this.user.ownerData = this.ownerData;
+        this.user.sitterData = this.sitterData;
+
         let u = JSON.parse(JSON.stringify(this.user));
         if (u.ownerData) {
             for (let i = 0; i < u.ownerData.pets.length; i++) {
@@ -239,11 +239,6 @@ export class RegistrationPageComponent implements OnInit {
             }
         }
 
-
-        // ha le van nyitva - ergo kitöltötte a SITTER adatokat, adja hozzá a user-hez
-        if (this.sitterDataOpen) {
-            this.user.sitterData = this.sitterData;
-        }
         if (u.sitterData) {
           for (let i = 0; i < u.sitterData.services.length; i++) {
               u.sitterData.services[i].petType = this.userService.getEnumKey( PetType, u.sitterData.services[i].petType );
