@@ -1,5 +1,5 @@
 <ul class="job_listings" *ngIf="!isLoading && sitters.length === 0">
-  <li class="job_listing noResult text-center">Nincs a keresésnek megfelelő KiVi</li>
+  <li class="job_listing noResult text-center">Nem található a keresésnek megfelelő KiVi</li>
 </ul>
 <ul class="job_listings" *ngIf="sitters && !isLoading">
   <li app-search-list-item class="job_listing" *ngFor="let s of sitters.slice(0, numberOfSittersToShow)" [sitter]="s"></li>

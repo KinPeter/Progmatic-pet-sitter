@@ -6,7 +6,7 @@
     <div class="position col-lg-6">
       <h3>{{sitter.userName}}</h3>
       <div class="details">
-        {{ (sitter.intro.length > 100) ? (sitter.intro | slice : 0 : 100) + '...' : (sitter.intro) }}
+        {{ (sitter.intro.length > 140) ? (sitter.intro | slice : 0 : 140) + '...' : (sitter.intro) }}
       </div>
     </div>
     <div class="location col-lg-2">

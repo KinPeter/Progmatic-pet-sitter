@@ -3,6 +3,12 @@
 }
 .open {
   cursor: pointer;
+  &:hover {
+    background: #fafafa;
+    h3 {
+      color: #A6CE39;
+    }
+  }
 }
 img {
   border-radius: 50%;
@@ -26,10 +32,15 @@ img {
         font-size: 1em;
     }
 }
-.position h3 {
-  margin-top: 0.2em;
-  margin-bottom: 0.2em;
+.position {
+    padding: 0 50px 0 0;
+
+    h3 {
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+    }
 }
+
 .deatils {
   line-height: 1.2;
 }
