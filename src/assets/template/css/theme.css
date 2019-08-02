@@ -57,7 +57,7 @@ body {
   margin: 0;
 }
 body.bg1 {
-  background: #ffffff url(http://petsitter.dan-fisher.com/images/bg1.jpg) 50% 0 no-repeat;
+  background: #ffffff 50% 0 no-repeat;
   -webkit-background-size: contain;
   background-size: contain;
 }
