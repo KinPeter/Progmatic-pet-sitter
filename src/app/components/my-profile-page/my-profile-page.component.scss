@@ -164,7 +164,11 @@ button#save-button {
     width: 100%;
     min-height: 500px;
     padding: 5rem;
+    position: relative;
     .spinner-box {
+        position: absolute;
+        left: -40px;
+        top: -110px;
         margin: 0 auto;
         width: 280px;
         padding: 2rem;
@@ -175,4 +179,9 @@ button#save-button {
             font-size: 1.8rem;
         }
     }
+}
+
+.alert {
+  position: relative;
+  left: -110px;
 }

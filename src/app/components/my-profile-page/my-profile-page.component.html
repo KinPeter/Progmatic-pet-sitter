@@ -18,13 +18,6 @@
 
       </div>
 
-      <div class="modal-body">
-        <div class="alert alert-danger" role="alert" *ngIf="showNetworkAlert">
-          A változtatások mentése nem sikerült, próbáld újra!
-        </div>
-      </div>
-
-
       <!-- edit form column -->
       <div class="col-md-7 col-md-offset-2 col-sm-8 col-xs-12" id="personal-info">
 
@@ -206,8 +199,10 @@
               		      <app-spinner></app-spinner>
               	     </div>
                 </div>
-                <div class="alert alert-success" *ngIf="isSaveSuccessful"><i class="fa fa-check-circle"></i> A változtatások sikeresen mentésre kerültek.</div>
-                <div class="alert alert-danger" *ngIf="showNetworkAlert"><i class="fa fa-exclamation-circle"></i> A változtatások mentése nem sikerült, kérlek, próbáld újra.</div>
+                <div class="alert-box">
+                  <div class="alert alert-success" *ngIf="isSaveSuccessful"><i class="fa fa-check-circle"></i> A változtatások sikeresen mentésre kerültek.</div>
+                  <div class="alert alert-danger" *ngIf="showNetworkAlert"><i class="fa fa-exclamation-circle"></i> A változtatások mentése nem sikerült, kérlek, próbáld újra.</div>
+                </div>
             </div>
           </div>
         </div>
