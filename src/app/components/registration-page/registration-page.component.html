@@ -183,7 +183,7 @@
                 <h3>Vállalt szolgáltatások:</h3>
                 <ul>
                     <li *ngFor="let service of sitterData.services">
-                        <b>{{ service.placeOfService }}</b> : {{ service.petType }}, {{ service.pricePerHour }} Ft /óra
+                        <b>{{ service.place }}</b> : {{ service.petType }}, {{ service.pricePerHour }} Ft /óra
                     </li>
                 </ul>
                 <hr>
@@ -197,7 +197,7 @@
         <button type="submit" class="btn btn-success" (click)="submitRegistration()">Regisztrálok</button>
     </div>
     <div class="alert alert-success" *ngIf="isRegistrationSuccessful == 'SUCCESS'">Sikeres regisztráció! A belépéshez kérjük aktiváld fiókodat az e-mail címedre kiküldött üzenettel! </div>
-    <div class="alert alert-danger" *ngIf="!isRegistrationSuccessful == 'ERROR'">Sikertelen regisztráció! Szerverhiba! Kérlek próbáld újra </div>
+    <div class="alert alert-danger" *ngIf="isRegistrationSuccessful == 'ERROR'">Sikertelen regisztráció! Szerverhiba! Kérlek próbáld újra </div>
 </div>
 </div>
 </div>
