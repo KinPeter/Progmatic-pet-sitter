@@ -196,6 +196,7 @@
         <button type="button" class="btn btn-info" routerLink="/">Mégsem</button>
         <button type="submit" class="btn btn-success" (click)="submitRegistration()">Regisztrálok</button>
     </div>
+    <div class="alert alert-success" *ngIf="isRegistrationSuccessful">Sikeres regisztráció! A belépéshez kérjük aktiváld fiókodat az e-mail címedre kiküldött üzenettel! </div>
 </div>
 </div>
 </div>

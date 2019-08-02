@@ -38,6 +38,8 @@ import { ServicePlaceService } from 'src/app/services/service-place.service';
 export class RegistrationPageComponent implements OnInit {
 
     public user: Userreg;
+    public passwordConfirm = '';
+    public isRegistrationSuccessful = false;
 
     // OWNER DATA fields
     public ownerDataOpen = false;
@@ -105,6 +107,9 @@ export class RegistrationPageComponent implements OnInit {
         this.currentPetType = "NONE";
         this.currentPlaceOfService = "NONE";
         this.currentServicePetType = "NONE";
+    }
+    getRegistrationSuccess() {
+        return this.isRegistrationSuccessful;
     }
 
     addToMyPets(): void {
@@ -230,7 +235,6 @@ export class RegistrationPageComponent implements OnInit {
 
 
 
-
         // ha le van nyitva - ergo kitöltötte az OWNER adatokat, adja hozzá a user-hez
         if (this.ownerDataOpen) {
             this.user.ownerData = this.ownerData;
@@ -268,6 +272,7 @@ export class RegistrationPageComponent implements OnInit {
         console.log(u);
         this.userService.registerUser(u)
         .then((result) => {
+            this.isRegistrationSuccessful = true;
             console.log(result);
         })
         .catch((error) => {
