@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FieldValidatorService } from 'src/app/services/field-validator.service';
 import { PetType, PlaceOfService, KeyValue } from '../../interfaces/search-data';
 import { UserService } from 'src/app/services/user.service';
-import { User, Owner, Sitter } from '../../interfaces/user';
+import { Userreg, Owner, Sitter } from '../../interfaces/user-reg';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { PettypeService } from 'src/app/services/pettype.service';
 import { ServicePlaceService } from 'src/app/services/service-place.service';
@@ -37,8 +37,9 @@ import { ServicePlaceService } from 'src/app/services/service-place.service';
 })
 export class RegistrationPageComponent implements OnInit {
 
-    public user: User;
+    public user: Userreg;
     public passwordConfirm = '';
+    public isRegistrationSuccessful = false;
 
     // OWNER DATA fields
     public ownerDataOpen = false;
@@ -66,7 +67,7 @@ export class RegistrationPageComponent implements OnInit {
 
     ) {
         this.user = {
-            name: '',
+            userName: '',
             email: '',
             password: '',
             ownerData: null,
@@ -107,6 +108,9 @@ export class RegistrationPageComponent implements OnInit {
         this.currentPlaceOfService = "NONE";
         this.currentServicePetType = "NONE";
     }
+    getRegistrationSuccess() {
+        return this.isRegistrationSuccessful;
+    }
 
     addToMyPets(): void {
         if (this.currentPetType != "NONE" && this.currentPetName != '') {
@@ -117,16 +121,16 @@ export class RegistrationPageComponent implements OnInit {
             this.currentPetName = '';
             this.currentPetType = "NONE";
         } else if (this.currentPetType == "NONE" && this.currentPetName != ''){
-            this.errors.petType = this.validator.validateName(this.user.name);
+            this.errors.petType = this.validator.validateName(this.user.userName);
             this.errors.petsname = false;
         } else if (this.currentPetType != "NONE" && this.currentPetName == ''){
-            this.errors.petsname = this.validator.validateName(this.user.name);
+            this.errors.petsname = this.validator.validateName(this.user.userName);
             this.errors.petType = false;
 
         } else {
             this.currentPetType == "NONE" && this.currentPetName == ''
-            this.errors.petsname = this.validator.validateName(this.user.name);
-            this.errors.petType = this.validator.validateName(this.user.name);
+            this.errors.petsname = this.validator.validateName(this.user.userName);
+            this.errors.petType = this.validator.validateName(this.user.userName);
 
         }
         console.log(this.ownerData.pets);
@@ -169,8 +173,8 @@ export class RegistrationPageComponent implements OnInit {
             this.errors.postalCode.empty = this.validator.validateName(this.sitterData.postalCode);
             this.errors.postalCode.not_valid = !this.validator.validatePostcode(this.sitterData.postalCode);
             this.errors.intro = this.validator.validateName(this.sitterData.intro);
-            this.errors.servicePlace = this.validator.validateName(this.user.name);
-            this.errors.servicePetType = this.validator.validateName(this.user.name);
+            this.errors.servicePlace = this.validator.validateName(this.user.userName);
+            this.errors.servicePetType = this.validator.validateName(this.user.userName);
             this.errors.currentWage = this.validator.validateName(this.sitterData.postalCode);
             }
         // this.currentPlaceOfService = null;
@@ -197,7 +201,7 @@ export class RegistrationPageComponent implements OnInit {
             currentWage: false
         };
         // név validáládsa
-        this.errors.name = this.validator.validateName(this.user.name);
+        this.errors.name = this.validator.validateName(this.user.userName);
         // email validáládsa
         this.errors.email.empty = this.validator.validateName(this.user.email);
         this.errors.email.not_valid != this.validator.validateEmail(this.user.email);
@@ -226,7 +230,6 @@ export class RegistrationPageComponent implements OnInit {
             this.errors.password.not_same = true;
             this.errors.passwordConfirm.not_same = true;
         }
-
 
 
 
@@ -269,6 +272,7 @@ export class RegistrationPageComponent implements OnInit {
         console.log(u);
         this.userService.registerUser(u)
         .then((result) => {
+            this.isRegistrationSuccessful = true;
             console.log(result);
         })
         .catch((error) => {
