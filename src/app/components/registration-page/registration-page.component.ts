@@ -39,7 +39,7 @@ export class RegistrationPageComponent implements OnInit {
 
     public user: Userreg;
     public passwordConfirm = '';
-    public isRegistrationSuccessful = false;
+    public isRegistrationSuccessful = "DEFAULT";
 
     // OWNER DATA fields
     public ownerDataOpen = false;
@@ -185,6 +185,7 @@ export class RegistrationPageComponent implements OnInit {
 
 
     submitRegistration() {
+        this.isRegistrationSuccessful = "DEFAULT";
         this.errors = {
             name: false,
             email: {'empty': false, 'not_valid': false},
@@ -222,19 +223,11 @@ export class RegistrationPageComponent implements OnInit {
         this.errors.password.empty = this.validator.validateName(this.user.password);
         this.errors.passwordConfirm.empty = this.validator.validateName(this.passwordConfirm);
 
-        if (!this.errors.password.empty && this.user.password !== this.passwordConfirm) {
+        if (!this.errors.password.empty && !this.errors.passwordConfirm.empty &&
+             this.user.password !== this.passwordConfirm) {
             this.errors.password.not_same = true;
             this.errors.passwordConfirm.not_same = true;
         }
-        if (!this.errors.passwordConfirm.empty && this.user.password !== this.passwordConfirm) {
-            this.errors.password.not_same = true;
-            this.errors.passwordConfirm.not_same = true;
-        }
-
-
-
-
-
         // ha le van nyitva - ergo kitöltötte az OWNER adatokat, adja hozzá a user-hez
         if (this.ownerDataOpen) {
             this.user.ownerData = this.ownerData;
@@ -260,24 +253,44 @@ export class RegistrationPageComponent implements OnInit {
           }
         }
 
-        var s = Object.values(this.errors).find((e) => {
-            if (Object.values(e).length) {
-                Object.values(e).find(elem => {return elem === true});
+        let haveError: boolean = false;
+        let element = Object.keys(this.errors).find((e) => {
+            if (Object.keys(this.errors[e]).length) {
+                Object.values(this.errors[e]).find((elem) => {
+                    if (elem === true) {
+                        haveError = true;
+                        return true;
+                    }
+                });
+                if (haveError) {return true;}
             } else {
-                return e === true;
+                if (this.errors[e] === true) {
+                    haveError = true;
+                    return true;
+                }
             }
         });
-        console.log(s);
+        console.log(element);
+        console.log(haveError);
         // végül:
         console.log(u);
-        this.userService.registerUser(u)
-        .then((result) => {
-            this.isRegistrationSuccessful = true;
-            console.log(result);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+        if (haveError) {
+            //TODO görgessünk fel a hibához
+            let el = document.querySelector("#"+ element);
+            el.scrollIntoView({behavior:"smooth", block:"start", inline:"start"});
+        } else {
+            this.userService.registerUser(u)
+            .then((result) => {
+                this.isRegistrationSuccessful = "SUCCESS";
+                console.log(result);
+            })
+            .catch((error) => {
+                // TODO alert
+                this.isRegistrationSuccessful = "ERROR";
+                console.log(error);
+            });
+        }
+
     }
 
 

@@ -5,14 +5,14 @@
         <h1>Regisztráció</h1>
         <p>Töltsd ki az alábbi mezőket a sikeres regisztrációhoz!</p>
         <hr>
-        <label for="username"><b>Név<span class="required"> *</span></b></label>
+        <label id="name" for="username"><b>Név<span class="required"> *</span></b></label>
         <input type="text" [(ngModel)]="user.userName" placeholder="Név megadása" name="username" [ngClass]="{'is-invalid': errors.name}" class="form-control">
         <div class="invalid-feedback"
             *ngIf="errors.name">
             Kérlek, ne üres mezőt, hanem nevet adj meg!
         </div>
 
-        <label for="email"><b>Email<span class="required"> *</span></b></label>
+        <label id="email" for="email"><b>Email<span class="required"> *</span></b></label>
         <input type="text" [(ngModel)]="user.email" placeholder="Emailcím megadása" name="email" [ngClass]="{'is-invalid': errors.email.empty || errors.email.not_valid}" class="form-control">
         <div class="invalid-feedback"
             *ngIf="errors.email.empty">
@@ -23,7 +23,7 @@
             Kérlek, egy érvényes email címet adj meg!
         </div>
 
-        <label for="psw"><b>Jelszó<span class="required"> *</span></b></label>
+        <label id="password" for="psw"><b>Jelszó<span class="required"> *</span></b></label>
         <input type="password" [(ngModel)]="user.password" placeholder="Jelszó megadása" name="psw" [ngClass]="{'is-invalid': errors.password.empty || errors.password.not_same}" class="form-control">
         <div class="invalid-feedback"
             *ngIf="errors.password.empty">
@@ -34,7 +34,7 @@
             Nem egyeznek a megadott jelszavak!
         </div>
 
-        <label for="psw-repeat"><b>Jelszó megerősítése<span class="required"> *</span></b></label>
+        <label id="passwordConfirm" for="psw-repeat"><b>Jelszó megerősítése<span class="required"> *</span></b></label>
         <input type="password" [(ngModel)]="passwordConfirm" placeholder="Jelszó ismételt megadása" name="psw-repeat" [ngClass]="{'is-invalid': errors.passwordConfirm.empty || errors.passwordConfirm.not_same}" class="form-control">
         <div class="invalid-feedback"
             *ngIf="errors.passwordConfirm.empty">
@@ -196,7 +196,8 @@
         <button type="button" class="btn btn-info" routerLink="/">Mégsem</button>
         <button type="submit" class="btn btn-success" (click)="submitRegistration()">Regisztrálok</button>
     </div>
-    <div class="alert alert-success" *ngIf="isRegistrationSuccessful">Sikeres regisztráció! A belépéshez kérjük aktiváld fiókodat az e-mail címedre kiküldött üzenettel! </div>
+    <div class="alert alert-success" *ngIf="isRegistrationSuccessful == 'SUCCESS'">Sikeres regisztráció! A belépéshez kérjük aktiváld fiókodat az e-mail címedre kiküldött üzenettel! </div>
+    <div class="alert alert-danger" *ngIf="!isRegistrationSuccessful == 'ERROR'">Sikertelen regisztráció! Szerverhiba! Kérlek próbáld újra </div>
 </div>
 </div>
 </div>
