@@ -9,6 +9,9 @@
       color: #A6CE39;
     }
   }
+  &:focus {
+    outline: none;
+  }
 }
 img {
   border-radius: 50%;

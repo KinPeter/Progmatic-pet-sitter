@@ -1,19 +1,19 @@
 <div class="container-fluid">
   <div class="row open" routerLink="/sitter/{{sitter.id}}">
-    <div class="sitterPic col-lg-2 text-center">
+    <div class="sitterPic col-sm-2 text-center">
       <img src="{{imgUrl}}" alt="KiVi'sPic" class="company_logo">
     </div>
-    <div class="position col-lg-6">
+    <div class="position col-md-5 col-sm-3">
       <h3>{{sitter.userName}}</h3>
       <div class="details">
         {{ (sitter.intro.length > 140) ? (sitter.intro | slice : 0 : 140) + '...' : (sitter.intro) }}
       </div>
     </div>
-    <div class="location col-lg-2">
+    <div class="location col-sm-2">
       <i class="fa fa-map-marker"></i>
       <span>{{sitter.postalCode}}, {{sitter.city}}</span>
     </div>
-    <div class="meta col-lg-2">
+    <div class="meta col-sm-3 text-center">
       <div class="ratings">
         <h6>Értékelés:</h6>
         <span *ngFor="let star of ratingFullStars" class="fa fa-star"></span>

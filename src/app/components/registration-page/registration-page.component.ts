@@ -152,15 +152,16 @@ export class RegistrationPageComponent implements OnInit {
         if (this.currentPlaceOfService != "NONE" && this.currentServicePetType != "NONE" && this.currentWage > 0 &&
             this.sitterData.city != '' && this.sitterData.address != '' && this.sitterData.postalCode != '' &&
             this.sitterData.intro != '') {
+                this.currentPlaceOfService = PlaceOfService[this.currentPlaceOfService];
+                this.currentServicePetType = PetType[this.currentServicePetType];
                 this.sitterData.services.push({
                     place: this.currentPlaceOfService,
                     petType: this.currentServicePetType,
-                    pricePerHour: this.currentWage,
+                    pricePerHour: this.currentWage
                 })
                 this.errors.servicePlace = false,
                 this.errors.servicePetType = false,
                 this.errors.currentWage = false
-                this.currentPetType = "NONE";
                 this.currentPlaceOfService = "NONE";
                 this.currentServicePetType = "NONE";
 
