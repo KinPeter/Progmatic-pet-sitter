@@ -25,13 +25,7 @@ export class UserService {
     }
 
     registerUser(user: Userreg) {
-        return this.http.post(this.URL + '/newregistration', user, { withCredentials: true }).toPromise()
-            .then((result) => {
-                console.log(result);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        return this.http.post(this.URL + '/newregistration', user, { withCredentials: true }).toPromise();
     }
 
     // delete(id: number) {
